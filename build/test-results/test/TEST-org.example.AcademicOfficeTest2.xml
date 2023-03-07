@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.AcademicOfficeTest2" tests="12" skipped="0" failures="0" errors="0" timestamp="2023-03-07T10:30:13" hostname="ashish" time="0.305">
+  <properties/>
+  <testcase name="generateTranscript()" classname="org.example.AcademicOfficeTest2" time="0.019"/>
+  <testcase name="printCourseTypeMenu()" classname="org.example.AcademicOfficeTest2" time="0.003"/>
+  <testcase name="logOut()" classname="org.example.AcademicOfficeTest2" time="0.001"/>
+  <testcase name="runOffice()" classname="org.example.AcademicOfficeTest2" time="0.001"/>
+  <testcase name="isAddCourseActive()" classname="org.example.AcademicOfficeTest2" time="0.011"/>
+  <testcase name="addCourse()" classname="org.example.AcademicOfficeTest2" time="0.015"/>
+  <testcase name="promote()" classname="org.example.AcademicOfficeTest2" time="0.006"/>
+  <testcase name="printMainMenu()" classname="org.example.AcademicOfficeTest2" time="0.004"/>
+  <testcase name="isGradesSubmissionEnded()" classname="org.example.AcademicOfficeTest2" time="0.004"/>
+  <testcase name="generateTranscriptForAll()" classname="org.example.AcademicOfficeTest2" time="0.058"/>
+  <testcase name="printActivityMenu()" classname="org.example.AcademicOfficeTest2" time="0.004"/>
+  <testcase name="printTranscriptMenu()" classname="org.example.AcademicOfficeTest2" time="0.002"/>
+  <system-out><![CDATA[data for sem 1 added
+data for sem 2 added
+Transcript Generated!
+NO Student with this ID Found!
+┌─────────────────────────────────┐
+│        COURSE TYPE MENU         │
+├────────────────┬────────────────┤
+│    Options     │  Enter Choice  │
+├────────────────┼────────────────┤
+│  Program core  │       pc       │
+├────────────────┼────────────────┤
+│Engineering Core│       ec       │
+├────────────────┼────────────────┤
+│ Elective Core  │       el       │
+└────────────────┴────────────────┘
+Admin Successfully logged out!
+Cannot Add course Now as current Activity is not allowing it!
+Promoted Successfully!
+demoted Successfully!
+┌─────────────────────────────────────────┐
+│                MAIN MENU                │
+├────────────────────────────┬────────────┤
+│          Options           │Enter Choice│
+├────────────────────────────┼────────────┤
+│       Change Profile       │     1      │
+├────────────────────────────┼────────────┤
+│       Create Session       │     2      │
+├────────────────────────────┼────────────┤
+│    Create New Activity     │     3      │
+├────────────────────────────┼────────────┤
+│    See Course Catalogue    │     4      │
+├────────────────────────────┼────────────┤
+│       Add new Course       │     5      │
+├────────────────────────────┼────────────┤
+│Genereate Student Transcript│     6      │
+├────────────────────────────┼────────────┤
+│      Promote Students      │     7      │
+└────────────────────────────┴────────────┘
+data for sem 1 added
+data for sem 2 added
+data for sem 3 added
+data for sem 4 added
+data for sem 5 added
+data for sem 6 added
+data for sem 7 added
+data for sem 8 added
+Transcript Generated!
+data for sem 1 added
+data for sem 2 added
+Transcript Generated!
+data for sem 1 added
+data for sem 2 added
+data for sem 3 added
+data for sem 4 added
+data for sem 5 added
+data for sem 6 added
+data for sem 7 added
+data for sem 8 added
+Transcript Generated!
+data for sem 1 added
+data for sem 2 added
+Transcript Generated!
+data for sem 1 added
+data for sem 2 added
+Transcript Generated!
+data for sem 1 added
+data for sem 2 added
+Transcript Generated!
+data for sem 1 added
+data for sem 2 added
+Transcript Generated!
+┌─────────────────────────────────────────┐
+│              ACTIVITY MENU              │
+├───────────────────────────┬─────────────┤
+│          Options          │Enter Choice │
+├───────────────────────────┼─────────────┤
+│     Semester Running      │      0      │
+├───────────────────────────┼─────────────┤
+│    Course Float Starts    │      1      │
+├───────────────────────────┼─────────────┤
+│     Course Float Ends     │      2      │
+├───────────────────────────┼─────────────┤
+│Student Registration Begins│      3      │
+├───────────────────────────┼─────────────┤
+│ Student Registration Ends │      4      │
+├───────────────────────────┼─────────────┤
+│  Grade Submission Begins  │      5      │
+├───────────────────────────┼─────────────┤
+│   Grade Submissin Ends    │      6      │
+├───────────────────────────┼─────────────┤
+│      Semester Starts      │      7      │
+├───────────────────────────┼─────────────┤
+│       Semester Ends       │      8      │
+└───────────────────────────┴─────────────┘
+┌───────────────────────────────────────────┐
+│              TRANSCRIPT MENU              │
+├───────────────────────────┬───────────────┤
+│          Options          │ Enter Choice  │
+├───────────────────────────┼───────────────┤
+│Generate for single student│       1       │
+├───────────────────────────┼───────────────┤
+│   Generate for a batch    │       2       │
+└───────────────────────────┴───────────────┘
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

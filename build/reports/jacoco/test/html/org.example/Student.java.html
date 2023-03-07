@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Student.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AIIMSPortal</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">Student.java</span></div><h1>Student.java</h1><pre class="source lang-java linenums">package org.example;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+
+public class Student extends AbstractCommonFunctions {
+    protected String student_id ;
+<span class="fc" id="L11">    protected Connection con = null ;</span>
+<span class="fc" id="L12">    protected int studentAdmYear = 0;</span>
+<span class="fc" id="L13">    Student(String id) throws SQLException {</span>
+<span class="fc" id="L14">        id = removeSpaces(id);</span>
+<span class="fc" id="L15">        id.toLowerCase();</span>
+<span class="fc" id="L16">        this.student_id = id;</span>
+<span class="fc" id="L17">        GetConnection gtCon = new GetConnection();</span>
+<span class="fc" id="L18">        this.con = gtCon.getConnection();</span>
+<span class="fc" id="L19">        studentAdmYear = extractIntegral(student_id);</span>
+<span class="fc" id="L20">        this.logInTimeStamp(this.student_id,this.con);</span>
+<span class="fc" id="L21">    }</span>
+
+    boolean changeProfileNumber(String contact) throws SQLException {
+<span class="fc" id="L24">        contact = removeSpaces(contact);</span>
+<span class="fc" id="L25">        String updateQuery = &quot;update student set contact = ? where student_id = ? &quot;;</span>
+
+<span class="fc" id="L27">            PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);</span>
+<span class="fc" id="L28">            preparedStatement.setString(1,removeSpaces(contact));</span>
+<span class="fc" id="L29">            preparedStatement.setString(2,removeSpaces(this.student_id));</span>
+
+<span class="fc" id="L31">            preparedStatement.execute();</span>
+<span class="fc" id="L32">            preparedStatement.close();</span>
+
+
+<span class="fc" id="L35">        return true;</span>
+    }
+
+    boolean changeProfileName(String name) throws SQLException {
+<span class="fc" id="L39">        name = removeSpaces(name);</span>
+<span class="fc" id="L40">        String updateQuery = &quot;update student set student_name = ? where student_id = ? &quot;;</span>
+<span class="fc" id="L41">            PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);</span>
+<span class="fc" id="L42">            preparedStatement.setString(1,removeSpaces(name));</span>
+<span class="fc" id="L43">            preparedStatement.setString(2,removeSpaces(this.student_id));</span>
+
+<span class="fc" id="L45">            preparedStatement.execute();</span>
+<span class="fc" id="L46">            preparedStatement.close();</span>
+
+<span class="fc" id="L48">        return true;</span>
+
+    }
+    boolean isCourseRegistraionActive() throws SQLException {
+<span class="fc" id="L52">        boolean isActive = false;</span>
+<span class="fc" id="L53">        String query = &quot;select * from current_session&quot;;</span>
+<span class="fc" id="L54">            PreparedStatement preparedStatement = this.con.prepareStatement(query);</span>
+<span class="fc" id="L55">            ResultSet rs = preparedStatement.executeQuery();</span>
+
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">            if(rs.next())</span>
+            {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">                if(rs.getInt(&quot;status&quot;) == this.STUDENTREGBEGIN)</span>
+                {
+<span class="fc" id="L61">                    isActive = true;</span>
+                }
+            }
+
+
+<span class="fc" id="L66">            rs.close();</span>
+<span class="fc" id="L67">            preparedStatement.close();</span>
+
+
+<span class="fc" id="L70">        return isActive;</span>
+    }
+    boolean checkIfFloated(String course_id) throws SQLException {
+<span class="fc" id="L73">        boolean isFloated = false;</span>
+<span class="fc" id="L74">        String query = &quot;select * from course_offering where course_id = ?&quot;;</span>
+
+<span class="fc" id="L76">            PreparedStatement preparedStatement = this.con.prepareStatement(query);</span>
+<span class="fc" id="L77">            preparedStatement.setString(1,course_id);</span>
+
+<span class="fc" id="L79">            ResultSet rs = preparedStatement.executeQuery();</span>
+//            printResultTable(rs);
+
+<span class="fc bfc" id="L82" title="All 2 branches covered.">            if(rs.next())</span>
+            {
+<span class="fc" id="L84">                isFloated = true;</span>
+            }
+<span class="fc" id="L86">            rs.close();</span>
+<span class="fc" id="L87">            preparedStatement.close();</span>
+
+
+<span class="fc" id="L90">        return isFloated;</span>
+    }
+    boolean satisfyCGPACriteria(String course_id) throws SQLException {
+<span class="nc" id="L93">        boolean isSatisfied = false;</span>
+<span class="nc" id="L94">        double cgpa = calculateCGPA(this.con,this.student_id, this.studentAdmYear);</span>
+<span class="nc" id="L95">        System.out.println(&quot;CGPA is &quot;+cgpa);</span>
+<span class="nc" id="L96">        String findQuery = &quot;select * from course_offering where course_id = ?&quot;;</span>
+
+<span class="nc" id="L98">            PreparedStatement preparedStatement = this.con.prepareStatement(findQuery);</span>
+<span class="nc" id="L99">            preparedStatement.setString(1,course_id);</span>
+<span class="nc" id="L100">            ResultSet rs = preparedStatement.executeQuery();</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">            if(rs.next())</span>
+            {
+<span class="nc bnc" id="L103" title="All 2 branches missed.">                if(cgpa &gt;= rs.getDouble(&quot;min_cgpa&quot;))</span>
+                {
+<span class="nc" id="L105">                    isSatisfied = true;</span>
+                }
+            }
+
+<span class="nc" id="L109">            rs.close();</span>
+<span class="nc" id="L110">            preparedStatement.close();</span>
+
+
+
+<span class="nc" id="L114">        return isSatisfied;</span>
+    }
+    boolean satisfyPrerequisite(String course_id) throws SQLException {
+<span class="nc" id="L117">        boolean isSatisfied = true;</span>
+<span class="nc" id="L118">        String fetchPrereq = &quot;select * from prereq where course_id = ?&quot;;</span>
+<span class="nc" id="L119">        String fetchCompCourse = &quot;select * from student_record_&quot;+ String.valueOf(this.studentAdmYear)+&quot; where student_id = ?&quot;;</span>
+<span class="nc" id="L120">            PreparedStatement preparedStatement = this.con.prepareStatement(fetchPrereq);</span>
+<span class="nc" id="L121">            preparedStatement.setString(1,course_id);</span>
+
+<span class="nc" id="L123">            ResultSet rs = preparedStatement.executeQuery();</span>
+//            printResultTable(rs);
+<span class="nc" id="L125">            List&lt;String&gt; prereqList = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L127">                String str = rs.getString(&quot;prereq_id&quot;);</span>
+<span class="nc" id="L128">                prereqList.add(str);</span>
+<span class="nc" id="L129">            }</span>
+<span class="nc" id="L130">            preparedStatement = this.con.prepareStatement(fetchCompCourse);</span>
+<span class="nc" id="L131">            preparedStatement.setString(1,this.student_id);</span>
+
+<span class="nc" id="L133">            rs = preparedStatement.executeQuery();</span>
+
+<span class="nc" id="L135">            Set&lt;String&gt; compCourseSet = new HashSet&lt;&gt;();</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">            while(rs.next())</span>
+            {
+<span class="nc" id="L138">                compCourseSet.add(rs.getString(&quot;course_id&quot;));</span>
+            }
+<span class="nc bnc" id="L140" title="All 2 branches missed.">            for (String str : prereqList) {</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">                if (compCourseSet.contains(str)) {</span>
+<span class="nc" id="L142">                    System.out.println(str + &quot; is present in the Completed course set.&quot;);</span>
+                } else {
+<span class="nc" id="L144">                    System.out.println(str + &quot; is not present in the Completed course set.&quot;);</span>
+<span class="nc" id="L145">                    isSatisfied = false;</span>
+                }
+<span class="nc" id="L147">            }</span>
+
+<span class="nc" id="L149">            rs.close();</span>
+<span class="nc" id="L150">            preparedStatement.close();</span>
+
+
+
+<span class="nc" id="L154">        return isSatisfied;</span>
+    }
+    boolean satisfyRequiredSem(String course_id) throws SQLException {
+<span class="nc" id="L157">        boolean isSatisfied = false;</span>
+<span class="nc" id="L158">        int minReqSem = fetchMinReqSem(this.con,course_id,this.studentAdmYear);</span>
+<span class="nc" id="L159">        System.out.println(&quot;Minimum required sem = &quot;+minReqSem);</span>
+<span class="nc" id="L160">        String fetchSem = &quot;select current_sem from student where student_id = ?&quot;;</span>
+<span class="nc" id="L161">        int sem = 0;</span>
+<span class="nc" id="L162">            PreparedStatement preparedStatement = this.con.prepareStatement(fetchSem);</span>
+<span class="nc" id="L163">            preparedStatement.setString(1,this.student_id);</span>
+<span class="nc" id="L164">            ResultSet rs = preparedStatement.executeQuery();</span>
+
+<span class="nc bnc" id="L166" title="All 2 branches missed.">            if(rs.next())</span>
+            {
+<span class="nc" id="L168">                sem = rs.getInt(&quot;current_sem&quot;);</span>
+            }
+<span class="nc bnc" id="L170" title="All 2 branches missed.">            if(sem &gt;= minReqSem )</span>
+            {
+<span class="nc" id="L172">                isSatisfied = true;</span>
+            }
+
+<span class="nc" id="L175">            preparedStatement.close();</span>
+<span class="nc" id="L176">            rs.close();</span>
+<span class="nc" id="L177">        return isSatisfied;</span>
+    }
+    public double findCreditLimit() throws SQLException {
+<span class="nc" id="L180">        double creditLimit = 0;</span>
+<span class="nc" id="L181">        int sem = 0;</span>
+<span class="nc" id="L182">        double earnedCredits = 0;</span>
+
+<span class="nc" id="L184">        String findSemQuery = &quot;select current_sem from student where student_id = ?&quot;;</span>
+<span class="nc" id="L185">        String findAvgCreditQuery = &quot;Select * from student_record_&quot;+String.valueOf(this.studentAdmYear)+&quot; where student_id = ? and (semester = ? or semester = ?) &quot; ;</span>
+
+
+<span class="nc" id="L188">            PreparedStatement preparedStatement = this.con.prepareStatement(findSemQuery);</span>
+<span class="nc" id="L189">            preparedStatement.setString(1,this.student_id);</span>
+<span class="nc" id="L190">            ResultSet rs = preparedStatement.executeQuery();</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">            if(rs.next())</span>
+            {
+<span class="nc" id="L193">                sem = rs.getInt(&quot;current_sem&quot;);</span>
+            }
+            else {
+<span class="nc" id="L196">                System.out.println(&quot;No such student&quot;);</span>
+<span class="nc" id="L197">                return -1;</span>
+            }
+<span class="nc bnc" id="L199" title="All 4 branches missed.">            if(sem == 1 || sem == 2)</span>
+            {
+<span class="nc" id="L201">                creditLimit = this.CREDITLIMIT;</span>
+            }
+            else {
+<span class="nc" id="L204">                preparedStatement = this.con.prepareStatement(findAvgCreditQuery);</span>
+<span class="nc" id="L205">                preparedStatement.setString(1,this.student_id);</span>
+<span class="nc" id="L206">                preparedStatement.setInt(2,sem-1);</span>
+<span class="nc" id="L207">                preparedStatement.setInt(3,sem-2);</span>
+
+<span class="nc" id="L209">                rs = preparedStatement.executeQuery();</span>
+
+<span class="nc bnc" id="L211" title="All 2 branches missed.">                while(rs.next())</span>
+                {
+<span class="nc" id="L213">                    earnedCredits += rs.getDouble(&quot;credits&quot;);</span>
+                }
+<span class="nc" id="L215">                creditLimit = earnedCredits/2;</span>
+<span class="nc" id="L216">                creditLimit = creditLimit*(1.25);</span>
+            }
+<span class="nc" id="L218">            rs.close();</span>
+<span class="nc" id="L219">            preparedStatement.close();</span>
+
+
+<span class="nc" id="L222">        return creditLimit;</span>
+    }
+    boolean satisfyCreditLimitCUMUpdate(String course_id) throws SQLException {
+<span class="nc" id="L225">        boolean isSatisfied = false;</span>
+<span class="nc" id="L226">        String findQuery = &quot;Select * from enrolled_credits where student_id = ?&quot; ;</span>
+<span class="nc" id="L227">        String insertQuery = &quot;insert into enrolled_credits (student_id,credits) values(?,?)&quot;;</span>
+<span class="nc" id="L228">        String updateQuery = &quot;update enrolled_credits set credits = ? where student_id = ?&quot;;</span>
+<span class="nc" id="L229">        String checkQuery = &quot;select * from student_record_&quot;+this.studentAdmYear + &quot; where student_id = ? and course_id = ? and (grades = 'NA' or grades &lt;&gt;'F')&quot;;</span>
+
+<span class="nc" id="L231">        double course_credits = fetchCourseCredits(this.con,course_id,this.studentAdmYear);</span>
+<span class="nc" id="L232">        double creditLimit = findCreditLimit();</span>
+
+
+<span class="nc" id="L235">            PreparedStatement preparedStatement = this.con.prepareStatement(checkQuery);</span>
+<span class="nc" id="L236">            preparedStatement.setString(1,this.student_id);</span>
+<span class="nc" id="L237">            preparedStatement.setString(2,course_id);</span>
+<span class="nc" id="L238">            ResultSet rs = preparedStatement.executeQuery();</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">            if(rs.next())</span>
+            {
+<span class="nc" id="L241">                System.out.println(&quot;Course Already Taken!!&quot;);</span>
+<span class="nc" id="L242">                return false;</span>
+            }
+
+
+<span class="nc" id="L246">            preparedStatement = this.con.prepareStatement(findQuery);</span>
+<span class="nc" id="L247">            preparedStatement.setString(1,this.student_id);</span>
+
+<span class="nc" id="L249">            rs = preparedStatement.executeQuery();</span>
+
+
+<span class="nc bnc" id="L252" title="All 2 branches missed.">            if(rs.next())</span>
+            {
+<span class="nc" id="L254">                double credits = rs.getInt((&quot;credits&quot;));</span>
+
+//                System.out.println(&quot;already enrolled in some courses&quot;);
+//                System.out.println(credits +&quot; credits&quot;) ;
+
+<span class="nc bnc" id="L259" title="All 2 branches missed.">                if((credits+course_credits )&lt;= creditLimit)</span>
+                {
+<span class="nc" id="L261">                    double totCredits = credits + course_credits;</span>
+<span class="nc" id="L262">                    preparedStatement = this.con.prepareStatement(updateQuery);</span>
+<span class="nc" id="L263">                    preparedStatement.setDouble(1,totCredits);</span>
+<span class="nc" id="L264">                    preparedStatement.setString(2,this.student_id);</span>
+
+<span class="nc" id="L266">                    preparedStatement.executeUpdate();</span>
+<span class="nc" id="L267">                    isSatisfied = true;</span>
+                }
+
+<span class="nc" id="L270">                System.out.println(&quot;Total credits After Registration would be&quot;+ (credits+course_credits));</span>
+<span class="nc" id="L271">            }</span>
+            else
+            {
+
+<span class="nc" id="L275">                preparedStatement = this.con.prepareStatement(insertQuery);</span>
+<span class="nc" id="L276">                preparedStatement.setString(1,this.student_id);</span>
+<span class="nc" id="L277">                preparedStatement.setDouble(2,course_credits);</span>
+
+<span class="nc bnc" id="L279" title="All 2 branches missed.">                if(course_credits&lt;=creditLimit)</span>
+                {
+<span class="nc" id="L281">                    preparedStatement.execute();</span>
+<span class="nc" id="L282">                    isSatisfied = true;</span>
+                }
+<span class="nc" id="L284">                System.out.println(&quot;Total credits After Registration would be &quot;+ (course_credits));</span>
+            }
+
+<span class="nc" id="L287">            preparedStatement.close();</span>
+<span class="nc" id="L288">            rs.close();</span>
+
+
+
+<span class="nc" id="L292">        return isSatisfied;</span>
+    }
+    private boolean registerCourse(String course_id) throws SQLException {
+<span class="nc" id="L295">        boolean isRegistered = true;</span>
+<span class="nc" id="L296">        course_id = removeSpaces(course_id);</span>
+<span class="nc" id="L297">        course_id = course_id.toUpperCase();</span>
+
+<span class="nc bnc" id="L299" title="All 2 branches missed.">        if(isCourseRegistraionActive())</span>
+        {
+<span class="nc" id="L301">            System.out.println(&quot;Course registration active!&quot;);</span>
+        }else {
+<span class="nc" id="L303">            System.out.println(&quot;Course Registration Not Active!&quot;);</span>
+<span class="nc" id="L304">            return false;</span>
+        }
+<span class="nc bnc" id="L306" title="All 2 branches missed.">        if(checkIfFloated(course_id))</span>
+        {
+<span class="nc" id="L308">            System.out.println(&quot;Course &quot;+course_id+&quot; is Floated&quot;);</span>
+        }
+        else {
+<span class="nc" id="L311">            System.out.println(&quot;Course Not Floated!&quot;);</span>
+<span class="nc" id="L312">            return false;</span>
+        }
+<span class="nc bnc" id="L314" title="All 2 branches missed.">        if(satisfyCGPACriteria(course_id))</span>
+        {
+<span class="nc" id="L316">            System.out.println(&quot;You satisfy cgpa criteria for this course!&quot;);</span>
+        }
+        else {
+<span class="nc" id="L319">            System.out.println(&quot;You does not satisfy cgpa criteria! Sorry you cannot register for this course!&quot;);</span>
+<span class="nc" id="L320">            return false;</span>
+        }
+<span class="nc bnc" id="L322" title="All 2 branches missed.">        if(satisfyPrerequisite(course_id))</span>
+        {
+<span class="nc" id="L324">            System.out.println(&quot;You satisfy the prerquisite courses!&quot;);</span>
+        }else {
+<span class="nc" id="L326">            System.out.println(&quot;You does not satisfy the prerquisite courses! Sorry you cannot register for this course!&quot;);</span>
+<span class="nc" id="L327">            return false;</span>
+        }
+<span class="nc bnc" id="L329" title="All 2 branches missed.">        if(satisfyRequiredSem(course_id))</span>
+        {
+<span class="nc" id="L331">            System.out.println(&quot;You satisfy the minimum required semester for this course&quot;);</span>
+
+        }else {
+<span class="nc" id="L334">            System.out.println(&quot;You does not satisfy the minimum required semester for this course!&quot;);</span>
+<span class="nc" id="L335">            return false;</span>
+        }
+<span class="nc bnc" id="L337" title="All 2 branches missed.">        if(satisfyCreditLimitCUMUpdate(course_id))</span>
+        {
+<span class="nc" id="L339">            System.out.println(&quot;You Satisfy the credit limit criteria for the course chosen!\nCredits Registered&quot;);</span>
+        }
+        else
+        {
+<span class="nc" id="L343">            System.out.println(&quot;Credits Limit exceeded!\nCourse not registered!&quot;);</span>
+<span class="nc" id="L344">            return false;</span>
+        }
+<span class="nc" id="L346">        String registerQuery = &quot;insert into student_record_&quot;+String.valueOf(this.studentAdmYear)+&quot; (student_id,course_id,semester,grades,credits) values(?,?,?,?,?)&quot;;</span>
+<span class="nc" id="L347">        String fetchSem = &quot;select current_sem from student where student_id = ?&quot;;</span>
+<span class="nc" id="L348">        String updateCreditsQuery = &quot;update set credits = ? where student_id = ?&quot;;</span>
+<span class="nc" id="L349">        int sem = 0;</span>
+<span class="nc" id="L350">        double credits = fetchCourseCredits(this.con,course_id,this.studentAdmYear);</span>
+        try{
+
+<span class="nc" id="L353">            PreparedStatement preparedStatement = this.con.prepareStatement(fetchSem);</span>
+<span class="nc" id="L354">            preparedStatement.setString(1,this.student_id);</span>
+<span class="nc" id="L355">            ResultSet rs = preparedStatement.executeQuery();</span>
+
+<span class="nc bnc" id="L357" title="All 2 branches missed.">            if(rs.next())</span>
+            {
+<span class="nc" id="L359">                sem = rs.getInt(&quot;current_sem&quot;);</span>
+            }
+
+
+<span class="nc" id="L363">            preparedStatement = this.con.prepareStatement(registerQuery);</span>
+<span class="nc" id="L364">            preparedStatement.setString(1,this.student_id);</span>
+<span class="nc" id="L365">            preparedStatement.setString(2,course_id);</span>
+<span class="nc" id="L366">            preparedStatement.setInt(3,sem);</span>
+<span class="nc" id="L367">            preparedStatement.setString(4,&quot;NA&quot;);</span>
+<span class="nc" id="L368">            preparedStatement.setDouble(5,credits);</span>
+
+<span class="nc" id="L370">            preparedStatement.execute();</span>
+
+
+<span class="nc" id="L373">            preparedStatement = this.con.prepareStatement(updateCreditsQuery);</span>
+
+
+<span class="nc" id="L376">            System.out.println(&quot;Course regisetered for student &quot;+ this.student_id + &quot; from the year &quot;+ this.studentAdmYear);</span>
+
+
+
+<span class="nc" id="L380">            preparedStatement.close();</span>
+
+<span class="nc" id="L382">        }catch(SQLException err)</span>
+        {
+<span class="nc" id="L384">            System.out.println(err.getMessage());</span>
+<span class="nc" id="L385">        }</span>
+
+<span class="nc" id="L387">        return isRegistered;</span>
+    }
+    private boolean deRegisterCourse(String course_id) throws SQLException {
+<span class="nc" id="L390">        course_id = removeSpaces(course_id);</span>
+<span class="nc" id="L391">        course_id = course_id.toUpperCase();</span>
+
+<span class="nc bnc" id="L393" title="All 2 branches missed.">        if(isCourseRegistraionActive())</span>
+        {
+<span class="nc" id="L395">            System.out.println(&quot;Course registration active!&quot;);</span>
+        }else {
+<span class="nc" id="L397">            System.out.println(&quot;Course Registration Not Active!&quot;);</span>
+<span class="nc" id="L398">            return false;</span>
+        }
+
+<span class="nc" id="L401">        String checkQuery = &quot;select * from student_record_&quot;+this.studentAdmYear + &quot; where student_id = ? and course_id = ? and grades = 'NA' &quot;;</span>
+<span class="nc" id="L402">        String findPrevCred = &quot;select * from enrolled_credits where student_id = ? &quot;;</span>
+<span class="nc" id="L403">        String updateCred = &quot;update enrolled_credits set credits = ? where student_id = ?&quot;;</span>
+<span class="nc" id="L404">        String deleteQuery = &quot;delete from student_record_&quot;+this.studentAdmYear+&quot; where student_id = ? and course_id = ? and grades = 'NA' &quot;;</span>
+        try{
+<span class="nc" id="L406">            PreparedStatement preparedStatement = this.con.prepareStatement(checkQuery);</span>
+<span class="nc" id="L407">            preparedStatement.setString(1,this.student_id);</span>
+<span class="nc" id="L408">            preparedStatement.setString(2,course_id);</span>
+<span class="nc" id="L409">            ResultSet rs = preparedStatement.executeQuery();</span>
+
+<span class="nc bnc" id="L411" title="All 2 branches missed.">            if(rs.next())</span>
+            {
+<span class="nc" id="L413">                double prevCred = 0;</span>
+<span class="nc" id="L414">                preparedStatement = this.con.prepareStatement(findPrevCred);</span>
+<span class="nc" id="L415">                preparedStatement.setString(1,this.student_id);</span>
+<span class="nc" id="L416">                rs = preparedStatement.executeQuery();</span>
+<span class="nc bnc" id="L417" title="All 2 branches missed.">                if(rs.next())</span>
+                {
+<span class="nc" id="L419">                    prevCred = rs.getDouble(&quot;credits&quot;);</span>
+//                    System.out.println(&quot;Found prevCred&quot;);
+                }
+<span class="nc" id="L422">                Double course_credits = fetchCourseCredits(this.con,course_id,this.studentAdmYear);</span>
+
+<span class="nc" id="L424">                preparedStatement = this.con.prepareStatement(updateCred);</span>
+<span class="nc" id="L425">                preparedStatement.setDouble(1,prevCred-course_credits);</span>
+<span class="nc" id="L426">                preparedStatement.setString(2,this.student_id);</span>
+<span class="nc" id="L427">                preparedStatement.executeUpdate();</span>
+
+<span class="nc" id="L429">                preparedStatement = this.con.prepareStatement(deleteQuery);</span>
+<span class="nc" id="L430">                preparedStatement.setString(1,this.student_id);</span>
+<span class="nc" id="L431">                preparedStatement.setString(2,course_id);</span>
+<span class="nc" id="L432">                preparedStatement.executeUpdate();</span>
+
+
+<span class="nc" id="L435">                preparedStatement.close();</span>
+<span class="nc" id="L436">                rs.close();</span>
+<span class="nc" id="L437">                System.out.println(&quot;Course De Registered Succesfully!&quot;);</span>
+
+<span class="nc" id="L439">            }else {</span>
+<span class="nc" id="L440">                System.out.println(&quot;Course was never Registered!&quot;);</span>
+            }
+
+<span class="nc" id="L443">        }catch(SQLException err)</span>
+        {
+<span class="nc" id="L445">            System.out.println(err.getMessage());</span>
+<span class="nc" id="L446">        }</span>
+
+<span class="nc" id="L448">        return true;</span>
+    }
+
+    boolean printMainMenu()
+    {
+<span class="nc" id="L453">        ArrayList&lt;ArrayList&lt;String&gt;&gt; mainMenu = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L454">        String title = &quot;MAIN MENU&quot;;</span>
+<span class="nc" id="L455">        ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L457">        row.add(&quot;Options&quot;);</span>
+<span class="nc" id="L458">        row.add(&quot;Enter Choice&quot;);</span>
+<span class="nc" id="L459">        mainMenu.add(row);</span>
+
+<span class="nc" id="L461">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L462">        row.add(&quot;Change Profile&quot;);</span>
+<span class="nc" id="L463">        row.add(&quot;1&quot;);</span>
+<span class="nc" id="L464">        mainMenu.add(row);</span>
+
+<span class="nc" id="L466">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L467">        row.add(&quot;See Your Grades&quot;);</span>
+<span class="nc" id="L468">        row.add(&quot;2&quot;);</span>
+<span class="nc" id="L469">        mainMenu.add(row);</span>
+
+<span class="nc" id="L471">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L472">        row.add(&quot;Calculate CGPA till now&quot;);</span>
+<span class="nc" id="L473">        row.add(&quot;3&quot;);</span>
+<span class="nc" id="L474">        mainMenu.add(row);</span>
+
+<span class="nc" id="L476">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L477">        row.add(&quot;See Course Catalogue&quot;);</span>
+<span class="nc" id="L478">        row.add(&quot;4&quot;);</span>
+<span class="nc" id="L479">        mainMenu.add(row);</span>
+
+<span class="nc" id="L481">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L482">        row.add(&quot;Enroll a Course&quot;);</span>
+<span class="nc" id="L483">        row.add(&quot;5&quot;);</span>
+<span class="nc" id="L484">        mainMenu.add(row);</span>
+
+<span class="nc" id="L486">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L487">        row.add(&quot;View Current Event&quot;);</span>
+<span class="nc" id="L488">        row.add(&quot;6&quot;);</span>
+<span class="nc" id="L489">        mainMenu.add(row);</span>
+
+<span class="nc" id="L491">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L492">        row.add(&quot;Check for Graduation&quot;);</span>
+<span class="nc" id="L493">        row.add(&quot;7&quot;);</span>
+<span class="nc" id="L494">        mainMenu.add(row);</span>
+
+<span class="nc" id="L496">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L497">        row.add(&quot;De Registration of Course&quot;);</span>
+<span class="nc" id="L498">        row.add(&quot;8&quot;);</span>
+<span class="nc" id="L499">        mainMenu.add(row);</span>
+
+<span class="nc" id="L501">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L502">        row.add(&quot;View Event&quot;);</span>
+<span class="nc" id="L503">        row.add(&quot;9&quot;);</span>
+<span class="nc" id="L504">        mainMenu.add(row);</span>
+
+<span class="nc" id="L506">        CLI.printMenu(title,mainMenu);</span>
+
+<span class="nc" id="L508">        return true;</span>
+    }
+
+
+    boolean logOut() throws SQLException {
+
+<span class="nc" id="L514">        this.logOutTimeStamp(this.student_id,this.con);</span>
+<span class="nc" id="L515">        this.con.close();</span>
+<span class="nc" id="L516">        System.out.println(this.student_id + &quot; logged out Successfully!&quot;);</span>
+
+<span class="nc" id="L518">        return true;</span>
+    }
+
+    public static void runStudent(String userID) throws SQLException {
+<span class="nc" id="L522">        Student std = new Student(userID);</span>
+//        double cgpa = std.calculateCGPA(std.con,std.student_id,2020);
+//        double cred = std.fetchCourseCredits(std.con,&quot;CS305&quot;,2020);
+//        System.out.println(cred);
+//        System.out.println(cgpa);
+//        std.changeProfileName(&quot;VIPIN&quot;);
+
+//        String course = &quot;HS507&quot;;
+//        std.registerCourse(course);
+
+//        double cred = std.findCreditLimit();
+//        System.out.println(cred);
+//        std.isGraduated(std.con,std.student_id);
+
+
+<span class="nc" id="L537">        String csvFile = &quot;&quot;;</span>
+<span class="nc" id="L538">        String input = &quot;&quot;;</span>
+<span class="nc" id="L539">        String exitSymbol = &quot;exit&quot;;</span>
+<span class="nc" id="L540">        Scanner scanner = new Scanner(System.in);</span>
+        while(true)
+        {
+<span class="nc" id="L543">            std.printMainMenu();</span>
+<span class="nc" id="L544">            CLI.inputTaker();</span>
+<span class="nc" id="L545">            input = scanner.nextLine();</span>
+<span class="nc" id="L546">            input = removeSpaces(input);</span>
+
+<span class="nc bnc" id="L548" title="All 2 branches missed.">            if (input.equals(exitSymbol)) {</span>
+<span class="nc" id="L549">                System.out.println(&quot;Exiting Faculty Menu..&quot;);</span>
+<span class="nc" id="L550">                break;</span>
+            }
+<span class="nc bnc" id="L552" title="All 2 branches missed.">            if(input.equals(&quot;1&quot;))</span>
+            {
+<span class="nc" id="L554">                String profile = &quot;&quot;;</span>
+<span class="nc" id="L555">                std.printChangeProfileMenu();</span>
+                while(true)
+                {
+<span class="nc" id="L558">                    std.printChangeProfileMenu();</span>
+<span class="nc" id="L559">                    System.out.println(&quot;Enter exit to go back or any other string to proceed&quot;);</span>
+<span class="nc" id="L560">                    CLI.inputTaker();</span>
+<span class="nc" id="L561">                    profile = scanner.nextLine();</span>
+<span class="nc" id="L562">                    profile = removeSpaces(profile);</span>
+<span class="nc bnc" id="L563" title="All 2 branches missed.">                    if(profile.equals(exitSymbol))</span>
+                    {
+<span class="nc" id="L565">                        System.out.println(&quot;Exiting Change Profile Menu..&quot;);</span>
+<span class="nc" id="L566">                        break;</span>
+                    }
+<span class="nc bnc" id="L568" title="All 2 branches missed.">                    if(profile.equals(&quot;1&quot;))</span>
+                    {
+<span class="nc" id="L570">                        System.out.println(&quot;Enter New Name&quot;);</span>
+<span class="nc" id="L571">                        CLI.inputTaker();</span>
+<span class="nc" id="L572">                        String name = scanner.nextLine();</span>
+<span class="nc" id="L573">                        std.changeProfileName(name);</span>
+<span class="nc" id="L574">                        System.out.println(&quot;Name Changed Successfully&quot;);</span>
+
+<span class="nc bnc" id="L576" title="All 2 branches missed.">                    }else if(profile.equals(&quot;2&quot;))</span>
+                    {
+<span class="nc" id="L578">                        System.out.println(&quot;Enter New Phone Number&quot;);</span>
+<span class="nc" id="L579">                        CLI.inputTaker();</span>
+<span class="nc" id="L580">                        String number = scanner.nextLine();</span>
+<span class="nc" id="L581">                        std.changeProfileNumber(number);</span>
+<span class="nc" id="L582">                        System.out.println(&quot;Number Changed Successfully&quot;);</span>
+<span class="nc" id="L583">                    }else {</span>
+<span class="nc" id="L584">                        System.out.println(&quot;Invalid Choice!&quot;);</span>
+                    }
+<span class="nc" id="L586">                    CLI.clearScreen();</span>
+                }
+
+<span class="nc bnc" id="L589" title="All 2 branches missed.">            }else if(input.equals(&quot;2&quot;))</span>
+            {
+<span class="nc" id="L591">                std.seeGrades(std.con,std.studentAdmYear,std.student_id);</span>
+            }
+<span class="nc bnc" id="L593" title="All 2 branches missed.">            else if(input.equals(&quot;3&quot;))</span>
+            {
+<span class="nc" id="L595">                double cgpa = std.calculateCGPA(std.con,std.student_id,std.studentAdmYear);</span>
+<span class="nc" id="L596">                System.out.println(&quot;Your CGPA is &quot;+cgpa+&quot; till the current semester!&quot;);</span>
+<span class="nc" id="L597">            }</span>
+<span class="nc bnc" id="L598" title="All 2 branches missed.">            else if(input.equals(&quot;4&quot;))</span>
+            {
+<span class="nc" id="L600">                std.viewCourseCatalogue(std.con);</span>
+            }
+<span class="nc bnc" id="L602" title="All 2 branches missed.">            else if(input.equals(&quot;5&quot;))</span>
+            {
+<span class="nc" id="L604">                String input1 = &quot;&quot;;</span>
+                while(true) {
+<span class="nc" id="L606">                    System.out.println(&quot;Enter exit to go back or any other string to proceed:&quot;);</span>
+<span class="nc" id="L607">                    CLI.inputTaker();</span>
+<span class="nc" id="L608">                    input1 = scanner.nextLine();</span>
+<span class="nc" id="L609">                    input1 = removeSpaces(input1);</span>
+
+<span class="nc bnc" id="L611" title="All 2 branches missed.">                    if (input1.equals(exitSymbol)) {</span>
+<span class="nc" id="L612">                        System.out.println(&quot;Exiting Course Enrollment Menu..&quot;);</span>
+<span class="nc" id="L613">                        break;</span>
+                    }
+<span class="nc" id="L615">                    System.out.println(&quot;Enter Course ID to enroll&quot;);</span>
+<span class="nc" id="L616">                    CLI.inputTaker();</span>
+<span class="nc" id="L617">                    String courseId = scanner.nextLine();</span>
+
+<span class="nc" id="L619">                    std.registerCourse(courseId);</span>
+
+<span class="nc" id="L621">                    CLI.clearScreen();</span>
+<span class="nc" id="L622">                }</span>
+
+<span class="nc" id="L624">            }</span>
+<span class="nc bnc" id="L625" title="All 2 branches missed.">            else if(input.equals(&quot;6&quot;))</span>
+            {
+<span class="nc" id="L627">                std.viewEvent(std.con);</span>
+            }
+<span class="nc bnc" id="L629" title="All 2 branches missed.">            else if(input.equals(&quot;7&quot;))</span>
+            {
+<span class="nc" id="L631">                boolean isGrad = std.isGraduated(std.con,std.student_id);</span>
+<span class="nc" id="L632">            }</span>
+<span class="nc bnc" id="L633" title="All 2 branches missed.">            else if(input.equals(&quot;8&quot;))</span>
+            {
+<span class="nc" id="L635">                String input1 = &quot;&quot;;</span>
+                while(true) {
+<span class="nc" id="L637">                    System.out.println(&quot;Enter exit to go back or any other string to proceed:&quot;);</span>
+<span class="nc" id="L638">                    CLI.inputTaker();</span>
+<span class="nc" id="L639">                    input1 = scanner.nextLine();</span>
+<span class="nc" id="L640">                    input1 = removeSpaces(input1);</span>
+
+<span class="nc bnc" id="L642" title="All 2 branches missed.">                    if (input1.equals(exitSymbol)) {</span>
+<span class="nc" id="L643">                        System.out.println(&quot;Exiting Course Enrollment Menu..&quot;);</span>
+<span class="nc" id="L644">                        break;</span>
+                    }
+<span class="nc" id="L646">                    System.out.println(&quot;Enter Course ID to De Register Course:&quot;);</span>
+<span class="nc" id="L647">                    CLI.inputTaker();</span>
+<span class="nc" id="L648">                    String courseId = scanner.nextLine();</span>
+
+<span class="nc" id="L650">                    std.deRegisterCourse(courseId);</span>
+
+<span class="nc" id="L652">                    CLI.clearScreen();</span>
+<span class="nc" id="L653">                }</span>
+<span class="nc bnc" id="L654" title="All 2 branches missed.">            }else if(input.equals(&quot;9&quot;))</span>
+            {
+<span class="nc" id="L656">                std.viewEvent(std.con);</span>
+            }
+            else {
+<span class="nc" id="L659">                System.out.println(&quot;Wrong Choice!&quot;);</span>
+            }
+
+<span class="nc" id="L662">            CLI.clearScreen();</span>
+
+
+        }
+
+
+<span class="nc" id="L668">        std.logOut();</span>
+<span class="nc" id="L669">    }</span>
+
+//    public static void main(String[] args)
+//    {
+//        Student std = new Student(&quot;2020csb1101@iitrpr.ac.in&quot;);
+//
+////        System.out.println(&quot;course credits :&quot; + std.fetchCourseCredits(std.con,&quot;DM101&quot;,2020));
+////        System.out.println(std.deRegisterCourse(&quot;DM101&quot;));
+////        System.out.println(std.findCreditLimit());
+//
+////        System.out.println(std.fetchCourseType(std.con,&quot;HS507&quot;,2020));
+//
+//        std.logOut();
+//    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
