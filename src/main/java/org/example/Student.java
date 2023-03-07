@@ -23,7 +23,7 @@ public class Student extends AbstractCommonFunctions {
 
     }
 
-    boolean changeProfileNumber(String contact)  {
+   private boolean changeProfileNumber(String contact)  {
         contact = removeSpaces(contact);
         String updateQuery = "update student set contact = ? where student_id = ? ";
 
@@ -43,7 +43,7 @@ public class Student extends AbstractCommonFunctions {
         return true;
     }
 
-    boolean changeProfileName(String name)  {
+    private boolean changeProfileName(String name)  {
         name = removeSpaces(name);
         String updateQuery = "update student set student_name = ? where student_id = ? ";
             try{
@@ -546,13 +546,36 @@ public class Student extends AbstractCommonFunctions {
         mainMenu.add(row);
 
         row = new ArrayList<>();
-        row.add("View Event");
+        row.add("View Course Offering");
         row.add("9");
         mainMenu.add(row);
+
+        row = new ArrayList<>();
+        row.add("View Enrolled Courses");
+        row.add("10");
+        mainMenu.add(row);
+
 
         CLI.printMenu(title,mainMenu);
 
         return true;
+    }
+
+    private boolean viewEnrolledCourses()
+    {
+        String findQuery = "Select * from student_record_"+String.valueOf(this.studentAdmYear)+" where student_id = ? ans grades = ?";
+        try{
+            PreparedStatement preparedStatement = con.prepareStatement(findQuery);
+            preparedStatement.setString(1,removeSpaces(student_id));
+            preparedStatement.setString(2,"NA");
+            ResultSet rs = preparedStatement.executeQuery();
+            printResultTable(rs);
+        }catch(SQLException err)
+        {
+            System.out.println(err.getMessage());
+        }
+        return true;
+
     }
 
 
@@ -705,7 +728,10 @@ public class Student extends AbstractCommonFunctions {
                 }
             }else if(input.equals("9"))
             {
-                std.viewEvent(std.con);
+                std.viewCourseOffering(std.con);
+            }else if(input.equals("10"))
+            {
+                std.viewEnrolledCourses();
             }
             else {
                 System.out.println("Wrong Choice!");

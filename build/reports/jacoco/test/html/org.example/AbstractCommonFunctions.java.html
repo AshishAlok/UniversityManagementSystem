@@ -12,21 +12,21 @@ import javax.sql.rowset.RowSetProvider;
 import javax.sql.rowset.CachedRowSet;
 import javax.xml.transform.Result;
 
-<span class="fc" id="L15">public class AbstractCommonFunctions {</span>
+<span class="nc" id="L15">public class AbstractCommonFunctions {</span>
 
-<span class="fc" id="L17">    public final int SEMRUNNING = 0;</span>
-<span class="fc" id="L18">    public final int COURSEFLOATACTIVE =1;</span>
-<span class="fc" id="L19">    public final int COURSEFLOATEND = 2;</span>
-<span class="fc" id="L20">    public final int STUDENTREGBEGIN = 3;</span>
-<span class="fc" id="L21">    public final int STUDENTREGEND = 4;</span>
-<span class="fc" id="L22">    public final int GRADESUBMITSART = 5;</span>
-<span class="fc" id="L23">    public final int GRADESUBMITEND = 6;</span>
-<span class="fc" id="L24">    public final int SEMSTART = 7;</span>
-<span class="fc" id="L25">    public final int SEMEND = 8;</span>
-<span class="fc" id="L26">    public final int CREDITLIMIT = 18;</span>
-<span class="fc" id="L27">    public final String ENGCORETYPE = &quot;ec&quot;;</span>
-<span class="fc" id="L28">    public final String ELECCORETYPE = &quot;el&quot;;</span>
-<span class="fc" id="L29">    public final String PROCORETYPE = &quot;pc&quot;;</span>
+<span class="nc" id="L17">    public final int SEMRUNNING = 0;</span>
+<span class="nc" id="L18">    public final int COURSEFLOATACTIVE =1;</span>
+<span class="nc" id="L19">    public final int COURSEFLOATEND = 2;</span>
+<span class="nc" id="L20">    public final int STUDENTREGBEGIN = 3;</span>
+<span class="nc" id="L21">    public final int STUDENTREGEND = 4;</span>
+<span class="nc" id="L22">    public final int GRADESUBMITSART = 5;</span>
+<span class="nc" id="L23">    public final int GRADESUBMITEND = 6;</span>
+<span class="nc" id="L24">    public final int SEMSTART = 7;</span>
+<span class="nc" id="L25">    public final int SEMEND = 8;</span>
+<span class="nc" id="L26">    public final int CREDITLIMIT = 18;</span>
+<span class="nc" id="L27">    public final String ENGCORETYPE = &quot;ec&quot;;</span>
+<span class="nc" id="L28">    public final String ELECCORETYPE = &quot;el&quot;;</span>
+<span class="nc" id="L29">    public final String PROCORETYPE = &quot;pc&quot;;</span>
     public static ArrayList&lt;Double&gt; getBtechGradCred(Connection con)
     {
 <span class="nc" id="L32">        ArrayList&lt;Double&gt; arr = new ArrayList&lt;&gt;();</span>
@@ -77,69 +77,69 @@ import javax.xml.transform.Result;
 
     public static String removeSpaces(String text)
     {
-<span class="fc" id="L80">        Pattern pattern = Pattern.compile(&quot;(?m)^\\s*(.*?)\\s*$&quot;);</span>
-<span class="fc" id="L81">        Matcher matcher = pattern.matcher(text);</span>
-<span class="fc" id="L82">        String extractedString = null;</span>
-<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if (matcher.find()) {</span>
-<span class="fc" id="L84">            extractedString = matcher.group(1);</span>
+<span class="nc" id="L80">        Pattern pattern = Pattern.compile(&quot;(?m)^\\s*(.*?)\\s*$&quot;);</span>
+<span class="nc" id="L81">        Matcher matcher = pattern.matcher(text);</span>
+<span class="nc" id="L82">        String extractedString = null;</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (matcher.find()) {</span>
+<span class="nc" id="L84">            extractedString = matcher.group(1);</span>
         }
-<span class="fc" id="L86">        return extractedString;</span>
+<span class="nc" id="L86">        return extractedString;</span>
     }
     public static int extractIntegral(String str) {
-<span class="fc" id="L89">        int integralPart = 0;</span>
+<span class="nc" id="L89">        int integralPart = 0;</span>
         try {
-<span class="fc" id="L91">            Pattern pattern = Pattern.compile(&quot;^\\d+&quot;);</span>
-<span class="fc" id="L92">            Matcher matcher = pattern.matcher(str);</span>
-<span class="pc bpc" id="L93" title="1 of 2 branches missed.">            if (matcher.find()) {</span>
-<span class="fc" id="L94">                integralPart = Integer.parseInt(matcher.group());</span>
+<span class="nc" id="L91">            Pattern pattern = Pattern.compile(&quot;^\\d+&quot;);</span>
+<span class="nc" id="L92">            Matcher matcher = pattern.matcher(str);</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">            if (matcher.find()) {</span>
+<span class="nc" id="L94">                integralPart = Integer.parseInt(matcher.group());</span>
             }
 <span class="nc" id="L96">        } catch (NumberFormatException e) {</span>
 <span class="nc" id="L97">            System.out.println(e.getMessage());</span>
-<span class="fc" id="L98">        }</span>
-<span class="fc" id="L99">        return integralPart;</span>
+<span class="nc" id="L98">        }</span>
+<span class="nc" id="L99">        return integralPart;</span>
     }
 
     public boolean printResultTable(ResultSet rs)  {
             try{
-<span class="fc" id="L104">                ResultSetMetaData rsmd = rs.getMetaData();</span>
-<span class="fc" id="L105">                int numColumns = rsmd.getColumnCount();</span>
+<span class="nc" id="L104">                ResultSetMetaData rsmd = rs.getMetaData();</span>
+<span class="nc" id="L105">                int numColumns = rsmd.getColumnCount();</span>
 
-<span class="fc" id="L107">                AsciiTable table = new AsciiTable();</span>
+<span class="nc" id="L107">                AsciiTable table = new AsciiTable();</span>
 
-<span class="fc" id="L109">                List&lt;String&gt; tableHeader = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L110">                table.addRule();</span>
-<span class="fc bfc" id="L111" title="All 2 branches covered.">                for(int i=1;i&lt;=numColumns;i++)</span>
+<span class="nc" id="L109">                List&lt;String&gt; tableHeader = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L110">                table.addRule();</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">                for(int i=1;i&lt;=numColumns;i++)</span>
                 {
-<span class="fc" id="L113">                    Object value = rsmd.getColumnName(i);</span>
-<span class="fc" id="L114">                    tableHeader.add(value.toString());</span>
+<span class="nc" id="L113">                    Object value = rsmd.getColumnName(i);</span>
+<span class="nc" id="L114">                    tableHeader.add(value.toString());</span>
 
                 }
-<span class="fc" id="L117">                table.addRule();</span>
-<span class="fc" id="L118">                table.addRow(tableHeader);</span>
-<span class="fc" id="L119">                table.addRule();</span>
+<span class="nc" id="L117">                table.addRule();</span>
+<span class="nc" id="L118">                table.addRow(tableHeader);</span>
+<span class="nc" id="L119">                table.addRule();</span>
 
 
                 // Add the rows to the ASCII table
-<span class="fc bfc" id="L123" title="All 2 branches covered.">                while (rs.next()) {</span>
-<span class="fc" id="L124">                    List&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L125" title="All 2 branches covered.">                    for (int i = 1; i &lt;= numColumns; i++) {</span>
-<span class="fc" id="L126">                        Object value = rs.getObject(i);</span>
-<span class="fc" id="L127">                        row.add(value.toString());</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">                while (rs.next()) {</span>
+<span class="nc" id="L124">                    List&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">                    for (int i = 1; i &lt;= numColumns; i++) {</span>
+<span class="nc" id="L126">                        Object value = rs.getObject(i);</span>
+<span class="nc" id="L127">                        row.add(value.toString());</span>
 
                     }
-<span class="fc" id="L130">                    table.addRule();</span>
-<span class="fc" id="L131">                    table.addRow(row);</span>
-<span class="fc" id="L132">                }</span>
-<span class="fc" id="L133">                table.addRule();</span>
-<span class="fc" id="L134">                table.getRenderer().setCWC(new CWC_LongestLine());</span>
+<span class="nc" id="L130">                    table.addRule();</span>
+<span class="nc" id="L131">                    table.addRow(row);</span>
+<span class="nc" id="L132">                }</span>
+<span class="nc" id="L133">                table.addRule();</span>
+<span class="nc" id="L134">                table.getRenderer().setCWC(new CWC_LongestLine());</span>
                 // Print the ASCII table
-<span class="fc" id="L136">                System.out.println(table.render());</span>
+<span class="nc" id="L136">                System.out.println(table.render());</span>
 <span class="nc" id="L137">            }catch(SQLException err)</span>
             {
 <span class="nc" id="L139">                System.out.println(err.getMessage());</span>
-<span class="fc" id="L140">            }</span>
+<span class="nc" id="L140">            }</span>
 
-<span class="fc" id="L142">        return true;</span>
+<span class="nc" id="L142">        return true;</span>
     }
     public boolean viewCourseCatalogue (Connection con)
     {
@@ -719,28 +719,28 @@ import javax.xml.transform.Result;
     boolean viewCourseOffering (Connection con)  {
 
         try{
-<span class="fc" id="L722">            String query = &quot;Select * from course_offering&quot;;</span>
-<span class="fc" id="L723">            PreparedStatement preparedStatement = con.prepareStatement(query);</span>
-<span class="fc" id="L724">            ResultSet rs = preparedStatement.executeQuery();</span>
-<span class="fc" id="L725">            printResultTable(rs);</span>
+<span class="nc" id="L722">            String query = &quot;Select * from course_offering&quot;;</span>
+<span class="nc" id="L723">            PreparedStatement preparedStatement = con.prepareStatement(query);</span>
+<span class="nc" id="L724">            ResultSet rs = preparedStatement.executeQuery();</span>
+<span class="nc" id="L725">            printResultTable(rs);</span>
 <span class="nc" id="L726">        }catch(SQLException er)</span>
         {
 <span class="nc" id="L728">            System.out.println(er.getMessage());</span>
-<span class="fc" id="L729">        }</span>
+<span class="nc" id="L729">        }</span>
 
-<span class="fc" id="L731">        return true;</span>
+<span class="nc" id="L731">        return true;</span>
     }
     boolean logInTimeStamp(String userId,Connection con)  {
         try{
-<span class="fc" id="L735">            String query = &quot;INSERT INTO user_sessions (user_id, login_time) VALUES (?, NOW())&quot;;</span>
-<span class="fc" id="L736">            PreparedStatement preparedStatement = con.prepareStatement(query);</span>
-<span class="fc" id="L737">            preparedStatement.setString(1,userId);</span>
-<span class="fc" id="L738">            preparedStatement.execute();</span>
+<span class="nc" id="L735">            String query = &quot;INSERT INTO user_sessions (user_id, login_time) VALUES (?, NOW())&quot;;</span>
+<span class="nc" id="L736">            PreparedStatement preparedStatement = con.prepareStatement(query);</span>
+<span class="nc" id="L737">            preparedStatement.setString(1,userId);</span>
+<span class="nc" id="L738">            preparedStatement.execute();</span>
 <span class="nc" id="L739">        }catch (SQLException er)</span>
         {
 <span class="nc" id="L741">            System.out.println(er.getMessage());</span>
-<span class="fc" id="L742">        }</span>
-<span class="fc" id="L743">        return true;</span>
+<span class="nc" id="L742">        }</span>
+<span class="nc" id="L743">        return true;</span>
     }
     boolean logOutTimeStamp(String userId,Connection con)  {
         try{

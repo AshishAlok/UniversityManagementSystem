@@ -32,15 +32,8 @@ public class Authenticator {
             else {
                 System.out.println("NO user found!!");
             }
-
-        }catch(SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }
-
-
-        try {
             con.close();
+
         }catch(SQLException e)
         {
             System.out.println(e.getMessage());

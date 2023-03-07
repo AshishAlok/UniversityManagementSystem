@@ -12,15 +12,15 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Instructor extends AbstractCommonFunctions{
-<span class="fc" id="L15">    protected Connection con = null;</span>
+<span class="nc" id="L15">    protected Connection con = null;</span>
     private String instructorId;
     Instructor(String id )
-<span class="fc" id="L18">    {</span>
-<span class="fc" id="L19">        id = removeSpaces(id);</span>
-<span class="fc" id="L20">        this.instructorId = id;</span>
-<span class="fc" id="L21">        GetConnection gtCon = new GetConnection();</span>
-<span class="fc" id="L22">        this.con = gtCon.getConnection();</span>
-<span class="fc" id="L23">    }</span>
+<span class="nc" id="L18">    {</span>
+<span class="nc" id="L19">        id = removeSpaces(id);</span>
+<span class="nc" id="L20">        this.instructorId = id;</span>
+<span class="nc" id="L21">        GetConnection gtCon = new GetConnection();</span>
+<span class="nc" id="L22">        this.con = gtCon.getConnection();</span>
+<span class="nc" id="L23">    }</span>
     boolean isCourseFloatActive()
     {
 <span class="nc" id="L26">        String query = &quot;Select * from current_session&quot;;</span>

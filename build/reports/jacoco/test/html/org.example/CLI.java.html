@@ -7,13 +7,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 <span class="nc" id="L8">public class CLI {</span>
     public static int getMaxColumns(ArrayList&lt;ArrayList&lt;String&gt;&gt; arrayLists) {
-<span class="fc" id="L10">        int maxColumns = 0;</span>
-<span class="fc bfc" id="L11" title="All 2 branches covered.">        for (ArrayList&lt;String&gt; row : arrayLists) {</span>
-<span class="fc bfc" id="L12" title="All 2 branches covered.">            if (row.size() &gt; maxColumns) {</span>
-<span class="fc" id="L13">                maxColumns = row.size();</span>
+<span class="nc" id="L10">        int maxColumns = 0;</span>
+<span class="nc bnc" id="L11" title="All 2 branches missed.">        for (ArrayList&lt;String&gt; row : arrayLists) {</span>
+<span class="nc bnc" id="L12" title="All 2 branches missed.">            if (row.size() &gt; maxColumns) {</span>
+<span class="nc" id="L13">                maxColumns = row.size();</span>
             }
-<span class="fc" id="L15">        }</span>
-<span class="fc" id="L16">        return maxColumns;</span>
+<span class="nc" id="L15">        }</span>
+<span class="nc" id="L16">        return maxColumns;</span>
     }
     public static boolean clearScreen()
     {
@@ -86,45 +86,45 @@ import java.util.regex.Pattern;
 //    }
     public static boolean printMenu(String title,ArrayList&lt;ArrayList&lt;String&gt;&gt; arr)
     {
-<span class="fc" id="L89">        AsciiTable table = new AsciiTable();</span>
-<span class="fc" id="L90">        int sz = arr.size();</span>
-<span class="fc" id="L91">        int cnt = 0;</span>
-<span class="fc" id="L92">        int maxColumns = getMaxColumns(arr);</span>
+<span class="nc" id="L89">        AsciiTable table = new AsciiTable();</span>
+<span class="nc" id="L90">        int sz = arr.size();</span>
+<span class="nc" id="L91">        int cnt = 0;</span>
+<span class="nc" id="L92">        int maxColumns = getMaxColumns(arr);</span>
 
-<span class="fc" id="L94">        table.addRule();</span>
-<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if(maxColumns == 2)</span>
+<span class="nc" id="L94">        table.addRule();</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if(maxColumns == 2)</span>
         {
-<span class="fc" id="L97">            table.addRow(null,title).setTextAlignment(TextAlignment.CENTER);</span>
+<span class="nc" id="L97">            table.addRow(null,title).setTextAlignment(TextAlignment.CENTER);</span>
         }
-<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        if(maxColumns == 3)</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if(maxColumns == 3)</span>
         {
 <span class="nc" id="L101">            table.addRow(null,null,title).setTextAlignment(TextAlignment.CENTER);</span>
         }
 
 //        System.out.println(sz);
 
-<span class="fc bfc" id="L106" title="All 2 branches covered.">        for(ArrayList&lt;String&gt; row: arr)</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        for(ArrayList&lt;String&gt; row: arr)</span>
         {
-<span class="fc" id="L108">            cnt = 0;</span>
-<span class="fc" id="L109">            table.addRule();</span>
-<span class="fc" id="L110">            List&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L111" title="All 2 branches covered.">            for(String s :row)</span>
+<span class="nc" id="L108">            cnt = 0;</span>
+<span class="nc" id="L109">            table.addRule();</span>
+<span class="nc" id="L110">            List&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">            for(String s :row)</span>
             {
-<span class="fc" id="L113">                list.add(s);</span>
-<span class="fc" id="L114">                cnt++;</span>
-<span class="fc" id="L115">            }</span>
-<span class="pc bpc" id="L116" title="1 of 2 branches missed.">            while(cnt&lt;maxColumns)</span>
+<span class="nc" id="L113">                list.add(s);</span>
+<span class="nc" id="L114">                cnt++;</span>
+<span class="nc" id="L115">            }</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">            while(cnt&lt;maxColumns)</span>
             {
 <span class="nc" id="L118">                cnt++;</span>
 <span class="nc" id="L119">                list.add(&quot;NULL&quot;);</span>
             }
 //            System.out.println(list);
-<span class="fc" id="L122">            table.addRow(list).setTextAlignment(TextAlignment.CENTER);</span>
-<span class="fc" id="L123">        }</span>
-<span class="fc" id="L124">        table.addRule();</span>
-<span class="fc" id="L125">        table.getRenderer().setCWC(new CWC_LongestLine());</span>
-<span class="fc" id="L126">        System.out.println(table.render());</span>
-<span class="fc" id="L127">        return true;</span>
+<span class="nc" id="L122">            table.addRow(list).setTextAlignment(TextAlignment.CENTER);</span>
+<span class="nc" id="L123">        }</span>
+<span class="nc" id="L124">        table.addRule();</span>
+<span class="nc" id="L125">        table.getRenderer().setCWC(new CWC_LongestLine());</span>
+<span class="nc" id="L126">        System.out.println(table.render());</span>
+<span class="nc" id="L127">        return true;</span>
     }
 
     public static String getFormedTable(String title,ArrayList&lt;ArrayList&lt;String&gt;&gt; arr)

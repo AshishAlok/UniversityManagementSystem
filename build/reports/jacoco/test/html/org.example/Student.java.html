@@ -8,22 +8,22 @@ import java.util.*;
 
 public class Student extends AbstractCommonFunctions {
     protected String student_id ;
-<span class="fc" id="L11">    protected Connection con = null ;</span>
-<span class="fc" id="L12">    protected int studentAdmYear = 0;</span>
-<span class="fc" id="L13">    Student(String id)   {</span>
-<span class="fc" id="L14">        id = removeSpaces(id);</span>
-<span class="fc" id="L15">        id.toLowerCase();</span>
-<span class="fc" id="L16">        this.student_id = id;</span>
-<span class="fc" id="L17">        GetConnection gtCon = new GetConnection();</span>
-<span class="fc" id="L18">        this.con = gtCon.getConnection();</span>
-<span class="fc" id="L19">        studentAdmYear = extractIntegral(student_id);</span>
+<span class="nc" id="L11">    protected Connection con = null ;</span>
+<span class="nc" id="L12">    protected int studentAdmYear = 0;</span>
+<span class="nc" id="L13">    Student(String id)   {</span>
+<span class="nc" id="L14">        id = removeSpaces(id);</span>
+<span class="nc" id="L15">        id.toLowerCase();</span>
+<span class="nc" id="L16">        this.student_id = id;</span>
+<span class="nc" id="L17">        GetConnection gtCon = new GetConnection();</span>
+<span class="nc" id="L18">        this.con = gtCon.getConnection();</span>
+<span class="nc" id="L19">        studentAdmYear = extractIntegral(student_id);</span>
 
-<span class="fc" id="L21">        this.logInTimeStamp(this.student_id,this.con);</span>
+<span class="nc" id="L21">        this.logInTimeStamp(this.student_id,this.con);</span>
 
 
-<span class="fc" id="L24">    }</span>
+<span class="nc" id="L24">    }</span>
 
-    boolean changeProfileNumber(String contact)  {
+   private boolean changeProfileNumber(String contact)  {
 <span class="nc" id="L27">        contact = removeSpaces(contact);</span>
 <span class="nc" id="L28">        String updateQuery = &quot;update student set contact = ? where student_id = ? &quot;;</span>
 
@@ -43,7 +43,7 @@ public class Student extends AbstractCommonFunctions {
 <span class="nc" id="L43">        return true;</span>
     }
 
-    boolean changeProfileName(String name)  {
+    private boolean changeProfileName(String name)  {
 <span class="nc" id="L47">        name = removeSpaces(name);</span>
 <span class="nc" id="L48">        String updateQuery = &quot;update student set student_name = ? where student_id = ? &quot;;</span>
             try{
@@ -497,81 +497,104 @@ public class Student extends AbstractCommonFunctions {
 
     boolean printMainMenu()
     {
-<span class="fc" id="L500">        ArrayList&lt;ArrayList&lt;String&gt;&gt; mainMenu = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L501">        String title = &quot;MAIN MENU&quot;;</span>
-<span class="fc" id="L502">        ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L500">        ArrayList&lt;ArrayList&lt;String&gt;&gt; mainMenu = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L501">        String title = &quot;MAIN MENU&quot;;</span>
+<span class="nc" id="L502">        ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L504">        row.add(&quot;Options&quot;);</span>
-<span class="fc" id="L505">        row.add(&quot;Enter Choice&quot;);</span>
-<span class="fc" id="L506">        mainMenu.add(row);</span>
+<span class="nc" id="L504">        row.add(&quot;Options&quot;);</span>
+<span class="nc" id="L505">        row.add(&quot;Enter Choice&quot;);</span>
+<span class="nc" id="L506">        mainMenu.add(row);</span>
 
-<span class="fc" id="L508">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L509">        row.add(&quot;Change Profile&quot;);</span>
-<span class="fc" id="L510">        row.add(&quot;1&quot;);</span>
-<span class="fc" id="L511">        mainMenu.add(row);</span>
+<span class="nc" id="L508">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L509">        row.add(&quot;Change Profile&quot;);</span>
+<span class="nc" id="L510">        row.add(&quot;1&quot;);</span>
+<span class="nc" id="L511">        mainMenu.add(row);</span>
 
-<span class="fc" id="L513">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L514">        row.add(&quot;See Your Grades&quot;);</span>
-<span class="fc" id="L515">        row.add(&quot;2&quot;);</span>
-<span class="fc" id="L516">        mainMenu.add(row);</span>
+<span class="nc" id="L513">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L514">        row.add(&quot;See Your Grades&quot;);</span>
+<span class="nc" id="L515">        row.add(&quot;2&quot;);</span>
+<span class="nc" id="L516">        mainMenu.add(row);</span>
 
-<span class="fc" id="L518">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L519">        row.add(&quot;Calculate CGPA till now&quot;);</span>
-<span class="fc" id="L520">        row.add(&quot;3&quot;);</span>
-<span class="fc" id="L521">        mainMenu.add(row);</span>
+<span class="nc" id="L518">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L519">        row.add(&quot;Calculate CGPA till now&quot;);</span>
+<span class="nc" id="L520">        row.add(&quot;3&quot;);</span>
+<span class="nc" id="L521">        mainMenu.add(row);</span>
 
-<span class="fc" id="L523">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L524">        row.add(&quot;See Course Catalogue&quot;);</span>
-<span class="fc" id="L525">        row.add(&quot;4&quot;);</span>
-<span class="fc" id="L526">        mainMenu.add(row);</span>
+<span class="nc" id="L523">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L524">        row.add(&quot;See Course Catalogue&quot;);</span>
+<span class="nc" id="L525">        row.add(&quot;4&quot;);</span>
+<span class="nc" id="L526">        mainMenu.add(row);</span>
 
-<span class="fc" id="L528">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L529">        row.add(&quot;Enroll a Course&quot;);</span>
-<span class="fc" id="L530">        row.add(&quot;5&quot;);</span>
-<span class="fc" id="L531">        mainMenu.add(row);</span>
+<span class="nc" id="L528">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L529">        row.add(&quot;Enroll a Course&quot;);</span>
+<span class="nc" id="L530">        row.add(&quot;5&quot;);</span>
+<span class="nc" id="L531">        mainMenu.add(row);</span>
 
-<span class="fc" id="L533">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L534">        row.add(&quot;View Current Event&quot;);</span>
-<span class="fc" id="L535">        row.add(&quot;6&quot;);</span>
-<span class="fc" id="L536">        mainMenu.add(row);</span>
+<span class="nc" id="L533">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L534">        row.add(&quot;View Current Event&quot;);</span>
+<span class="nc" id="L535">        row.add(&quot;6&quot;);</span>
+<span class="nc" id="L536">        mainMenu.add(row);</span>
 
-<span class="fc" id="L538">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L539">        row.add(&quot;Check for Graduation&quot;);</span>
-<span class="fc" id="L540">        row.add(&quot;7&quot;);</span>
-<span class="fc" id="L541">        mainMenu.add(row);</span>
+<span class="nc" id="L538">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L539">        row.add(&quot;Check for Graduation&quot;);</span>
+<span class="nc" id="L540">        row.add(&quot;7&quot;);</span>
+<span class="nc" id="L541">        mainMenu.add(row);</span>
 
-<span class="fc" id="L543">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L544">        row.add(&quot;De Registration of Course&quot;);</span>
-<span class="fc" id="L545">        row.add(&quot;8&quot;);</span>
-<span class="fc" id="L546">        mainMenu.add(row);</span>
+<span class="nc" id="L543">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L544">        row.add(&quot;De Registration of Course&quot;);</span>
+<span class="nc" id="L545">        row.add(&quot;8&quot;);</span>
+<span class="nc" id="L546">        mainMenu.add(row);</span>
 
-<span class="fc" id="L548">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L549">        row.add(&quot;View Event&quot;);</span>
-<span class="fc" id="L550">        row.add(&quot;9&quot;);</span>
-<span class="fc" id="L551">        mainMenu.add(row);</span>
+<span class="nc" id="L548">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L549">        row.add(&quot;View Course Offering&quot;);</span>
+<span class="nc" id="L550">        row.add(&quot;9&quot;);</span>
+<span class="nc" id="L551">        mainMenu.add(row);</span>
 
-<span class="fc" id="L553">        CLI.printMenu(title,mainMenu);</span>
+<span class="nc" id="L553">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L554">        row.add(&quot;View Enrolled Courses&quot;);</span>
+<span class="nc" id="L555">        row.add(&quot;10&quot;);</span>
+<span class="nc" id="L556">        mainMenu.add(row);</span>
 
-<span class="fc" id="L555">        return true;</span>
+
+<span class="nc" id="L559">        CLI.printMenu(title,mainMenu);</span>
+
+<span class="nc" id="L561">        return true;</span>
+    }
+
+    private boolean viewEnrolledCourses()
+    {
+<span class="nc" id="L566">        String findQuery = &quot;Select * from student_record_&quot;+String.valueOf(this.studentAdmYear)+&quot; where student_id = ? ans grades = ?&quot;;</span>
+        try{
+<span class="nc" id="L568">            PreparedStatement preparedStatement = con.prepareStatement(findQuery);</span>
+<span class="nc" id="L569">            preparedStatement.setString(1,removeSpaces(student_id));</span>
+<span class="nc" id="L570">            preparedStatement.setString(2,&quot;NA&quot;);</span>
+<span class="nc" id="L571">            ResultSet rs = preparedStatement.executeQuery();</span>
+<span class="nc" id="L572">            printResultTable(rs);</span>
+<span class="nc" id="L573">        }catch(SQLException err)</span>
+        {
+<span class="nc" id="L575">            System.out.println(err.getMessage());</span>
+<span class="nc" id="L576">        }</span>
+<span class="nc" id="L577">        return true;</span>
+
     }
 
 
     boolean logOut()  {
 
         try{
-<span class="nc" id="L562">            this.logOutTimeStamp(this.student_id,this.con);</span>
-<span class="nc" id="L563">            this.con.close();</span>
-<span class="nc" id="L564">            System.out.println(this.student_id + &quot; logged out Successfully!&quot;);</span>
-<span class="nc" id="L565">        }catch(SQLException er)</span>
+<span class="nc" id="L585">            this.logOutTimeStamp(this.student_id,this.con);</span>
+<span class="nc" id="L586">            this.con.close();</span>
+<span class="nc" id="L587">            System.out.println(this.student_id + &quot; logged out Successfully!&quot;);</span>
+<span class="nc" id="L588">        }catch(SQLException er)</span>
         {
-<span class="nc" id="L567">            System.out.println(er.getMessage());</span>
-<span class="nc" id="L568">        }</span>
+<span class="nc" id="L590">            System.out.println(er.getMessage());</span>
+<span class="nc" id="L591">        }</span>
 
-<span class="nc" id="L570">        return true;</span>
+<span class="nc" id="L593">        return true;</span>
     }
 
     public static void runStudent(String userID)  {
-<span class="nc" id="L574">        Student std = new Student(userID);</span>
+<span class="nc" id="L597">        Student std = new Student(userID);</span>
 //        double cgpa = std.calculateCGPA(std.con,std.student_id,2020);
 //        double cred = std.fetchCourseCredits(std.con,&quot;CS305&quot;,2020);
 //        System.out.println(cred);
@@ -586,139 +609,142 @@ public class Student extends AbstractCommonFunctions {
 //        std.isGraduated(std.con,std.student_id);
 
 
-<span class="nc" id="L589">        String csvFile = &quot;&quot;;</span>
-<span class="nc" id="L590">        String input = &quot;&quot;;</span>
-<span class="nc" id="L591">        String exitSymbol = &quot;exit&quot;;</span>
-<span class="nc" id="L592">        Scanner scanner = new Scanner(System.in);</span>
+<span class="nc" id="L612">        String csvFile = &quot;&quot;;</span>
+<span class="nc" id="L613">        String input = &quot;&quot;;</span>
+<span class="nc" id="L614">        String exitSymbol = &quot;exit&quot;;</span>
+<span class="nc" id="L615">        Scanner scanner = new Scanner(System.in);</span>
         while(true)
         {
-<span class="nc" id="L595">            std.printMainMenu();</span>
-<span class="nc" id="L596">            CLI.inputTaker();</span>
-<span class="nc" id="L597">            input = scanner.nextLine();</span>
-<span class="nc" id="L598">            input = removeSpaces(input);</span>
+<span class="nc" id="L618">            std.printMainMenu();</span>
+<span class="nc" id="L619">            CLI.inputTaker();</span>
+<span class="nc" id="L620">            input = scanner.nextLine();</span>
+<span class="nc" id="L621">            input = removeSpaces(input);</span>
 
-<span class="nc bnc" id="L600" title="All 2 branches missed.">            if (input.equals(exitSymbol)) {</span>
-<span class="nc" id="L601">                System.out.println(&quot;Exiting Faculty Menu..&quot;);</span>
-<span class="nc" id="L602">                break;</span>
+<span class="nc bnc" id="L623" title="All 2 branches missed.">            if (input.equals(exitSymbol)) {</span>
+<span class="nc" id="L624">                System.out.println(&quot;Exiting Faculty Menu..&quot;);</span>
+<span class="nc" id="L625">                break;</span>
             }
-<span class="nc bnc" id="L604" title="All 2 branches missed.">            if(input.equals(&quot;1&quot;))</span>
+<span class="nc bnc" id="L627" title="All 2 branches missed.">            if(input.equals(&quot;1&quot;))</span>
             {
-<span class="nc" id="L606">                String profile = &quot;&quot;;</span>
-<span class="nc" id="L607">                std.printChangeProfileMenu();</span>
+<span class="nc" id="L629">                String profile = &quot;&quot;;</span>
+<span class="nc" id="L630">                std.printChangeProfileMenu();</span>
                 while(true)
                 {
-<span class="nc" id="L610">                    std.printChangeProfileMenu();</span>
-<span class="nc" id="L611">                    System.out.println(&quot;Enter exit to go back or any other string to proceed&quot;);</span>
-<span class="nc" id="L612">                    CLI.inputTaker();</span>
-<span class="nc" id="L613">                    profile = scanner.nextLine();</span>
-<span class="nc" id="L614">                    profile = removeSpaces(profile);</span>
-<span class="nc bnc" id="L615" title="All 2 branches missed.">                    if(profile.equals(exitSymbol))</span>
+<span class="nc" id="L633">                    std.printChangeProfileMenu();</span>
+<span class="nc" id="L634">                    System.out.println(&quot;Enter exit to go back or any other string to proceed&quot;);</span>
+<span class="nc" id="L635">                    CLI.inputTaker();</span>
+<span class="nc" id="L636">                    profile = scanner.nextLine();</span>
+<span class="nc" id="L637">                    profile = removeSpaces(profile);</span>
+<span class="nc bnc" id="L638" title="All 2 branches missed.">                    if(profile.equals(exitSymbol))</span>
                     {
-<span class="nc" id="L617">                        System.out.println(&quot;Exiting Change Profile Menu..&quot;);</span>
-<span class="nc" id="L618">                        break;</span>
+<span class="nc" id="L640">                        System.out.println(&quot;Exiting Change Profile Menu..&quot;);</span>
+<span class="nc" id="L641">                        break;</span>
                     }
-<span class="nc bnc" id="L620" title="All 2 branches missed.">                    if(profile.equals(&quot;1&quot;))</span>
+<span class="nc bnc" id="L643" title="All 2 branches missed.">                    if(profile.equals(&quot;1&quot;))</span>
                     {
-<span class="nc" id="L622">                        System.out.println(&quot;Enter New Name&quot;);</span>
-<span class="nc" id="L623">                        CLI.inputTaker();</span>
-<span class="nc" id="L624">                        String name = scanner.nextLine();</span>
-<span class="nc" id="L625">                        std.changeProfileName(name);</span>
-<span class="nc" id="L626">                        System.out.println(&quot;Name Changed Successfully&quot;);</span>
+<span class="nc" id="L645">                        System.out.println(&quot;Enter New Name&quot;);</span>
+<span class="nc" id="L646">                        CLI.inputTaker();</span>
+<span class="nc" id="L647">                        String name = scanner.nextLine();</span>
+<span class="nc" id="L648">                        std.changeProfileName(name);</span>
+<span class="nc" id="L649">                        System.out.println(&quot;Name Changed Successfully&quot;);</span>
 
-<span class="nc bnc" id="L628" title="All 2 branches missed.">                    }else if(profile.equals(&quot;2&quot;))</span>
+<span class="nc bnc" id="L651" title="All 2 branches missed.">                    }else if(profile.equals(&quot;2&quot;))</span>
                     {
-<span class="nc" id="L630">                        System.out.println(&quot;Enter New Phone Number&quot;);</span>
-<span class="nc" id="L631">                        CLI.inputTaker();</span>
-<span class="nc" id="L632">                        String number = scanner.nextLine();</span>
-<span class="nc" id="L633">                        std.changeProfileNumber(number);</span>
-<span class="nc" id="L634">                        System.out.println(&quot;Number Changed Successfully&quot;);</span>
-<span class="nc" id="L635">                    }else {</span>
-<span class="nc" id="L636">                        System.out.println(&quot;Invalid Choice!&quot;);</span>
+<span class="nc" id="L653">                        System.out.println(&quot;Enter New Phone Number&quot;);</span>
+<span class="nc" id="L654">                        CLI.inputTaker();</span>
+<span class="nc" id="L655">                        String number = scanner.nextLine();</span>
+<span class="nc" id="L656">                        std.changeProfileNumber(number);</span>
+<span class="nc" id="L657">                        System.out.println(&quot;Number Changed Successfully&quot;);</span>
+<span class="nc" id="L658">                    }else {</span>
+<span class="nc" id="L659">                        System.out.println(&quot;Invalid Choice!&quot;);</span>
                     }
-<span class="nc" id="L638">                    CLI.clearScreen();</span>
+<span class="nc" id="L661">                    CLI.clearScreen();</span>
                 }
 
-<span class="nc bnc" id="L641" title="All 2 branches missed.">            }else if(input.equals(&quot;2&quot;))</span>
+<span class="nc bnc" id="L664" title="All 2 branches missed.">            }else if(input.equals(&quot;2&quot;))</span>
             {
-<span class="nc" id="L643">                std.seeGrades(std.con,std.studentAdmYear,std.student_id);</span>
+<span class="nc" id="L666">                std.seeGrades(std.con,std.studentAdmYear,std.student_id);</span>
             }
-<span class="nc bnc" id="L645" title="All 2 branches missed.">            else if(input.equals(&quot;3&quot;))</span>
+<span class="nc bnc" id="L668" title="All 2 branches missed.">            else if(input.equals(&quot;3&quot;))</span>
             {
-<span class="nc" id="L647">                double cgpa = std.calculateCGPA(std.con,std.student_id,std.studentAdmYear);</span>
-<span class="nc" id="L648">                System.out.println(&quot;Your CGPA is &quot;+cgpa+&quot; till the current semester!&quot;);</span>
-<span class="nc" id="L649">            }</span>
-<span class="nc bnc" id="L650" title="All 2 branches missed.">            else if(input.equals(&quot;4&quot;))</span>
+<span class="nc" id="L670">                double cgpa = std.calculateCGPA(std.con,std.student_id,std.studentAdmYear);</span>
+<span class="nc" id="L671">                System.out.println(&quot;Your CGPA is &quot;+cgpa+&quot; till the current semester!&quot;);</span>
+<span class="nc" id="L672">            }</span>
+<span class="nc bnc" id="L673" title="All 2 branches missed.">            else if(input.equals(&quot;4&quot;))</span>
             {
-<span class="nc" id="L652">                std.viewCourseCatalogue(std.con);</span>
+<span class="nc" id="L675">                std.viewCourseCatalogue(std.con);</span>
             }
-<span class="nc bnc" id="L654" title="All 2 branches missed.">            else if(input.equals(&quot;5&quot;))</span>
+<span class="nc bnc" id="L677" title="All 2 branches missed.">            else if(input.equals(&quot;5&quot;))</span>
             {
-<span class="nc" id="L656">                String input1 = &quot;&quot;;</span>
+<span class="nc" id="L679">                String input1 = &quot;&quot;;</span>
                 while(true) {
-<span class="nc" id="L658">                    System.out.println(&quot;Enter exit to go back or any other string to proceed:&quot;);</span>
-<span class="nc" id="L659">                    CLI.inputTaker();</span>
-<span class="nc" id="L660">                    input1 = scanner.nextLine();</span>
-<span class="nc" id="L661">                    input1 = removeSpaces(input1);</span>
+<span class="nc" id="L681">                    System.out.println(&quot;Enter exit to go back or any other string to proceed:&quot;);</span>
+<span class="nc" id="L682">                    CLI.inputTaker();</span>
+<span class="nc" id="L683">                    input1 = scanner.nextLine();</span>
+<span class="nc" id="L684">                    input1 = removeSpaces(input1);</span>
 
-<span class="nc bnc" id="L663" title="All 2 branches missed.">                    if (input1.equals(exitSymbol)) {</span>
-<span class="nc" id="L664">                        System.out.println(&quot;Exiting Course Enrollment Menu..&quot;);</span>
-<span class="nc" id="L665">                        break;</span>
+<span class="nc bnc" id="L686" title="All 2 branches missed.">                    if (input1.equals(exitSymbol)) {</span>
+<span class="nc" id="L687">                        System.out.println(&quot;Exiting Course Enrollment Menu..&quot;);</span>
+<span class="nc" id="L688">                        break;</span>
                     }
-<span class="nc" id="L667">                    System.out.println(&quot;Enter Course ID to enroll&quot;);</span>
-<span class="nc" id="L668">                    CLI.inputTaker();</span>
-<span class="nc" id="L669">                    String courseId = scanner.nextLine();</span>
+<span class="nc" id="L690">                    System.out.println(&quot;Enter Course ID to enroll&quot;);</span>
+<span class="nc" id="L691">                    CLI.inputTaker();</span>
+<span class="nc" id="L692">                    String courseId = scanner.nextLine();</span>
 
-<span class="nc" id="L671">                    std.registerCourse(courseId);</span>
+<span class="nc" id="L694">                    std.registerCourse(courseId);</span>
 
-<span class="nc" id="L673">                    CLI.clearScreen();</span>
-<span class="nc" id="L674">                }</span>
+<span class="nc" id="L696">                    CLI.clearScreen();</span>
+<span class="nc" id="L697">                }</span>
 
-<span class="nc" id="L676">            }</span>
-<span class="nc bnc" id="L677" title="All 2 branches missed.">            else if(input.equals(&quot;6&quot;))</span>
+<span class="nc" id="L699">            }</span>
+<span class="nc bnc" id="L700" title="All 2 branches missed.">            else if(input.equals(&quot;6&quot;))</span>
             {
-<span class="nc" id="L679">                std.viewEvent(std.con);</span>
+<span class="nc" id="L702">                std.viewEvent(std.con);</span>
             }
-<span class="nc bnc" id="L681" title="All 2 branches missed.">            else if(input.equals(&quot;7&quot;))</span>
+<span class="nc bnc" id="L704" title="All 2 branches missed.">            else if(input.equals(&quot;7&quot;))</span>
             {
-<span class="nc" id="L683">                boolean isGrad = std.isGraduated(std.con,std.student_id);</span>
-<span class="nc" id="L684">            }</span>
-<span class="nc bnc" id="L685" title="All 2 branches missed.">            else if(input.equals(&quot;8&quot;))</span>
+<span class="nc" id="L706">                boolean isGrad = std.isGraduated(std.con,std.student_id);</span>
+<span class="nc" id="L707">            }</span>
+<span class="nc bnc" id="L708" title="All 2 branches missed.">            else if(input.equals(&quot;8&quot;))</span>
             {
-<span class="nc" id="L687">                String input1 = &quot;&quot;;</span>
+<span class="nc" id="L710">                String input1 = &quot;&quot;;</span>
                 while(true) {
-<span class="nc" id="L689">                    System.out.println(&quot;Enter exit to go back or any other string to proceed:&quot;);</span>
-<span class="nc" id="L690">                    CLI.inputTaker();</span>
-<span class="nc" id="L691">                    input1 = scanner.nextLine();</span>
-<span class="nc" id="L692">                    input1 = removeSpaces(input1);</span>
+<span class="nc" id="L712">                    System.out.println(&quot;Enter exit to go back or any other string to proceed:&quot;);</span>
+<span class="nc" id="L713">                    CLI.inputTaker();</span>
+<span class="nc" id="L714">                    input1 = scanner.nextLine();</span>
+<span class="nc" id="L715">                    input1 = removeSpaces(input1);</span>
 
-<span class="nc bnc" id="L694" title="All 2 branches missed.">                    if (input1.equals(exitSymbol)) {</span>
-<span class="nc" id="L695">                        System.out.println(&quot;Exiting Course Enrollment Menu..&quot;);</span>
-<span class="nc" id="L696">                        break;</span>
+<span class="nc bnc" id="L717" title="All 2 branches missed.">                    if (input1.equals(exitSymbol)) {</span>
+<span class="nc" id="L718">                        System.out.println(&quot;Exiting Course Enrollment Menu..&quot;);</span>
+<span class="nc" id="L719">                        break;</span>
                     }
-<span class="nc" id="L698">                    System.out.println(&quot;Enter Course ID to De Register Course:&quot;);</span>
-<span class="nc" id="L699">                    CLI.inputTaker();</span>
-<span class="nc" id="L700">                    String courseId = scanner.nextLine();</span>
+<span class="nc" id="L721">                    System.out.println(&quot;Enter Course ID to De Register Course:&quot;);</span>
+<span class="nc" id="L722">                    CLI.inputTaker();</span>
+<span class="nc" id="L723">                    String courseId = scanner.nextLine();</span>
 
-<span class="nc" id="L702">                    std.deRegisterCourse(courseId);</span>
+<span class="nc" id="L725">                    std.deRegisterCourse(courseId);</span>
 
-<span class="nc" id="L704">                    CLI.clearScreen();</span>
-<span class="nc" id="L705">                }</span>
-<span class="nc bnc" id="L706" title="All 2 branches missed.">            }else if(input.equals(&quot;9&quot;))</span>
+<span class="nc" id="L727">                    CLI.clearScreen();</span>
+<span class="nc" id="L728">                }</span>
+<span class="nc bnc" id="L729" title="All 2 branches missed.">            }else if(input.equals(&quot;9&quot;))</span>
             {
-<span class="nc" id="L708">                std.viewEvent(std.con);</span>
+<span class="nc" id="L731">                std.viewCourseOffering(std.con);</span>
+<span class="nc bnc" id="L732" title="All 2 branches missed.">            }else if(input.equals(&quot;10&quot;))</span>
+            {
+<span class="nc" id="L734">                std.viewEnrolledCourses();</span>
             }
             else {
-<span class="nc" id="L711">                System.out.println(&quot;Wrong Choice!&quot;);</span>
+<span class="nc" id="L737">                System.out.println(&quot;Wrong Choice!&quot;);</span>
             }
 
-<span class="nc" id="L714">            CLI.clearScreen();</span>
+<span class="nc" id="L740">            CLI.clearScreen();</span>
 
 
         }
 
 
-<span class="nc" id="L720">        std.logOut();</span>
-<span class="nc" id="L721">    }</span>
+<span class="nc" id="L746">        std.logOut();</span>
+<span class="nc" id="L747">    }</span>
 
 //    public static void main(String[] args)
 //    {
