@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.AcademicOfficeTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2023-03-07T19:46:47" hostname="ashish" time="0.744">
+<testsuite name="org.example.AcademicOfficeTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2023-03-07T21:10:06" hostname="ashish" time="0.76">
   <properties/>
-  <testcase name="printResultTable()" classname="org.example.AcademicOfficeTest" time="0.157"/>
+  <testcase name="printResultTable()" classname="org.example.AcademicOfficeTest" time="0.142"/>
   <testcase name="viewEvent()" classname="org.example.AcademicOfficeTest" time="0.009"/>
-  <testcase name="fetchCourseCredits()" classname="org.example.AcademicOfficeTest" time="0.008"/>
+  <testcase name="fetchCourseCredits()" classname="org.example.AcademicOfficeTest" time="0.007"/>
   <testcase name="getCurrentEvent()" classname="org.example.AcademicOfficeTest" time="0.001"/>
-  <testcase name="getBtechProjCode()" classname="org.example.AcademicOfficeTest" time="0.003"/>
+  <testcase name="getBtechProjCode()" classname="org.example.AcademicOfficeTest" time="0.004"/>
   <testcase name="removeSpaces()" classname="org.example.AcademicOfficeTest" time="0.001"/>
   <testcase name="calculateCGPA()" classname="org.example.AcademicOfficeTest" time="0.004"/>
   <testcase name="calculateSGPA()" classname="org.example.AcademicOfficeTest" time="0.004"/>
-  <testcase name="fetchMinReqSem()" classname="org.example.AcademicOfficeTest" time="0.004"/>
-  <testcase name="isGraduated()" classname="org.example.AcademicOfficeTest" time="0.032"/>
-  <testcase name="seeGrades()" classname="org.example.AcademicOfficeTest" time="0.01"/>
-  <testcase name="getGradeValue()" classname="org.example.AcademicOfficeTest" time="0.0"/>
+  <testcase name="fetchMinReqSem()" classname="org.example.AcademicOfficeTest" time="0.005"/>
+  <testcase name="isGraduated()" classname="org.example.AcademicOfficeTest" time="0.04"/>
+  <testcase name="seeGrades()" classname="org.example.AcademicOfficeTest" time="0.014"/>
+  <testcase name="getGradeValue()" classname="org.example.AcademicOfficeTest" time="0.001"/>
   <testcase name="getBtechGradCred()" classname="org.example.AcademicOfficeTest" time="0.003"/>
-  <testcase name="extractIntegral()" classname="org.example.AcademicOfficeTest" time="0.0"/>
-  <testcase name="viewCourseCatalogue()" classname="org.example.AcademicOfficeTest" time="0.031"/>
-  <testcase name="checkCourseDepartment()" classname="org.example.AcademicOfficeTest" time="0.013"/>
+  <testcase name="extractIntegral()" classname="org.example.AcademicOfficeTest" time="0.001"/>
+  <testcase name="viewCourseCatalogue()" classname="org.example.AcademicOfficeTest" time="0.033"/>
+  <testcase name="checkCourseDepartment()" classname="org.example.AcademicOfficeTest" time="0.015"/>
   <testcase name="printChangeProfileMenu()" classname="org.example.AcademicOfficeTest" time="0.003"/>
   <testcase name="testCalculateCGPA()" classname="org.example.AcademicOfficeTest" time="0.002"/>
-  <testcase name="fetchCourseType()" classname="org.example.AcademicOfficeTest" time="0.005"/>
+  <testcase name="fetchCourseType()" classname="org.example.AcademicOfficeTest" time="0.003"/>
   <system-out><![CDATA[┌┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┐
 ├┴┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┴┴┤
 │admin_name│admin_id                    │contact  │
@@ -27,13 +27,13 @@
 ├┴┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┴┴┤
 │Staff     │staffdeanoffice@iitrpr.ac.in│999999999│
 └──────────┴────────────────────────────┴─────────┘
-┌─────────────────────────────────────────────────┐
-│                EVENT INFORMATION                │
-├────────────┬───────────────┬────────────────────┤
-│Current Year│Current Session│   Current Event    │
-├────────────┼───────────────┼────────────────────┤
-│    2020    │       1       │Semester has Started│
-└────────────┴───────────────┴────────────────────┘
+┌────────────────────────────────────────────────────────┐
+│                   EVENT INFORMATION                    │
+├────────────┬───────────────┬───────────────────────────┤
+│Current Year│Current Session│       Current Event       │
+├────────────┼───────────────┼───────────────────────────┤
+│    2020    │       1       │Student Registration Begins│
+└────────────┴───────────────┴───────────────────────────┘
 No such course is available
 No such course is available
 Not eligible for graduation due to less semesters passed

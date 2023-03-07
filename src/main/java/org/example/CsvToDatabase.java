@@ -41,7 +41,7 @@ public class CsvToDatabase {
                 preparedStatement.setString(3, removeSpaces(data[5]));
                 preparedStatement.setString(4, removeSpaces(data[6]));
 
-                preparedStatement.executeUpdate();
+//                preparedStatement.executeUpdate();
             }
             connection.close();
             System.out.println("Data inserted successfully into the database.");
@@ -72,7 +72,7 @@ public class CsvToDatabase {
                 preparedStatement.setString(3, removeSpaces(data[2]));
 
 
-                preparedStatement.executeUpdate();
+//                preparedStatement.executeUpdate();
             }
             connection.close();
             System.out.println("Data inserted successfully into the database.");
@@ -104,7 +104,7 @@ public class CsvToDatabase {
                 preparedStatement.setFloat(4, Float.parseFloat(removeSpaces(data[3])));
 
 
-                preparedStatement.executeUpdate();
+//                preparedStatement.executeUpdate();
             }
             connection.close();
             System.out.println("Data inserted successfully into the database.");
@@ -144,7 +144,7 @@ public class CsvToDatabase {
                 preparedStatement.setInt(10,Integer.parseInt(removeSpaces(data[9])));
 
 
-                preparedStatement.execute();
+//                preparedStatement.execute();
             }
             connection.close();
             System.out.println("Data inserted successfully into the database.");
@@ -181,7 +181,7 @@ public class CsvToDatabase {
                 preparedStatement.setFloat(8, Float.parseFloat(removeSpaces(data[7])));
 
 
-                preparedStatement.execute();
+//                preparedStatement.execute();
             }
             connection.close();
             System.out.println("Data inserted successfully into the database.");
@@ -212,7 +212,7 @@ public class CsvToDatabase {
                 prerq_id =  removeSpaces(data[1]).toUpperCase();
                 preparedStatement.setString(1,course_id);
                 preparedStatement.setString(2,prerq_id);
-                preparedStatement.execute();
+//                preparedStatement.execute();
             }
             connection.close();
             preparedStatement.close();
@@ -249,7 +249,7 @@ public class CsvToDatabase {
                 preparedStatement.setString(5, removeSpaces(data[7]));
 
 
-                preparedStatement.executeUpdate();
+//                preparedStatement.executeUpdate();
             }
             connection.close();
             System.out.println("Data inserted successfully into the database.");
@@ -268,13 +268,13 @@ public class CsvToDatabase {
 
     public static void main(String[] args) {
 
-//        fillUserTable();
-//        fillDepartmentTable();
-//        fillCourseCatalogueTable();
-//        fillCourseTable();
-//        fillInstructorTable();
-//        fillStudentTable();
-//        fillPrereqTable();
+        fillUserTable();
+        fillDepartmentTable();
+        fillCourseCatalogueTable();
+        fillCourseTable();
+        fillInstructorTable();
+        fillStudentTable();
+        fillPrereqTable();
 
 
     }

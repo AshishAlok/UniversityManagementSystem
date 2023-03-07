@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class Instructor extends AbstractCommonFunctions{
     protected Connection con = null;
-    private String instructorId;
+    public String instructorId;
     Instructor(String id )
     {
         id = removeSpaces(id);
@@ -44,7 +44,7 @@ public class Instructor extends AbstractCommonFunctions{
         }
         return isActive;
     }
-    boolean floatCourse(String course_id,String dept_id,double min_cgpa)
+    protected boolean floatCourse(String course_id,String dept_id,double min_cgpa)
     {
         boolean isActive = isCourseFloatActive();
         course_id = removeSpaces(course_id);
@@ -88,7 +88,7 @@ public class Instructor extends AbstractCommonFunctions{
         return true;
     }
 
-    boolean deFloatCourse(String course_id,String dept_id)
+    protected boolean deFloatCourse(String course_id,String dept_id)
     {
         boolean isActive = isCourseFloatActive();
         course_id = removeSpaces(course_id);
@@ -128,7 +128,7 @@ public class Instructor extends AbstractCommonFunctions{
         }
         return true;
     }
-    boolean changeProfileNumber(String contact)
+    private boolean changeProfileNumber(String contact)
     {
         contact = removeSpaces(contact);
         String updateQuery = "update instructor set contact = ? where instructor_id = ? ";
@@ -148,7 +148,7 @@ public class Instructor extends AbstractCommonFunctions{
         return true;
     }
 
-    boolean changeProfileName(String name)
+    private boolean changeProfileName(String name)
     {
         name = removeSpaces(name);
         String updateQuery = "update instructor set instructor_name = ? where instructor_id = ? ";
@@ -474,6 +474,8 @@ boolean printSeeGradesMenu()
                         System.out.println("Exiting See Grades Menu..");
                         break;
                     }
+                    CLI.inputTaker();
+                    input1 = scanner.nextLine();
 
                     if(input1.equals("1"))
                     {
@@ -627,7 +629,9 @@ boolean printSeeGradesMenu()
 //    public static void main(String[] args) throws SQLException {
 //        Instructor prof = new Instructor("gunturi@iitrpr.ac.in");
 //
-//        prof.giveGrades("/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/give_grades_test.csv",2020);
+//        prof.runFaculty(prof.instructorId);
+//
+////        prof.giveGrades("/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/give_grades_test.csv",2020);
 //        prof.logOut();
 //    }
 }

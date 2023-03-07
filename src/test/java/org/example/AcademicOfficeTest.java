@@ -236,50 +236,5 @@ class AcademicOfficeTest {
     }
 
 
-//    @Test
-//    void isAddCourseActive() {
-//
-//
-//    }
-//
-//    @Test
-//    void addCourse() {
-//    }
-//
-//    @Test
-//    void isGradesSubmissionEnded() {
-//    }
-//
-//    @Test
-//    void generateTranscript() {
-//    }
-//
-//    @Test
-//    void generateTranscriptForAll() {
-//    }
-//
-//    @Test
-//    void logOut() {
-//    }
-//
-//    @Test
-//    void printMainMenu() {
-//    }
-
-//    @Test
-//    void printActivityMenu() {
-//    }
-//
-//    @Test
-//    void printCourseTypeMenu() {
-//    }
-//
-//    @Test
-//    void printTranscriptMenu() {
-//    }
-//
-//    @Test
-//    void runOffice() {
-//    }
 
 }

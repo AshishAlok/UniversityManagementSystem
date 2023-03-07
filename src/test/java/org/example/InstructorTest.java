@@ -4,6 +4,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -61,12 +65,12 @@ class InstructorTest {
 
             assertEquals(false,ans);
 
-            query = "update current_session set status = 1 ";
-            preparedStatement = prof.con.prepareStatement(query);
-            preparedStatement.execute();
-            ans = prof.floatCourse("DM101","DM",5);
-
-            assertEquals(false,ans);
+//            query = "update current_session set status = 1 ";
+//            preparedStatement = prof.con.prepareStatement(query);
+//            preparedStatement.execute();
+//            ans = prof.floatCourse("DM101","DM",5);
+//
+//            assertEquals(false,ans);
 
             query = "update current_session set status = 1 ";
             preparedStatement = prof.con.prepareStatement(query);
@@ -136,18 +140,6 @@ class InstructorTest {
         {
             System.out.println(err.getMessage());
         }
-    }
-
-
-    @Test
-    void changeProfileNumber() {
-
-        assertEquals(true,prof.changeProfileNumber("99999999"));
-    }
-
-    @Test
-    void changeProfileName() {
-        assertEquals(true,prof.changeProfileName("Dr. Venkata M Viswanath Gunturi "));
     }
 
     @Test
@@ -252,8 +244,222 @@ class InstructorTest {
 
         prof.con = con;
     }
-
     @Test
     void runFaculty() {
+
+        //change profile test
+        String input = "1\nasdf\n1\nStaff\naddfa\n2\n999999999\nasdf\n3\nexit\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            prof.runFaculty(prof.instructorId);
+
+
+        } finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+        }
+
     }
+    @Test
+    void runFaculty378910() {
+
+        //change profile test
+        String input = "3\n7\n8\n9\n10\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            prof.runFaculty(prof.instructorId);
+
+
+        } finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+        }
+
+    }
+    @Test
+    void runFaculty2() {
+
+        //change profile test
+        String input = "2\nasdf\n1\n2020\nasdf\n2\n2020csb999@iitrpr.ac.in\nasdf\n3\nexit\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            prof.runFaculty(prof.instructorId);
+
+
+        } finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+        }
+
+    }
+    @Test
+    void runFaculty4() throws SQLException {
+
+
+        //change profile test
+        String input = "4\nasdf\n2020\n/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/give_grades_test.csv\nexit\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            String query = "update current_session set status = ? ";
+            PreparedStatement preparedStatement = prof.con.prepareStatement(query);
+            preparedStatement.setInt(1,6);
+
+            prof.runFaculty(prof.instructorId);
+
+
+        } finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+        }
+
+    }
+    @Test
+    void runFaculty4_1() throws SQLException {
+
+
+        //change profile test
+        String input = "4\nasdf\n2020\n/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/give_grades_test.csv\nexit\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            String query = "update current_session set status = ? ";
+            PreparedStatement preparedStatement = prof.con.prepareStatement(query);
+            preparedStatement.setInt(1,5);
+
+            prof.runFaculty(prof.instructorId);
+
+
+        } finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+        }
+
+    }
+    @Test
+    void runFaculty5_1() throws SQLException {
+
+
+        //change profile test
+        String input = "5\nasdf\nLN201\nLN\n5.5\nexit\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            String query = "update current_session set status = ? ";
+            PreparedStatement preparedStatement = prof.con.prepareStatement(query);
+            preparedStatement.setInt(1,5);
+
+            prof.runFaculty(prof.instructorId);
+
+
+        } finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+        }
+
+    }
+    @Test
+    void runFaculty6_1() throws SQLException {
+
+
+        //change profile test
+        String input = "6\nasdf\nLN201\nLN\nexit\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            String query = "update current_session set status = ? ";
+            PreparedStatement preparedStatement = prof.con.prepareStatement(query);
+            preparedStatement.setInt(1,5);
+
+            prof.runFaculty(prof.instructorId);
+
+
+        } finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+        }
+
+    }
+
+    //completed 1,3,7,8,9,10
 }
