@@ -235,15 +235,6 @@ class AcademicOfficeTest {
         assertEquals(true,officer.viewEvent(officer.con));
     }
 
-    @Test
-    void changeProfileNumber() throws SQLException {
-        assertEquals(true,officer.changeProfileNumber("99999999"));
-    }
-
-    @Test
-    void changeProfileName() throws SQLException {
-        assertEquals(true,officer.changeProfileName("staff"));
-    }
 
 //    @Test
 //    void isAddCourseActive() {

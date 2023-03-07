@@ -576,6 +576,70 @@ class StudentTest {
         }
     }
     @Test
+    void runStudent5_6_1() throws SQLException {
+//course_registered
+//already enrolled courses
+        String query = "update current_session set status = 1 ";
+        PreparedStatement preparedStatement = prof.con.prepareStatement(query);
+        preparedStatement.execute();
+
+        query = "insert into course_offering(instructor_id,course_id,dept_id,min_cgpa) values(?,?,?,?)";
+        preparedStatement = prof.con.prepareStatement(query);
+        preparedStatement.setString(1,"gunturi@iitrpr.ac.in");
+        preparedStatement.setString(2,"CS101");
+        preparedStatement.setString(3,"CSE");
+        preparedStatement.setDouble(4,5.0);
+        preparedStatement.execute();
+
+
+        query = "update current_session set status = 3";
+        preparedStatement = std.con.prepareStatement(query);
+        preparedStatement.execute();
+
+        query  ="delete from enrolled_credits";
+        preparedStatement = std.con.prepareStatement(query);
+        preparedStatement.execute();
+
+
+        String input = "5\nasdf\nCS101\nexit\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            std.runStudent(std.student_id);
+
+
+        }finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+
+            query = "delete from course_offering where course_id = ? ";
+            preparedStatement = prof.con.prepareStatement(query);
+            preparedStatement.setString(1,"CS101");
+            preparedStatement.execute();
+
+            query = "delete from student_record_"+std.extractIntegral(std.student_id)+ " where course_id = ? and grades = ?";
+            preparedStatement = std.con.prepareStatement(query);
+            preparedStatement.setString(1,"CS101");
+            preparedStatement.setString(2,"NA");
+            preparedStatement.execute();
+
+            query  ="delete from enrolled_credits";
+            preparedStatement = std.con.prepareStatement(query);
+            preparedStatement.execute();
+        }
+    }
+    @Test
     void runStudent5_7() throws SQLException {
 //        Student std1 = new Student("");
 
@@ -660,5 +724,163 @@ class StudentTest {
 
         }
     }
-//completed 1,2,3,4,6,7,8,9,10
+
+    @Test
+    void runStudent11() throws SQLException {
+
+        String query = "update current_session set status = 3";
+        PreparedStatement preparedStatement = std.con.prepareStatement(query);
+        preparedStatement.execute();
+
+        String input = "11\nexit\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            std.runStudent(std.student_id);
+
+
+        }finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+
+        }
+    }
+    @Test
+    void runStudent8() throws SQLException {
+        String query = "update current_session set status = 1 ";
+        PreparedStatement preparedStatement = prof.con.prepareStatement(query);
+        preparedStatement.execute();
+
+
+
+
+        String input = "8\nasdf\nLM101\nexit\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            std.runStudent(std.student_id);
+
+
+        }finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+
+        }
+
+    }
+    @Test
+    void runStudent8_1() throws SQLException {
+        String query = "update current_session set status = 3 ";
+        PreparedStatement preparedStatement = prof.con.prepareStatement(query);
+        preparedStatement.execute();
+
+
+
+
+        String input = "8\nasdf\nLM101\nexit\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            std.runStudent(std.student_id);
+
+
+        }finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+
+        }
+
+    }@Test
+    void runStudent8_2() throws SQLException {
+        String query = "update current_session set status = 3 ";
+        PreparedStatement preparedStatement = prof.con.prepareStatement(query);
+        preparedStatement.execute();
+
+        query = "insert into student_record_2020 (student_id,course_id,semester,grades,credits) " +
+                "values(?,?,?,?,?)";
+        preparedStatement = std.con.prepareStatement(query);
+//        "2020csb1101@iitrpr.ac.in","CS101","NA",3
+        preparedStatement.setString(1,"2020csb1101@iitrpr.ac.in");
+        preparedStatement.setString(2,"CS101");
+        preparedStatement.setInt(3,2);
+        preparedStatement.setString(4,"NA");
+        preparedStatement.setDouble(5,3.0);
+        preparedStatement.execute();
+
+
+        query  ="delete from enrolled_credits";
+        preparedStatement = std.con.prepareStatement(query);
+        preparedStatement.execute();
+
+        query = "insert into enrolled_credits(student_id,credits) values(?,?)";
+        preparedStatement = std.con.prepareStatement(query);
+        preparedStatement.setString(1,"2020csb1101@iitrpr.ac.in");
+        preparedStatement.setDouble(2,3.0);
+
+
+
+
+        String input = "8\nasdf\nCS101\nexit\nexit\n"; // Provide input to the program
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the original System.in and System.out streams
+        InputStream originalInputStream = System.in;
+        PrintStream originalPrintStream = System.out;
+
+        try{
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            std.runStudent(std.student_id);
+
+
+        }finally {
+
+            System.setIn(originalInputStream);
+            System.setOut(originalPrintStream);
+
+            query  ="delete from enrolled_credits";
+            preparedStatement = std.con.prepareStatement(query);
+            preparedStatement.execute();
+
+        }
+
+    }
+//completed 1,2,3,4,6,7,8,9,10,11
 }

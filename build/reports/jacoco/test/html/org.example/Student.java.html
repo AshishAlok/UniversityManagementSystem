@@ -61,7 +61,7 @@ public class Student extends AbstractCommonFunctions {
 <span class="nc" id="L61">        return true;</span>
 
     }
-    boolean isCourseRegistraionActive()  {
+    protected boolean isCourseRegistraionActive()  {
 <span class="nc" id="L65">        boolean isActive = false;</span>
 <span class="nc" id="L66">        String query = &quot;select * from current_session&quot;;</span>
             try{
@@ -87,7 +87,7 @@ public class Student extends AbstractCommonFunctions {
 
 <span class="nc" id="L88">        return isActive;</span>
     }
-    boolean checkIfFloated(String course_id)  {
+    protected boolean checkIfFloated(String course_id)  {
 <span class="nc" id="L91">        boolean isFloated = false;</span>
 <span class="nc" id="L92">        String query = &quot;select * from course_offering where course_id = ?&quot;;</span>
 
@@ -112,7 +112,7 @@ public class Student extends AbstractCommonFunctions {
 
 <span class="nc" id="L113">        return isFloated;</span>
     }
-    boolean satisfyCGPACriteria(String course_id) {
+    protected boolean satisfyCGPACriteria(String course_id) {
 <span class="nc" id="L116">        boolean isSatisfied = false;</span>
 <span class="nc" id="L117">        double cgpa = calculateCGPA(this.con,this.student_id, this.studentAdmYear);</span>
 <span class="nc" id="L118">        System.out.println(&quot;CGPA is &quot;+cgpa);</span>
@@ -141,7 +141,7 @@ public class Student extends AbstractCommonFunctions {
 
 <span class="nc" id="L142">        return isSatisfied;</span>
     }
-    boolean satisfyPrerequisite(String course_id)  {
+    protected boolean satisfyPrerequisite(String course_id)  {
 <span class="nc" id="L145">        boolean isSatisfied = true;</span>
 <span class="nc" id="L146">        String fetchPrereq = &quot;select * from prereq where course_id = ?&quot;;</span>
 <span class="nc" id="L147">        String fetchCompCourse = &quot;select * from student_record_&quot;+ String.valueOf(this.studentAdmYear)+&quot; where student_id = ?&quot;;</span>
@@ -186,7 +186,7 @@ public class Student extends AbstractCommonFunctions {
 
 <span class="nc" id="L187">        return isSatisfied;</span>
     }
-    boolean satisfyRequiredSem(String course_id)  {
+    protected boolean satisfyRequiredSem(String course_id)  {
 <span class="nc" id="L190">        boolean isSatisfied = false;</span>
 <span class="nc" id="L191">        int minReqSem = fetchMinReqSem(this.con,course_id,this.studentAdmYear);</span>
 <span class="nc" id="L192">        System.out.println(&quot;Minimum required sem = &quot;+minReqSem);</span>
@@ -214,7 +214,7 @@ public class Student extends AbstractCommonFunctions {
 <span class="nc" id="L214">            }</span>
 <span class="nc" id="L215">        return isSatisfied;</span>
     }
-    public double findCreditLimit()  {
+     public double findCreditLimit()  {
 <span class="nc" id="L218">        double creditLimit = 0;</span>
 <span class="nc" id="L219">        int sem = 0;</span>
 <span class="nc" id="L220">        double earnedCredits = 0;</span>
@@ -263,7 +263,7 @@ public class Student extends AbstractCommonFunctions {
 
 <span class="nc" id="L264">        return creditLimit;</span>
     }
-    boolean satisfyCreditLimitCUMUpdate(String course_id)  {
+    private boolean satisfyCreditLimitCUMUpdate(String course_id)  {
 <span class="nc" id="L267">        boolean isSatisfied = false;</span>
 <span class="nc" id="L268">        String findQuery = &quot;Select * from enrolled_credits where student_id = ?&quot; ;</span>
 <span class="nc" id="L269">        String insertQuery = &quot;insert into enrolled_credits (student_id,credits) values(?,?)&quot;;</span>
@@ -495,7 +495,7 @@ public class Student extends AbstractCommonFunctions {
 <span class="nc" id="L495">        return true;</span>
     }
 
-    boolean printMainMenu()
+    public boolean printMainMenu()
     {
 <span class="nc" id="L500">        ArrayList&lt;ArrayList&lt;String&gt;&gt; mainMenu = new ArrayList&lt;&gt;();</span>
 <span class="nc" id="L501">        String title = &quot;MAIN MENU&quot;;</span>
@@ -738,13 +738,11 @@ public class Student extends AbstractCommonFunctions {
             }
 
 <span class="nc" id="L740">            CLI.clearScreen();</span>
-
-
         }
 
 
-<span class="nc" id="L746">        std.logOut();</span>
-<span class="nc" id="L747">    }</span>
+<span class="nc" id="L744">        std.logOut();</span>
+<span class="nc" id="L745">    }</span>
 
 //    public static void main(String[] args)
 //    {

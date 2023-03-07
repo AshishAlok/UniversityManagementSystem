@@ -61,7 +61,7 @@ public class Student extends AbstractCommonFunctions {
         return true;
 
     }
-    boolean isCourseRegistraionActive()  {
+    protected boolean isCourseRegistraionActive()  {
         boolean isActive = false;
         String query = "select * from current_session";
             try{
@@ -87,7 +87,7 @@ public class Student extends AbstractCommonFunctions {
 
         return isActive;
     }
-    boolean checkIfFloated(String course_id)  {
+    protected boolean checkIfFloated(String course_id)  {
         boolean isFloated = false;
         String query = "select * from course_offering where course_id = ?";
 
@@ -112,7 +112,7 @@ public class Student extends AbstractCommonFunctions {
 
         return isFloated;
     }
-    boolean satisfyCGPACriteria(String course_id) {
+    protected boolean satisfyCGPACriteria(String course_id) {
         boolean isSatisfied = false;
         double cgpa = calculateCGPA(this.con,this.student_id, this.studentAdmYear);
         System.out.println("CGPA is "+cgpa);
@@ -141,7 +141,7 @@ public class Student extends AbstractCommonFunctions {
 
         return isSatisfied;
     }
-    boolean satisfyPrerequisite(String course_id)  {
+    protected boolean satisfyPrerequisite(String course_id)  {
         boolean isSatisfied = true;
         String fetchPrereq = "select * from prereq where course_id = ?";
         String fetchCompCourse = "select * from student_record_"+ String.valueOf(this.studentAdmYear)+" where student_id = ?";
@@ -186,7 +186,7 @@ public class Student extends AbstractCommonFunctions {
 
         return isSatisfied;
     }
-    boolean satisfyRequiredSem(String course_id)  {
+    protected boolean satisfyRequiredSem(String course_id)  {
         boolean isSatisfied = false;
         int minReqSem = fetchMinReqSem(this.con,course_id,this.studentAdmYear);
         System.out.println("Minimum required sem = "+minReqSem);
@@ -214,7 +214,7 @@ public class Student extends AbstractCommonFunctions {
             }
         return isSatisfied;
     }
-    public double findCreditLimit()  {
+     public double findCreditLimit()  {
         double creditLimit = 0;
         int sem = 0;
         double earnedCredits = 0;
@@ -263,7 +263,7 @@ public class Student extends AbstractCommonFunctions {
 
         return creditLimit;
     }
-    boolean satisfyCreditLimitCUMUpdate(String course_id)  {
+    private boolean satisfyCreditLimitCUMUpdate(String course_id)  {
         boolean isSatisfied = false;
         String findQuery = "Select * from enrolled_credits where student_id = ?" ;
         String insertQuery = "insert into enrolled_credits (student_id,credits) values(?,?)";
@@ -495,7 +495,7 @@ public class Student extends AbstractCommonFunctions {
         return true;
     }
 
-    boolean printMainMenu()
+    public boolean printMainMenu()
     {
         ArrayList<ArrayList<String>> mainMenu = new ArrayList<>();
         String title = "MAIN MENU";
@@ -738,8 +738,6 @@ public class Student extends AbstractCommonFunctions {
             }
 
             CLI.clearScreen();
-
-
         }
 
 

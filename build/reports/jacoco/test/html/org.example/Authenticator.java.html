@@ -2,44 +2,44 @@
 
 import java.sql.*;
 
-<span class="fc" id="L5">public class Authenticator {</span>
+<span class="nc" id="L5">public class Authenticator {</span>
 
     public boolean authenticate(String username,String role, String password) {
         // Retrieve the hashed password from the database for the given username
-<span class="fc" id="L9">        String storedHashedPassword = retrieveHashedPasswordFromDB(username,role);</span>
+<span class="nc" id="L9">        String storedHashedPassword = retrieveHashedPasswordFromDB(username,role);</span>
 
         // Check if the given password matches the stored hashed password
-<span class="fc" id="L12">        return  (password.equals(storedHashedPassword));</span>
+<span class="nc" id="L12">        return  (password.equals(storedHashedPassword));</span>
     }
 
     private String retrieveHashedPasswordFromDB(String username,String role) {
         // In a real-world scenario, you would retrieve the hashed password from a database
         // For the purpose of this example, we'll return a fixed hashed password
-<span class="fc" id="L18">        GetConnection gtCon = new GetConnection();</span>
-<span class="fc" id="L19">        Connection con = gtCon.getConnection();</span>
+<span class="nc" id="L18">        GetConnection gtCon = new GetConnection();</span>
+<span class="nc" id="L19">        Connection con = gtCon.getConnection();</span>
 
-<span class="fc" id="L21">        String password = &quot;&quot;;</span>
-<span class="fc" id="L22">        String findQuery = &quot;Select password from user_table as u where u.user_id = ? and u.role = ? &quot;;</span>
+<span class="nc" id="L21">        String password = &quot;&quot;;</span>
+<span class="nc" id="L22">        String findQuery = &quot;Select password from user_table as u where u.user_id = ? and u.role = ? &quot;;</span>
         try{
-<span class="fc" id="L24">            PreparedStatement preparedStatement = con.prepareStatement(findQuery);</span>
-<span class="fc" id="L25">            preparedStatement.setString(1,username);</span>
-<span class="fc" id="L26">            preparedStatement.setString(2,role);</span>
-<span class="fc" id="L27">            ResultSet rs = preparedStatement.executeQuery();</span>
-<span class="fc bfc" id="L28" title="All 2 branches covered.">            if(rs.next())</span>
+<span class="nc" id="L24">            PreparedStatement preparedStatement = con.prepareStatement(findQuery);</span>
+<span class="nc" id="L25">            preparedStatement.setString(1,username);</span>
+<span class="nc" id="L26">            preparedStatement.setString(2,role);</span>
+<span class="nc" id="L27">            ResultSet rs = preparedStatement.executeQuery();</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">            if(rs.next())</span>
             {
-<span class="fc" id="L30">                password = rs.getString(1);</span>
+<span class="nc" id="L30">                password = rs.getString(1);</span>
             }
             else {
-<span class="fc" id="L33">                System.out.println(&quot;NO user found!!&quot;);</span>
+<span class="nc" id="L33">                System.out.println(&quot;NO user found!!&quot;);</span>
             }
-<span class="fc" id="L35">            con.close();</span>
+<span class="nc" id="L35">            con.close();</span>
 
 <span class="nc" id="L37">        }catch(SQLException e)</span>
         {
 <span class="nc" id="L39">            System.out.println(e.getMessage());</span>
-<span class="fc" id="L40">        }</span>
+<span class="nc" id="L40">        }</span>
 
-<span class="fc" id="L42">        return password;</span>
+<span class="nc" id="L42">        return password;</span>
     }
 //    public static void main(String[] args)
 //    {

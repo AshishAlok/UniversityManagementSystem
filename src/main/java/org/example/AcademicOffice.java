@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class AcademicOffice extends AbstractCommonFunctions{
-    private String officerId;
+    public String officerId;
     protected Connection con = null;
     AcademicOffice(String id )
     {
@@ -18,35 +18,45 @@ public class AcademicOffice extends AbstractCommonFunctions{
         this.con = gtCon.getConnection();
     }
 
-    boolean changeProfileNumber(String contact) throws SQLException {
+    private boolean changeProfileNumber(String contact) {
         contact = removeSpaces(contact);
 //        insert into admin (admin_name,admin_id,contact) values ('Staff Dean’s office','staffdeanoffice@iitrpr.ac.in','NA');
         String updateQuery = "update admin set contact = ? where admin_id = ? ";
-            PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);
-            preparedStatement.setString(1,contact);
-            preparedStatement.setString(2,removeSpaces(this.officerId));
+            try{
+                PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);
+                preparedStatement.setString(1,contact);
+                preparedStatement.setString(2,removeSpaces(this.officerId));
 
-            preparedStatement.execute();
-            preparedStatement.close();
+                preparedStatement.execute();
+                preparedStatement.close();
+            }catch(SQLException err)
+            {
+                System.out.println(err.getMessage());
+            }
         return true;
     }
 
-    boolean changeProfileName(String name) throws SQLException {
+    private boolean changeProfileName(String name)  {
         name = removeSpaces(name);
 //        insert into admin (admin_name,admin_id,contact) values ('Staff Dean’s office','staffdeanoffice@iitrpr.ac.in','NA');
         String updateQuery = "update admin set admin_name = ? where admin_id = ? ";
-            PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);
-            preparedStatement.setString(1,removeSpaces(name));
-            preparedStatement.setString(2,removeSpaces(this.officerId));
+            try{
+                PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);
+                preparedStatement.setString(1,removeSpaces(name));
+                preparedStatement.setString(2,removeSpaces(this.officerId));
 
-            preparedStatement.execute();
-            preparedStatement.close();
+                preparedStatement.execute();
+                preparedStatement.close();
+            }catch(SQLException err)
+            {
+                System.out.println(err.getMessage());
+            }
 
         return true;
 
     }
 
-    private boolean setSession(int year,int session,int status) throws SQLException {
+    private boolean setSession(int year,int session,int status) {
         String delQuery = "delete from current_session";
         String startQuery = "insert into current_session (current_year, current_session, status) values (?, ?, ?)";
         String takesQuery = "create table student_record_"+String.valueOf(year) +" (" +
@@ -89,7 +99,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
             preparedStatement.setInt(3,status);
             preparedStatement.execute();
 
-            if(session == 8)
+            if(status == 8)
             {
                 String str = "delete from enrolled_credits";
                 preparedStatement = this.con.prepareStatement(str);
@@ -128,7 +138,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
         }
         return true;
     }
-    boolean isAddCourseActive()
+    public boolean isAddCourseActive()
     {
         String query = "select * from current_session";
         boolean isActive = false;
@@ -154,7 +164,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
 
         return isActive;
     }
-    boolean addCourse(String course_id,String title,String dept_id,int req_sem,double l,double t , double p,double credits,String course_type,int batch)
+    private boolean addCourse(String course_id,String title,String dept_id,int req_sem,double l,double t , double p,double credits,String course_type,int batch)
     {
 
         String insertQuery = "insert into course_catalogue (course_id, title,dept_id, req_sem,l,t,p,credits,course_type,batch) values (?,?,?,?,?,?,?,?,?,?)";
@@ -226,7 +236,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
         }
         return true;
     }
-    boolean isGradesSubmissionEnded()
+    public boolean isGradesSubmissionEnded()
     {
         String query = String.format("select * from current_session");
         boolean isStarted = false;
@@ -248,7 +258,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
         }
         return isStarted;
     }
-    protected boolean promote(String csvFile,int year)
+    private boolean promote(String csvFile,int year)
     {
         String updateQuery = "update student set current_sem = current_sem +1 where student_id = ?";
         boolean submitGradeEnd = isGradesSubmissionEnded();
@@ -287,7 +297,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
 
         return true;
     }
-    protected boolean demote(String csvFile,int year)
+    public boolean demote(String csvFile,int year)
     {
         String updateQuery = "update student set current_sem = current_sem -1 where student_id = ?";
         boolean submitGradeEnd = isGradesSubmissionEnded();
@@ -327,7 +337,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
         return true;
     }
 
-    boolean generateTranscript(String student_id)
+    private boolean generateTranscript(String student_id)
     {
         student_id = removeSpaces(student_id);
         student_id = student_id.toLowerCase();
@@ -422,7 +432,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
         System.out.println("Transcript Generated!");
         return true;
     }
-    boolean generateTranscriptForAll(int year)
+    private boolean generateTranscriptForAll(int year)
     {
         String query = "select student_id from student_record_"+year+" group by student_id";
         try{
@@ -440,9 +450,14 @@ public class AcademicOffice extends AbstractCommonFunctions{
         }
         return true;
     }
-    boolean logOut() throws SQLException {
-           this.con.close();
-        System.out.println("Admin Successfully logged out!");
+    boolean logOut() {
+           try{
+               this.con.close();
+               System.out.println("Admin Successfully logged out!");
+           }catch(SQLException err)
+           {
+               System.out.println(err.getMessage());
+           }
         return true;
     }
 
@@ -482,7 +497,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
         officerMainMenu.add(row);
 
         row = new ArrayList<>();
-        row.add("Genereate Student Transcript");
+        row.add("Generate Student Transcript");
         row.add("6");
         officerMainMenu.add(row);
 
@@ -491,8 +506,43 @@ public class AcademicOffice extends AbstractCommonFunctions{
         row.add("7");
         officerMainMenu.add(row);
 
+        row = new ArrayList<>();
+        row.add("Add Course Prerequisites of Courses");
+        row.add("8");
+        officerMainMenu.add(row);
+
+        row = new ArrayList<>();
+        row.add("View Event");
+        row.add("9");
+        officerMainMenu.add(row);
+
         CLI.printMenu(title,officerMainMenu);
 
+        return true;
+    }
+    private boolean addCoursePrerequisite(String course_id,String prereq_id)
+    {
+        if(!isAddCourseActive())
+        {
+            System.out.println("Course Add or drop not active so cannot add prerequisite");
+            return false;
+        }
+        course_id = removeSpaces(course_id);
+        prereq_id = removeSpaces(prereq_id);
+        course_id = course_id.toUpperCase();
+        prereq_id = prereq_id.toUpperCase();
+
+        String query = "insert into prereq(course_id,prereq_id) values(?,?)";
+        try{
+            PreparedStatement preparedStatement = this.con.prepareStatement(query);
+            preparedStatement.setString(1,course_id);
+            preparedStatement.setString(2,prereq_id);
+
+        }catch(SQLException err)
+        {
+            System.out.println(err.getMessage());
+            return false;
+        }
         return true;
     }
 
@@ -586,6 +636,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
 
         return true;
     }
+
     boolean printTranscriptMenu()
     {
         ArrayList<ArrayList<String>> transcriptMenu = new ArrayList<>();
@@ -610,7 +661,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
 
         return true;
     }
-    public static void runOffice(String userId) throws SQLException {
+    public static void runOffice(String userId) {
 
         AcademicOffice officer = new AcademicOffice(userId);
         String input = "";
@@ -651,7 +702,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
                         CLI.inputTaker();
                         String name = scanner.nextLine();
                         officer.changeProfileName(name);
-                        System.out.println("Name Changed Succesfully");
+                        System.out.println("Name Changed Successfully");
 
                     }else if(profile.equals("2"))
                     {
@@ -671,21 +722,23 @@ public class AcademicOffice extends AbstractCommonFunctions{
                 String input1 = "";
                 System.out.println("Enter New Year of Academic Session: ");
                 CLI.inputTaker();
-                try{
-                    input1 = scanner.nextLine();
-                    input1 = removeSpaces(input1);
-                    int year = Integer.parseInt(input1);
 
-                    System.out.println("Enter New Year of Academic Session: ");
-                    CLI.inputTaker();
-                    input1 = scanner.nextLine();
+               try{
+                   input1 = scanner.nextLine();
+                   input1 = removeSpaces(input1);
+                   int year = Integer.parseInt(input1);
 
-                    int session = Integer.parseInt(input1);
-                    officer.setSession(year,session,officer.SEMEND);
-                }catch(Exception err)
-                {
-                    System.out.println(err.getMessage());
-                }
+                   System.out.println("Enter New Session of Academic Session: ");
+                   CLI.inputTaker();
+                   input1 = scanner.nextLine();
+
+                   int session = Integer.parseInt(input1);
+                   officer.setSession(year,session,officer.SEMEND);
+               }catch(Exception err)
+               {
+                   err.getMessage();
+               }
+
                 CLI.clearScreen();
 
 
@@ -702,16 +755,17 @@ public class AcademicOffice extends AbstractCommonFunctions{
                         System.out.println("Exiting Activity Create Menu...");
                         break;
                     }
-                    try
-                    {
+
+                    try{
                         int session = Integer.parseInt(status);
                         officer.createActivity(session);
-
-                        System.out.println("Activity Created Successfully!");
                     }catch(Exception err)
                     {
-                        System.out.println(err.getMessage());
+                        err.getMessage();
                     }
+
+                    System.out.println("Activity Created Successfully!");
+
                     CLI.clearScreen();
 
                 }
@@ -759,7 +813,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
                         CLI.inputTaker();
                         String t = scanner.nextLine();
 
-                        System.out.println("Enter Number of p per week :");
+                        System.out.println("Enter Number of practicals per week :");
                         CLI.inputTaker();
                         String p = scanner.nextLine();
 
@@ -813,7 +867,6 @@ public class AcademicOffice extends AbstractCommonFunctions{
                 String input1 = "";
                 while(true)
                 {
-
                     System.out.println("Enter exit to go back or any other string to move forward");
                     CLI.inputTaker();
                     input1 = scanner.nextLine();
@@ -824,6 +877,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
                         break;
                     }
                     officer.printTranscriptMenu();
+                    CLI.inputTaker();
                     input1 = scanner.nextLine();
                     if(input1.equals("1"))
                     {
@@ -874,6 +928,35 @@ public class AcademicOffice extends AbstractCommonFunctions{
                         System.out.println(err.getMessage());
                     }
                 }
+            }else if(input.equals("8"))
+            {
+                String course_id = "",prereq_id = "";
+                while(true)
+                {
+                    String input1 = "";
+                    System.out.println("Enter exit to go back or any other string to proceed");
+                    CLI.inputTaker();
+                    input1 = scanner.nextLine();
+                    if(input1.equals(exitSymbol))
+                    {
+                        System.out.println("Exiting add prerequisite Menu");
+                        break;
+                    }
+                    System.out.println("Enter the course Id of the course whose prerequisite you want to add");
+                    CLI.inputTaker();
+                    course_id = scanner.nextLine();
+
+                    System.out.println("Enter the course Id of the prerequisite course");
+                    CLI.inputTaker();
+                    prereq_id = scanner.nextLine();
+
+
+                    officer.addCoursePrerequisite(course_id,prereq_id);
+                }
+
+            }else if(input.equals("9"))
+            {
+                officer.viewEvent(officer.con);
             }
             else
             {
