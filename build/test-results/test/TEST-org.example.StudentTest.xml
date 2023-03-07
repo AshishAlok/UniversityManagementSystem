@@ -1,38 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.StudentTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2023-03-07T10:30:12" hostname="ashish" time="0.832">
+<testsuite name="org.example.StudentTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2023-03-07T11:19:36" hostname="ashish" time="0.712">
   <properties/>
-  <testcase name="satisfyRequiredSem()" classname="org.example.StudentTest" time="0.02"/>
+  <testcase name="satisfyRequiredSem()" classname="org.example.StudentTest" time="0.021"/>
   <testcase name="logOut()" classname="org.example.StudentTest" time="0.001"/>
-  <testcase name="registerCourse()" classname="org.example.StudentTest" time="0.001"/>
-  <testcase name="satisfyCGPACriteria()" classname="org.example.StudentTest" time="0.001"/>
+  <testcase name="registerCourse()" classname="org.example.StudentTest" time="0.002"/>
   <testcase name="satisfyCreditLimitCUMUpdate()" classname="org.example.StudentTest" time="0.001"/>
-  <testcase name="checkIfFloated()" classname="org.example.StudentTest" time="0.169"/>
-  <testcase name="viewCourseOffering()" classname="org.example.StudentTest" time="0.007"/>
-  <testcase name="printMainMenu()" classname="org.example.StudentTest" time="0.0"/>
-  <testcase name="changeProfileNumber()" classname="org.example.StudentTest" time="0.003"/>
-  <testcase name="deRegisterCourse()" classname="org.example.StudentTest" time="0.0"/>
-  <testcase name="runStudent()" classname="org.example.StudentTest" time="0.001"/>
-  <testcase name="isCourseRegistraionActive()" classname="org.example.StudentTest" time="0.005"/>
+  <testcase name="viewCourseOffering()" classname="org.example.StudentTest" time="0.179"/>
+  <testcase name="printMainMenu()" classname="org.example.StudentTest" time="0.011"/>
+  <testcase name="deRegisterCourse()" classname="org.example.StudentTest" time="0.001"/>
   <testcase name="findCreditLimit()" classname="org.example.StudentTest" time="0.001"/>
   <testcase name="satisfyPrerequisite()" classname="org.example.StudentTest" time="0.001"/>
-  <testcase name="changeProfileName()" classname="org.example.StudentTest" time="0.004"/>
-  <system-out><![CDATA[┌┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┐
-├┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┼┴┴┴┼┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┤
-│course_id│title│dept_id│req_sem│l  │t  │p  │credits│course_type│batch│
-├┬┬┬┬┬┬┬┬┬┼┬┬┬┬┬┼┬┬┬┬┬┬┬┼┬┬┬┬┬┬┬┼┬┬┬┼┬┬┬┼┬┬┬┼┬┬┬┬┬┬┬┼┬┬┬┬┬┬┬┬┬┬┬┼┬┬┬┬┬┤
-├┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┼┴┴┴┼┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┤
-│DM102    │demo2│CSE    │1      │3.0│3.0│3.0│20.00  │pc         │2020 │
-└─────────┴─────┴───────┴───────┴───┴───┴───┴───────┴───────────┴─────┘
-Course floated successfully!
-┌┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┐
-├┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┼┴┴┴┼┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┤
-│course_id│title│dept_id│req_sem│l  │t  │p  │credits│course_type│batch│
-├┬┬┬┬┬┬┬┬┬┼┬┬┬┬┬┼┬┬┬┬┬┬┬┼┬┬┬┬┬┬┬┼┬┬┬┼┬┬┬┼┬┬┬┼┬┬┬┬┬┬┬┼┬┬┬┬┬┬┬┬┬┬┬┼┬┬┬┬┬┤
-├┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┼┴┴┴┼┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┤
-│DM102    │demo2│CSE    │1      │3.0│3.0│3.0│20.00  │pc         │2020 │
-└─────────┴─────┴───────┴───────┴───┴───┴───┴───────┴───────────┴─────┘
-Course defloated successfully!
-┌┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┐
+  <system-out><![CDATA[┌┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┐
 ├┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┼┴┴┴┴┴┴┴┴┤
 │instructor_id       │course_id│dept_id│min_cgpa│
 ├┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┼┬┬┬┬┬┬┬┬┬┼┬┬┬┬┬┬┬┼┬┬┬┬┬┬┬┬┤
@@ -43,6 +21,29 @@ Course defloated successfully!
 ├────────────────────┼─────────┼───────┼────────┤
 │gunturi@iitrpr.ac.in│DM101    │DM     │7.00    │
 └────────────────────┴─────────┴───────┴────────┘
+┌──────────────────────────────────────┐
+│              MAIN MENU               │
+├─────────────────────────┬────────────┤
+│         Options         │Enter Choice│
+├─────────────────────────┼────────────┤
+│     Change Profile      │     1      │
+├─────────────────────────┼────────────┤
+│     See Your Grades     │     2      │
+├─────────────────────────┼────────────┤
+│ Calculate CGPA till now │     3      │
+├─────────────────────────┼────────────┤
+│  See Course Catalogue   │     4      │
+├─────────────────────────┼────────────┤
+│     Enroll a Course     │     5      │
+├─────────────────────────┼────────────┤
+│   View Current Event    │     6      │
+├─────────────────────────┼────────────┤
+│  Check for Graduation   │     7      │
+├─────────────────────────┼────────────┤
+│De Registration of Course│     8      │
+├─────────────────────────┼────────────┤
+│       View Event        │     9      │
+└─────────────────────────┴────────────┘
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

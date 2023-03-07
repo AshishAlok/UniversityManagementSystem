@@ -99,40 +99,45 @@ public class AbstractCommonFunctions {
         return integralPart;
     }
 
-    public boolean printResultTable(ResultSet rs) throws SQLException {
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int numColumns = rsmd.getColumnCount();
+    public boolean printResultTable(ResultSet rs)  {
+            try{
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int numColumns = rsmd.getColumnCount();
 
-            AsciiTable table = new AsciiTable();
+                AsciiTable table = new AsciiTable();
 
-            List<String> tableHeader = new ArrayList<>();
-            table.addRule();
-            for(int i=1;i<=numColumns;i++)
-            {
-                Object value = rsmd.getColumnName(i);
-                 tableHeader.add(value.toString());
-
-            }
-            table.addRule();
-            table.addRow(tableHeader);
-            table.addRule();
-
-
-            // Add the rows to the ASCII table
-            while (rs.next()) {
-                List<String> row = new ArrayList<>();
-                for (int i = 1; i <= numColumns; i++) {
-                    Object value = rs.getObject(i);
-                        row.add(value.toString());
+                List<String> tableHeader = new ArrayList<>();
+                table.addRule();
+                for(int i=1;i<=numColumns;i++)
+                {
+                    Object value = rsmd.getColumnName(i);
+                    tableHeader.add(value.toString());
 
                 }
                 table.addRule();
-                table.addRow(row);
+                table.addRow(tableHeader);
+                table.addRule();
+
+
+                // Add the rows to the ASCII table
+                while (rs.next()) {
+                    List<String> row = new ArrayList<>();
+                    for (int i = 1; i <= numColumns; i++) {
+                        Object value = rs.getObject(i);
+                        row.add(value.toString());
+
+                    }
+                    table.addRule();
+                    table.addRow(row);
+                }
+                table.addRule();
+                table.getRenderer().setCWC(new CWC_LongestLine());
+                // Print the ASCII table
+                System.out.println(table.render());
+            }catch(SQLException err)
+            {
+                System.out.println(err.getMessage());
             }
-            table.addRule();
-            table.getRenderer().setCWC(new CWC_LongestLine());
-            // Print the ASCII table
-            System.out.println(table.render());
 
         return true;
     }
@@ -711,29 +716,44 @@ public class AbstractCommonFunctions {
 
         return true;
     }
-    boolean viewCourseOffering (Connection con) throws SQLException {
+    boolean viewCourseOffering (Connection con)  {
 
-        String query = "Select * from course_offering";
-        PreparedStatement preparedStatement = con.prepareStatement(query);
-        ResultSet rs = preparedStatement.executeQuery();
-        printResultTable(rs);
+        try{
+            String query = "Select * from course_offering";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            printResultTable(rs);
+        }catch(SQLException er)
+        {
+            System.out.println(er.getMessage());
+        }
 
         return true;
     }
-    boolean logInTimeStamp(String userId,Connection con) throws SQLException {
-        String query = "INSERT INTO user_sessions (user_id, login_time) VALUES (?, NOW())";
-        PreparedStatement preparedStatement = con.prepareStatement(query);
-        preparedStatement.setString(1,userId);
-        preparedStatement.execute();
+    boolean logInTimeStamp(String userId,Connection con)  {
+        try{
+            String query = "INSERT INTO user_sessions (user_id, login_time) VALUES (?, NOW())";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1,userId);
+            preparedStatement.execute();
+        }catch (SQLException er)
+        {
+            System.out.println(er.getMessage());
+        }
         return true;
     }
-    boolean logOutTimeStamp(String userId,Connection con) throws SQLException {
-        String query = "UPDATE user_sessions\n" +
-                "SET logout_time = NOW()\n" +
-                "WHERE user_id = ? AND logout_time IS NULL;";
-        PreparedStatement preparedStatement = con.prepareStatement(query);
-        preparedStatement.setString(1,userId);
-        preparedStatement.execute();
+    boolean logOutTimeStamp(String userId,Connection con)  {
+        try{
+            String query = "UPDATE user_sessions\n" +
+                    "SET logout_time = NOW()\n" +
+                    "WHERE user_id = ? AND logout_time IS NULL;";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1,userId);
+            preparedStatement.execute();
+        }catch(SQLException err)
+        {
+            System.out.println(err.getMessage());
+        }
         return true;
     }
 }

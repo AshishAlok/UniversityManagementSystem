@@ -10,173 +10,211 @@ public class Student extends AbstractCommonFunctions {
     protected String student_id ;
     protected Connection con = null ;
     protected int studentAdmYear = 0;
-    Student(String id) throws SQLException {
+    Student(String id)   {
         id = removeSpaces(id);
         id.toLowerCase();
         this.student_id = id;
         GetConnection gtCon = new GetConnection();
         this.con = gtCon.getConnection();
         studentAdmYear = extractIntegral(student_id);
+
         this.logInTimeStamp(this.student_id,this.con);
+
+
     }
 
-    boolean changeProfileNumber(String contact) throws SQLException {
+    boolean changeProfileNumber(String contact)  {
         contact = removeSpaces(contact);
         String updateQuery = "update student set contact = ? where student_id = ? ";
 
-            PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);
-            preparedStatement.setString(1,removeSpaces(contact));
-            preparedStatement.setString(2,removeSpaces(this.student_id));
+            try{
+                PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);
+                preparedStatement.setString(1,removeSpaces(contact));
+                preparedStatement.setString(2,removeSpaces(this.student_id));
 
-            preparedStatement.execute();
-            preparedStatement.close();
-
-
-        return true;
-    }
-
-    boolean changeProfileName(String name) throws SQLException {
-        name = removeSpaces(name);
-        String updateQuery = "update student set student_name = ? where student_id = ? ";
-            PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);
-            preparedStatement.setString(1,removeSpaces(name));
-            preparedStatement.setString(2,removeSpaces(this.student_id));
-
-            preparedStatement.execute();
-            preparedStatement.close();
-
-        return true;
-
-    }
-    boolean isCourseRegistraionActive() throws SQLException {
-        boolean isActive = false;
-        String query = "select * from current_session";
-            PreparedStatement preparedStatement = this.con.prepareStatement(query);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if(rs.next())
+                preparedStatement.execute();
+                preparedStatement.close();
+            }catch(SQLException err)
             {
-                if(rs.getInt("status") == this.STUDENTREGBEGIN)
-                {
-                    isActive = true;
-                }
+                System.out.println(err.getMessage());
             }
 
 
-            rs.close();
-            preparedStatement.close();
+        return true;
+    }
+
+    boolean changeProfileName(String name)  {
+        name = removeSpaces(name);
+        String updateQuery = "update student set student_name = ? where student_id = ? ";
+            try{
+                PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);
+                preparedStatement.setString(1,removeSpaces(name));
+                preparedStatement.setString(2,removeSpaces(this.student_id));
+
+                preparedStatement.execute();
+                preparedStatement.close();
+            }catch(SQLException err)
+            {
+                System.out.println(err.getMessage());
+            }
+
+        return true;
+
+    }
+    boolean isCourseRegistraionActive()  {
+        boolean isActive = false;
+        String query = "select * from current_session";
+            try{
+                PreparedStatement preparedStatement = this.con.prepareStatement(query);
+                ResultSet rs = preparedStatement.executeQuery();
+
+                if(rs.next())
+                {
+                    if(rs.getInt("status") == this.STUDENTREGBEGIN)
+                    {
+                        isActive = true;
+                    }
+                }
+
+
+                rs.close();
+                preparedStatement.close();
+            }catch(SQLException err)
+            {
+                System.out.println(err.getMessage());
+            }
 
 
         return isActive;
     }
-    boolean checkIfFloated(String course_id) throws SQLException {
+    boolean checkIfFloated(String course_id)  {
         boolean isFloated = false;
         String query = "select * from course_offering where course_id = ?";
 
-            PreparedStatement preparedStatement = this.con.prepareStatement(query);
-            preparedStatement.setString(1,course_id);
+            try{
+                PreparedStatement preparedStatement = this.con.prepareStatement(query);
+                preparedStatement.setString(1,course_id);
 
-            ResultSet rs = preparedStatement.executeQuery();
+                ResultSet rs = preparedStatement.executeQuery();
 //            printResultTable(rs);
 
-            if(rs.next())
+                if(rs.next())
+                {
+                    isFloated = true;
+                }
+                rs.close();
+                preparedStatement.close();
+            }catch(SQLException err)
             {
-                isFloated = true;
+                System.out.println(err.getMessage());
             }
-            rs.close();
-            preparedStatement.close();
 
 
         return isFloated;
     }
-    boolean satisfyCGPACriteria(String course_id) throws SQLException {
+    boolean satisfyCGPACriteria(String course_id) {
         boolean isSatisfied = false;
         double cgpa = calculateCGPA(this.con,this.student_id, this.studentAdmYear);
         System.out.println("CGPA is "+cgpa);
         String findQuery = "select * from course_offering where course_id = ?";
 
-            PreparedStatement preparedStatement = this.con.prepareStatement(findQuery);
-            preparedStatement.setString(1,course_id);
-            ResultSet rs = preparedStatement.executeQuery();
-            if(rs.next())
-            {
-                if(cgpa >= rs.getDouble("min_cgpa"))
+            try{
+                PreparedStatement preparedStatement = this.con.prepareStatement(findQuery);
+                preparedStatement.setString(1,course_id);
+                ResultSet rs = preparedStatement.executeQuery();
+                if(rs.next())
                 {
-                    isSatisfied = true;
+                    if(cgpa >= rs.getDouble("min_cgpa"))
+                    {
+                        isSatisfied = true;
+                    }
                 }
-            }
 
-            rs.close();
-            preparedStatement.close();
+                rs.close();
+                preparedStatement.close();
+            }catch(SQLException err)
+            {
+                System.out.println(err.getMessage());
+            }
 
 
 
         return isSatisfied;
     }
-    boolean satisfyPrerequisite(String course_id) throws SQLException {
+    boolean satisfyPrerequisite(String course_id)  {
         boolean isSatisfied = true;
         String fetchPrereq = "select * from prereq where course_id = ?";
         String fetchCompCourse = "select * from student_record_"+ String.valueOf(this.studentAdmYear)+" where student_id = ?";
-            PreparedStatement preparedStatement = this.con.prepareStatement(fetchPrereq);
-            preparedStatement.setString(1,course_id);
+           try{
+               PreparedStatement preparedStatement = this.con.prepareStatement(fetchPrereq);
+               preparedStatement.setString(1,course_id);
 
-            ResultSet rs = preparedStatement.executeQuery();
+               ResultSet rs = preparedStatement.executeQuery();
 //            printResultTable(rs);
-            List<String> prereqList = new ArrayList<>();
-            while (rs.next()) {
-                String str = rs.getString("prereq_id");
-                prereqList.add(str);
-            }
-            preparedStatement = this.con.prepareStatement(fetchCompCourse);
-            preparedStatement.setString(1,this.student_id);
+               List<String> prereqList = new ArrayList<>();
+               while (rs.next()) {
+                   String str = rs.getString("prereq_id");
+                   prereqList.add(str);
+               }
+               preparedStatement = this.con.prepareStatement(fetchCompCourse);
+               preparedStatement.setString(1,this.student_id);
 
-            rs = preparedStatement.executeQuery();
+               rs = preparedStatement.executeQuery();
 
-            Set<String> compCourseSet = new HashSet<>();
-            while(rs.next())
-            {
-                compCourseSet.add(rs.getString("course_id"));
-            }
-            for (String str : prereqList) {
-                if (compCourseSet.contains(str)) {
-                    System.out.println(str + " is present in the Completed course set.");
-                } else {
-                    System.out.println(str + " is not present in the Completed course set.");
-                    isSatisfied = false;
-                }
-            }
+               Set<String> compCourseSet = new HashSet<>();
+               while(rs.next())
+               {
+                   compCourseSet.add(rs.getString("course_id"));
+               }
+               for (String str : prereqList) {
+                   if (compCourseSet.contains(str)) {
+                       System.out.println(str + " is present in the Completed course set.");
+                   } else {
+                       System.out.println(str + " is not present in the Completed course set.");
+                       isSatisfied = false;
+                   }
+               }
 
-            rs.close();
-            preparedStatement.close();
+               rs.close();
+               preparedStatement.close();
+           }catch(SQLException err)
+           {
+               System.out.println(err.getMessage());
+           }
 
 
 
         return isSatisfied;
     }
-    boolean satisfyRequiredSem(String course_id) throws SQLException {
+    boolean satisfyRequiredSem(String course_id)  {
         boolean isSatisfied = false;
         int minReqSem = fetchMinReqSem(this.con,course_id,this.studentAdmYear);
         System.out.println("Minimum required sem = "+minReqSem);
         String fetchSem = "select current_sem from student where student_id = ?";
         int sem = 0;
-            PreparedStatement preparedStatement = this.con.prepareStatement(fetchSem);
-            preparedStatement.setString(1,this.student_id);
-            ResultSet rs = preparedStatement.executeQuery();
+            try{
+                PreparedStatement preparedStatement = this.con.prepareStatement(fetchSem);
+                preparedStatement.setString(1,this.student_id);
+                ResultSet rs = preparedStatement.executeQuery();
 
-            if(rs.next())
-            {
-                sem = rs.getInt("current_sem");
-            }
-            if(sem >= minReqSem )
-            {
-                isSatisfied = true;
-            }
+                if(rs.next())
+                {
+                    sem = rs.getInt("current_sem");
+                }
+                if(sem >= minReqSem )
+                {
+                    isSatisfied = true;
+                }
 
-            preparedStatement.close();
-            rs.close();
+                preparedStatement.close();
+                rs.close();
+            }catch(SQLException err)
+            {
+                System.out.println(err.getMessage());
+            }
         return isSatisfied;
     }
-    public double findCreditLimit() throws SQLException {
+    public double findCreditLimit()  {
         double creditLimit = 0;
         int sem = 0;
         double earnedCredits = 0;
@@ -185,43 +223,47 @@ public class Student extends AbstractCommonFunctions {
         String findAvgCreditQuery = "Select * from student_record_"+String.valueOf(this.studentAdmYear)+" where student_id = ? and (semester = ? or semester = ?) " ;
 
 
-            PreparedStatement preparedStatement = this.con.prepareStatement(findSemQuery);
-            preparedStatement.setString(1,this.student_id);
-            ResultSet rs = preparedStatement.executeQuery();
-            if(rs.next())
-            {
-                sem = rs.getInt("current_sem");
-            }
-            else {
-                System.out.println("No such student");
-                return -1;
-            }
-            if(sem == 1 || sem == 2)
-            {
-                creditLimit = this.CREDITLIMIT;
-            }
-            else {
-                preparedStatement = this.con.prepareStatement(findAvgCreditQuery);
+            try{
+                PreparedStatement preparedStatement = this.con.prepareStatement(findSemQuery);
                 preparedStatement.setString(1,this.student_id);
-                preparedStatement.setInt(2,sem-1);
-                preparedStatement.setInt(3,sem-2);
-
-                rs = preparedStatement.executeQuery();
-
-                while(rs.next())
+                ResultSet rs = preparedStatement.executeQuery();
+                if(rs.next())
                 {
-                    earnedCredits += rs.getDouble("credits");
+                    sem = rs.getInt("current_sem");
                 }
-                creditLimit = earnedCredits/2;
-                creditLimit = creditLimit*(1.25);
-            }
-            rs.close();
-            preparedStatement.close();
+                else {
+                    System.out.println("No such student");
+                    return -1;
+                }
+                if(sem == 1 || sem == 2)
+                {
+                    creditLimit = this.CREDITLIMIT;
+                }
+                else {
+                    preparedStatement = this.con.prepareStatement(findAvgCreditQuery);
+                    preparedStatement.setString(1,this.student_id);
+                    preparedStatement.setInt(2,sem-1);
+                    preparedStatement.setInt(3,sem-2);
 
+                    rs = preparedStatement.executeQuery();
+
+                    while(rs.next())
+                    {
+                        earnedCredits += rs.getDouble("credits");
+                    }
+                    creditLimit = earnedCredits/2;
+                    creditLimit = creditLimit*(1.25);
+                }
+                rs.close();
+                preparedStatement.close();
+            }catch(SQLException err)
+            {
+                System.out.println(err.getMessage());
+            }
 
         return creditLimit;
     }
-    boolean satisfyCreditLimitCUMUpdate(String course_id) throws SQLException {
+    boolean satisfyCreditLimitCUMUpdate(String course_id)  {
         boolean isSatisfied = false;
         String findQuery = "Select * from enrolled_credits where student_id = ?" ;
         String insertQuery = "insert into enrolled_credits (student_id,credits) values(?,?)";
@@ -232,66 +274,71 @@ public class Student extends AbstractCommonFunctions {
         double creditLimit = findCreditLimit();
 
 
-            PreparedStatement preparedStatement = this.con.prepareStatement(checkQuery);
-            preparedStatement.setString(1,this.student_id);
-            preparedStatement.setString(2,course_id);
-            ResultSet rs = preparedStatement.executeQuery();
-            if(rs.next())
-            {
-                System.out.println("Course Already Taken!!");
-                return false;
-            }
+           try{
+               PreparedStatement preparedStatement = this.con.prepareStatement(checkQuery);
+               preparedStatement.setString(1,this.student_id);
+               preparedStatement.setString(2,course_id);
+               ResultSet rs = preparedStatement.executeQuery();
+               if(rs.next())
+               {
+                   System.out.println("Course Already Taken!!");
+                   return false;
+               }
 
 
-            preparedStatement = this.con.prepareStatement(findQuery);
-            preparedStatement.setString(1,this.student_id);
+               preparedStatement = this.con.prepareStatement(findQuery);
+               preparedStatement.setString(1,this.student_id);
 
-            rs = preparedStatement.executeQuery();
+               rs = preparedStatement.executeQuery();
 
 
-            if(rs.next())
-            {
-                double credits = rs.getInt(("credits"));
+               if(rs.next())
+               {
+                   double credits = rs.getInt(("credits"));
 
 //                System.out.println("already enrolled in some courses");
 //                System.out.println(credits +" credits") ;
 
-                if((credits+course_credits )<= creditLimit)
-                {
-                    double totCredits = credits + course_credits;
-                    preparedStatement = this.con.prepareStatement(updateQuery);
-                    preparedStatement.setDouble(1,totCredits);
-                    preparedStatement.setString(2,this.student_id);
+                   if((credits+course_credits )<= creditLimit)
+                   {
+                       double totCredits = credits + course_credits;
+                       preparedStatement = this.con.prepareStatement(updateQuery);
+                       preparedStatement.setDouble(1,totCredits);
+                       preparedStatement.setString(2,this.student_id);
 
-                    preparedStatement.executeUpdate();
-                    isSatisfied = true;
-                }
+                       preparedStatement.executeUpdate();
+                       isSatisfied = true;
+                   }
 
-                System.out.println("Total credits After Registration would be"+ (credits+course_credits));
-            }
-            else
-            {
+                   System.out.println("Total credits After Registration would be"+ (credits+course_credits));
+               }
+               else
+               {
 
-                preparedStatement = this.con.prepareStatement(insertQuery);
-                preparedStatement.setString(1,this.student_id);
-                preparedStatement.setDouble(2,course_credits);
+                   preparedStatement = this.con.prepareStatement(insertQuery);
+                   preparedStatement.setString(1,this.student_id);
+                   preparedStatement.setDouble(2,course_credits);
 
-                if(course_credits<=creditLimit)
-                {
-                    preparedStatement.execute();
-                    isSatisfied = true;
-                }
-                System.out.println("Total credits After Registration would be "+ (course_credits));
-            }
+                   if(course_credits<=creditLimit)
+                   {
+                       preparedStatement.execute();
+                       isSatisfied = true;
+                   }
+                   System.out.println("Total credits After Registration would be "+ (course_credits));
+               }
 
-            preparedStatement.close();
-            rs.close();
+               preparedStatement.close();
+               rs.close();
+           }catch(SQLException err)
+           {
+               System.out.println(err.getMessage());
+           }
 
 
 
         return isSatisfied;
     }
-    private boolean registerCourse(String course_id) throws SQLException {
+    private boolean registerCourse(String course_id)  {
         boolean isRegistered = true;
         course_id = removeSpaces(course_id);
         course_id = course_id.toUpperCase();
@@ -386,7 +433,7 @@ public class Student extends AbstractCommonFunctions {
 
         return isRegistered;
     }
-    private boolean deRegisterCourse(String course_id) throws SQLException {
+    private boolean deRegisterCourse(String course_id)  {
         course_id = removeSpaces(course_id);
         course_id = course_id.toUpperCase();
 
@@ -509,16 +556,21 @@ public class Student extends AbstractCommonFunctions {
     }
 
 
-    boolean logOut() throws SQLException {
+    boolean logOut()  {
 
-        this.logOutTimeStamp(this.student_id,this.con);
-        this.con.close();
-        System.out.println(this.student_id + " logged out Successfully!");
+        try{
+            this.logOutTimeStamp(this.student_id,this.con);
+            this.con.close();
+            System.out.println(this.student_id + " logged out Successfully!");
+        }catch(SQLException er)
+        {
+            System.out.println(er.getMessage());
+        }
 
         return true;
     }
 
-    public static void runStudent(String userID) throws SQLException {
+    public static void runStudent(String userID)  {
         Student std = new Student(userID);
 //        double cgpa = std.calculateCGPA(std.con,std.student_id,2020);
 //        double cred = std.fetchCourseCredits(std.con,"CS305",2020);

@@ -9,40 +9,40 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class AcademicOffice extends AbstractCommonFunctions{
     private String officerId;
-<span class="fc" id="L12">    protected Connection con = null;</span>
+<span class="nc" id="L12">    protected Connection con = null;</span>
     AcademicOffice(String id )
-<span class="fc" id="L14">    {</span>
-<span class="fc" id="L15">        id = removeSpaces(id);</span>
-<span class="fc" id="L16">        this.officerId = id;</span>
-<span class="fc" id="L17">        GetConnection gtCon = new GetConnection();</span>
-<span class="fc" id="L18">        this.con = gtCon.getConnection();</span>
-<span class="fc" id="L19">    }</span>
+<span class="nc" id="L14">    {</span>
+<span class="nc" id="L15">        id = removeSpaces(id);</span>
+<span class="nc" id="L16">        this.officerId = id;</span>
+<span class="nc" id="L17">        GetConnection gtCon = new GetConnection();</span>
+<span class="nc" id="L18">        this.con = gtCon.getConnection();</span>
+<span class="nc" id="L19">    }</span>
 
     boolean changeProfileNumber(String contact) throws SQLException {
-<span class="fc" id="L22">        contact = removeSpaces(contact);</span>
+<span class="nc" id="L22">        contact = removeSpaces(contact);</span>
 //        insert into admin (admin_name,admin_id,contact) values ('Staff Dean’s office','staffdeanoffice@iitrpr.ac.in','NA');
-<span class="fc" id="L24">        String updateQuery = &quot;update admin set contact = ? where admin_id = ? &quot;;</span>
-<span class="fc" id="L25">            PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);</span>
-<span class="fc" id="L26">            preparedStatement.setString(1,contact);</span>
-<span class="fc" id="L27">            preparedStatement.setString(2,removeSpaces(this.officerId));</span>
+<span class="nc" id="L24">        String updateQuery = &quot;update admin set contact = ? where admin_id = ? &quot;;</span>
+<span class="nc" id="L25">            PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);</span>
+<span class="nc" id="L26">            preparedStatement.setString(1,contact);</span>
+<span class="nc" id="L27">            preparedStatement.setString(2,removeSpaces(this.officerId));</span>
 
-<span class="fc" id="L29">            preparedStatement.execute();</span>
-<span class="fc" id="L30">            preparedStatement.close();</span>
-<span class="fc" id="L31">        return true;</span>
+<span class="nc" id="L29">            preparedStatement.execute();</span>
+<span class="nc" id="L30">            preparedStatement.close();</span>
+<span class="nc" id="L31">        return true;</span>
     }
 
     boolean changeProfileName(String name) throws SQLException {
-<span class="fc" id="L35">        name = removeSpaces(name);</span>
+<span class="nc" id="L35">        name = removeSpaces(name);</span>
 //        insert into admin (admin_name,admin_id,contact) values ('Staff Dean’s office','staffdeanoffice@iitrpr.ac.in','NA');
-<span class="fc" id="L37">        String updateQuery = &quot;update admin set admin_name = ? where admin_id = ? &quot;;</span>
-<span class="fc" id="L38">            PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);</span>
-<span class="fc" id="L39">            preparedStatement.setString(1,removeSpaces(name));</span>
-<span class="fc" id="L40">            preparedStatement.setString(2,removeSpaces(this.officerId));</span>
+<span class="nc" id="L37">        String updateQuery = &quot;update admin set admin_name = ? where admin_id = ? &quot;;</span>
+<span class="nc" id="L38">            PreparedStatement preparedStatement = this.con.prepareStatement(updateQuery);</span>
+<span class="nc" id="L39">            preparedStatement.setString(1,removeSpaces(name));</span>
+<span class="nc" id="L40">            preparedStatement.setString(2,removeSpaces(this.officerId));</span>
 
-<span class="fc" id="L42">            preparedStatement.execute();</span>
-<span class="fc" id="L43">            preparedStatement.close();</span>
+<span class="nc" id="L42">            preparedStatement.execute();</span>
+<span class="nc" id="L43">            preparedStatement.close();</span>
 
-<span class="fc" id="L45">        return true;</span>
+<span class="nc" id="L45">        return true;</span>
 
     }
 
@@ -130,485 +130,485 @@ public class AcademicOffice extends AbstractCommonFunctions{
     }
     boolean isAddCourseActive()
     {
-<span class="fc" id="L133">        String query = &quot;select * from current_session&quot;;</span>
-<span class="fc" id="L134">        boolean isActive = false;</span>
+<span class="nc" id="L133">        String query = &quot;select * from current_session&quot;;</span>
+<span class="nc" id="L134">        boolean isActive = false;</span>
         try{
-<span class="fc" id="L136">            PreparedStatement preparedStatement = this.con.prepareStatement(query);</span>
-<span class="fc" id="L137">            ResultSet rs = preparedStatement.executeQuery();</span>
-<span class="pc bpc" id="L138" title="1 of 2 branches missed.">            if(rs.next())</span>
+<span class="nc" id="L136">            PreparedStatement preparedStatement = this.con.prepareStatement(query);</span>
+<span class="nc" id="L137">            ResultSet rs = preparedStatement.executeQuery();</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            if(rs.next())</span>
             {
-<span class="fc bfc" id="L140" title="All 2 branches covered.">                if(rs.getInt(&quot;status&quot;) == this.SEMSTART )</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">                if(rs.getInt(&quot;status&quot;) == this.SEMSTART )</span>
                 {
-<span class="fc" id="L142">                    isActive = true;</span>
+<span class="nc" id="L142">                    isActive = true;</span>
                 }
             }
 
 
-<span class="fc" id="L147">            preparedStatement.close();</span>
-<span class="fc" id="L148">            rs.close();</span>
+<span class="nc" id="L147">            preparedStatement.close();</span>
+<span class="nc" id="L148">            rs.close();</span>
 <span class="nc" id="L149">        }catch(SQLException err)</span>
         {
 <span class="nc" id="L151">            System.out.println(err.getMessage());</span>
 <span class="nc" id="L152">            return false;</span>
-<span class="fc" id="L153">        }</span>
+<span class="nc" id="L153">        }</span>
 
-<span class="fc" id="L155">        return isActive;</span>
+<span class="nc" id="L155">        return isActive;</span>
     }
     boolean addCourse(String course_id,String title,String dept_id,int req_sem,double l,double t , double p,double credits,String course_type,int batch)
     {
 
-<span class="fc" id="L160">        String insertQuery = &quot;insert into course_catalogue (course_id, title,dept_id, req_sem,l,t,p,credits,course_type,batch) values (?,?,?,?,?,?,?,?,?,?)&quot;;</span>
-<span class="fc" id="L161">        course_id = course_id.toUpperCase();</span>
-<span class="fc" id="L162">        dept_id = dept_id.toUpperCase();</span>
-<span class="fc" id="L163">        String findCourse = &quot;select * from course where course_id = ?&quot;;</span>
-<span class="fc bfc" id="L164" title="All 2 branches covered.">        if(!isAddCourseActive())</span>
+<span class="nc" id="L160">        String insertQuery = &quot;insert into course_catalogue (course_id, title,dept_id, req_sem,l,t,p,credits,course_type,batch) values (?,?,?,?,?,?,?,?,?,?)&quot;;</span>
+<span class="nc" id="L161">        course_id = course_id.toUpperCase();</span>
+<span class="nc" id="L162">        dept_id = dept_id.toUpperCase();</span>
+<span class="nc" id="L163">        String findCourse = &quot;select * from course where course_id = ?&quot;;</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        if(!isAddCourseActive())</span>
         {
-<span class="fc" id="L166">            System.out.println(&quot;Cannot Add course Now as current Activity is not allowing it!&quot;);</span>
-<span class="fc" id="L167">            return false;</span>
+<span class="nc" id="L166">            System.out.println(&quot;Cannot Add course Now as current Activity is not allowing it!&quot;);</span>
+<span class="nc" id="L167">            return false;</span>
         }
         try{
-<span class="fc" id="L170">            PreparedStatement preparedStatement = this.con.prepareStatement(insertQuery);</span>
-<span class="fc" id="L171">            preparedStatement.setString(1, removeSpaces(course_id));</span>
-<span class="fc" id="L172">            preparedStatement.setString(2, removeSpaces(title));</span>
-<span class="fc" id="L173">            preparedStatement.setString(3, removeSpaces(dept_id));</span>
-<span class="fc" id="L174">            preparedStatement.setInt(4, req_sem);</span>
-<span class="fc" id="L175">            preparedStatement.setDouble(5, l);</span>
-<span class="fc" id="L176">            preparedStatement.setDouble(6, t);</span>
-<span class="fc" id="L177">            preparedStatement.setDouble(7, p);</span>
-<span class="fc" id="L178">            preparedStatement.setDouble(8, credits);</span>
-<span class="fc" id="L179">            preparedStatement.setString(9, course_type);</span>
-<span class="fc" id="L180">            preparedStatement.setInt(10, batch);</span>
-<span class="fc" id="L181">            preparedStatement.execute();</span>
+<span class="nc" id="L170">            PreparedStatement preparedStatement = this.con.prepareStatement(insertQuery);</span>
+<span class="nc" id="L171">            preparedStatement.setString(1, removeSpaces(course_id));</span>
+<span class="nc" id="L172">            preparedStatement.setString(2, removeSpaces(title));</span>
+<span class="nc" id="L173">            preparedStatement.setString(3, removeSpaces(dept_id));</span>
+<span class="nc" id="L174">            preparedStatement.setInt(4, req_sem);</span>
+<span class="nc" id="L175">            preparedStatement.setDouble(5, l);</span>
+<span class="nc" id="L176">            preparedStatement.setDouble(6, t);</span>
+<span class="nc" id="L177">            preparedStatement.setDouble(7, p);</span>
+<span class="nc" id="L178">            preparedStatement.setDouble(8, credits);</span>
+<span class="nc" id="L179">            preparedStatement.setString(9, course_type);</span>
+<span class="nc" id="L180">            preparedStatement.setInt(10, batch);</span>
+<span class="nc" id="L181">            preparedStatement.execute();</span>
 
-<span class="fc" id="L183">            preparedStatement = this.con.prepareStatement(findCourse);</span>
-<span class="fc" id="L184">            preparedStatement.setString(1,course_id);</span>
-<span class="fc" id="L185">            ResultSet rs = preparedStatement.executeQuery();</span>
-<span class="fc bfc" id="L186" title="All 2 branches covered.">            if(rs.next())</span>
+<span class="nc" id="L183">            preparedStatement = this.con.prepareStatement(findCourse);</span>
+<span class="nc" id="L184">            preparedStatement.setString(1,course_id);</span>
+<span class="nc" id="L185">            ResultSet rs = preparedStatement.executeQuery();</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">            if(rs.next())</span>
             {
-<span class="fc" id="L188">                 String updateQuery = &quot;update course set dept_id = ?,req_sem = ?,l = ?,t = ?,p = ?,credits = ?  where course_id = ? &quot;;</span>
-<span class="fc" id="L189">                 preparedStatement = this.con.prepareStatement(updateQuery);</span>
+<span class="nc" id="L188">                 String updateQuery = &quot;update course set dept_id = ?,req_sem = ?,l = ?,t = ?,p = ?,credits = ?  where course_id = ? &quot;;</span>
+<span class="nc" id="L189">                 preparedStatement = this.con.prepareStatement(updateQuery);</span>
 
-<span class="fc" id="L191">                 preparedStatement.setString(1,dept_id);</span>
-<span class="fc" id="L192">                 preparedStatement.setInt(2,req_sem);</span>
-<span class="fc" id="L193">                 preparedStatement.setDouble(3,l);</span>
-<span class="fc" id="L194">                preparedStatement.setDouble(4,t);</span>
-<span class="fc" id="L195">                preparedStatement.setDouble(5,p);</span>
-<span class="fc" id="L196">                preparedStatement.setDouble(6,credits);</span>
-<span class="fc" id="L197">                preparedStatement.setString(7,course_id);</span>
+<span class="nc" id="L191">                 preparedStatement.setString(1,dept_id);</span>
+<span class="nc" id="L192">                 preparedStatement.setInt(2,req_sem);</span>
+<span class="nc" id="L193">                 preparedStatement.setDouble(3,l);</span>
+<span class="nc" id="L194">                preparedStatement.setDouble(4,t);</span>
+<span class="nc" id="L195">                preparedStatement.setDouble(5,p);</span>
+<span class="nc" id="L196">                preparedStatement.setDouble(6,credits);</span>
+<span class="nc" id="L197">                preparedStatement.setString(7,course_id);</span>
 
-<span class="fc" id="L199">                preparedStatement.execute();</span>
-<span class="fc" id="L200">            }</span>
+<span class="nc" id="L199">                preparedStatement.execute();</span>
+<span class="nc" id="L200">            }</span>
             else
             {
-<span class="fc" id="L203">                String insertCourseQuery = &quot;insert into course (course_id, title,dept_id, req_sem,l,t,p,credits) values (?,?,?,?,?,?,?,?)&quot;;</span>
-<span class="fc" id="L204">                preparedStatement = this.con.prepareStatement(insertCourseQuery);</span>
+<span class="nc" id="L203">                String insertCourseQuery = &quot;insert into course (course_id, title,dept_id, req_sem,l,t,p,credits) values (?,?,?,?,?,?,?,?)&quot;;</span>
+<span class="nc" id="L204">                preparedStatement = this.con.prepareStatement(insertCourseQuery);</span>
 
 
-<span class="fc" id="L207">                preparedStatement.setString(1, removeSpaces(course_id));</span>
-<span class="fc" id="L208">                preparedStatement.setString(2, removeSpaces(title));</span>
-<span class="fc" id="L209">                preparedStatement.setString(3, removeSpaces(dept_id));</span>
-<span class="fc" id="L210">                preparedStatement.setInt(4, req_sem);</span>
-<span class="fc" id="L211">                preparedStatement.setDouble(5, l);</span>
-<span class="fc" id="L212">                preparedStatement.setDouble(6, t);</span>
-<span class="fc" id="L213">                preparedStatement.setDouble(7, p);</span>
-<span class="fc" id="L214">                preparedStatement.setDouble(8, credits);</span>
+<span class="nc" id="L207">                preparedStatement.setString(1, removeSpaces(course_id));</span>
+<span class="nc" id="L208">                preparedStatement.setString(2, removeSpaces(title));</span>
+<span class="nc" id="L209">                preparedStatement.setString(3, removeSpaces(dept_id));</span>
+<span class="nc" id="L210">                preparedStatement.setInt(4, req_sem);</span>
+<span class="nc" id="L211">                preparedStatement.setDouble(5, l);</span>
+<span class="nc" id="L212">                preparedStatement.setDouble(6, t);</span>
+<span class="nc" id="L213">                preparedStatement.setDouble(7, p);</span>
+<span class="nc" id="L214">                preparedStatement.setDouble(8, credits);</span>
 
-<span class="fc" id="L216">                preparedStatement.execute();</span>
+<span class="nc" id="L216">                preparedStatement.execute();</span>
             }
 
 
 
-<span class="fc" id="L221">            preparedStatement.close();</span>
-<span class="fc" id="L222">            rs.close();</span>
+<span class="nc" id="L221">            preparedStatement.close();</span>
+<span class="nc" id="L222">            rs.close();</span>
 <span class="nc" id="L223">        }catch(SQLException err)</span>
         {
 <span class="nc" id="L225">            System.out.println(err.getMessage());</span>
-<span class="fc" id="L226">        }</span>
-<span class="fc" id="L227">        return true;</span>
+<span class="nc" id="L226">        }</span>
+<span class="nc" id="L227">        return true;</span>
     }
     boolean isGradesSubmissionEnded()
     {
-<span class="fc" id="L231">        String query = String.format(&quot;select * from current_session&quot;);</span>
-<span class="fc" id="L232">        boolean isStarted = false;</span>
+<span class="nc" id="L231">        String query = String.format(&quot;select * from current_session&quot;);</span>
+<span class="nc" id="L232">        boolean isStarted = false;</span>
 
         try{
-<span class="fc" id="L235">            PreparedStatement preparedStatement = this.con.prepareStatement(query);</span>
-<span class="fc" id="L236">            ResultSet rs = preparedStatement.executeQuery();</span>
-<span class="fc" id="L237">            rs.next();</span>
-<span class="fc" id="L238">            int status = rs.getInt(&quot;status&quot;);</span>
-<span class="fc bfc" id="L239" title="All 2 branches covered.">            if(status == this.GRADESUBMITEND)</span>
+<span class="nc" id="L235">            PreparedStatement preparedStatement = this.con.prepareStatement(query);</span>
+<span class="nc" id="L236">            ResultSet rs = preparedStatement.executeQuery();</span>
+<span class="nc" id="L237">            rs.next();</span>
+<span class="nc" id="L238">            int status = rs.getInt(&quot;status&quot;);</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">            if(status == this.GRADESUBMITEND)</span>
             {
-<span class="fc" id="L241">                isStarted = true;</span>
+<span class="nc" id="L241">                isStarted = true;</span>
             }
 
 <span class="nc" id="L244">        }catch(SQLException err)</span>
         {
 <span class="nc" id="L246">            System.out.println(err.getMessage());</span>
 <span class="nc" id="L247">            return false;</span>
-<span class="fc" id="L248">        }</span>
-<span class="fc" id="L249">        return isStarted;</span>
+<span class="nc" id="L248">        }</span>
+<span class="nc" id="L249">        return isStarted;</span>
     }
     protected boolean promote(String csvFile,int year)
     {
-<span class="fc" id="L253">        String updateQuery = &quot;update student set current_sem = current_sem +1 where student_id = ?&quot;;</span>
-<span class="fc" id="L254">        boolean submitGradeEnd = isGradesSubmissionEnded();</span>
-<span class="pc bpc" id="L255" title="1 of 2 branches missed.">        if(!submitGradeEnd)</span>
+<span class="nc" id="L253">        String updateQuery = &quot;update student set current_sem = current_sem +1 where student_id = ?&quot;;</span>
+<span class="nc" id="L254">        boolean submitGradeEnd = isGradesSubmissionEnded();</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">        if(!submitGradeEnd)</span>
         {
 <span class="nc" id="L257">            System.out.println(&quot;Grades submission has not ended yet! So no promotion&quot;);</span>
 <span class="nc" id="L258">            return false;</span>
         }
 
         try{
-<span class="fc" id="L262">            Connection connection = this.con;</span>
-<span class="fc" id="L263">            PreparedStatement preparedStatement = null ;</span>
-<span class="fc" id="L264">            BufferedReader br = new BufferedReader(new FileReader(csvFile));</span>
+<span class="nc" id="L262">            Connection connection = this.con;</span>
+<span class="nc" id="L263">            PreparedStatement preparedStatement = null ;</span>
+<span class="nc" id="L264">            BufferedReader br = new BufferedReader(new FileReader(csvFile));</span>
             String line;
-<span class="fc" id="L266">            br.readLine();</span>
+<span class="nc" id="L266">            br.readLine();</span>
 
-<span class="fc bfc" id="L268" title="All 2 branches covered.">            while ((line = br.readLine()) != null) {</span>
+<span class="nc bnc" id="L268" title="All 2 branches missed.">            while ((line = br.readLine()) != null) {</span>
 
-<span class="fc" id="L270">                String[] data = line.split(&quot;,&quot;);</span>
+<span class="nc" id="L270">                String[] data = line.split(&quot;,&quot;);</span>
 
-<span class="fc" id="L272">                String std_id = removeSpaces(data[0]);</span>
-<span class="fc" id="L273">                preparedStatement = connection.prepareStatement(updateQuery);</span>
-<span class="fc" id="L274">                preparedStatement.setString(1,std_id);</span>
-<span class="fc" id="L275">                preparedStatement.executeUpdate();</span>
+<span class="nc" id="L272">                String std_id = removeSpaces(data[0]);</span>
+<span class="nc" id="L273">                preparedStatement = connection.prepareStatement(updateQuery);</span>
+<span class="nc" id="L274">                preparedStatement.setString(1,std_id);</span>
+<span class="nc" id="L275">                preparedStatement.executeUpdate();</span>
 
-<span class="fc" id="L277">            }</span>
+<span class="nc" id="L277">            }</span>
 
-<span class="fc" id="L279">            preparedStatement.close();</span>
-<span class="fc" id="L280">            System.out.println(&quot;Promoted Successfully!&quot;);</span>
+<span class="nc" id="L279">            preparedStatement.close();</span>
+<span class="nc" id="L280">            System.out.println(&quot;Promoted Successfully!&quot;);</span>
 
 <span class="nc" id="L282">        }catch(Exception err)</span>
         {
 <span class="nc" id="L284">            System.out.println(err.getMessage());</span>
-<span class="fc" id="L285">        }</span>
+<span class="nc" id="L285">        }</span>
 
 
-<span class="fc" id="L288">        return true;</span>
+<span class="nc" id="L288">        return true;</span>
     }
     protected boolean demote(String csvFile,int year)
     {
-<span class="fc" id="L292">        String updateQuery = &quot;update student set current_sem = current_sem -1 where student_id = ?&quot;;</span>
-<span class="fc" id="L293">        boolean submitGradeEnd = isGradesSubmissionEnded();</span>
-<span class="pc bpc" id="L294" title="1 of 2 branches missed.">        if(!submitGradeEnd)</span>
+<span class="nc" id="L292">        String updateQuery = &quot;update student set current_sem = current_sem -1 where student_id = ?&quot;;</span>
+<span class="nc" id="L293">        boolean submitGradeEnd = isGradesSubmissionEnded();</span>
+<span class="nc bnc" id="L294" title="All 2 branches missed.">        if(!submitGradeEnd)</span>
         {
 <span class="nc" id="L296">            System.out.println(&quot;Grades submission has not ended yet! So no promotion&quot;);</span>
 <span class="nc" id="L297">            return false;</span>
         }
 
         try{
-<span class="fc" id="L301">            Connection connection = this.con;</span>
-<span class="fc" id="L302">            PreparedStatement preparedStatement = null ;</span>
-<span class="fc" id="L303">            BufferedReader br = new BufferedReader(new FileReader(csvFile));</span>
+<span class="nc" id="L301">            Connection connection = this.con;</span>
+<span class="nc" id="L302">            PreparedStatement preparedStatement = null ;</span>
+<span class="nc" id="L303">            BufferedReader br = new BufferedReader(new FileReader(csvFile));</span>
             String line;
-<span class="fc" id="L305">            br.readLine();</span>
+<span class="nc" id="L305">            br.readLine();</span>
 
-<span class="fc bfc" id="L307" title="All 2 branches covered.">            while ((line = br.readLine()) != null) {</span>
+<span class="nc bnc" id="L307" title="All 2 branches missed.">            while ((line = br.readLine()) != null) {</span>
 
-<span class="fc" id="L309">                String[] data = line.split(&quot;,&quot;);</span>
+<span class="nc" id="L309">                String[] data = line.split(&quot;,&quot;);</span>
 
-<span class="fc" id="L311">                String std_id = removeSpaces(data[0]);</span>
-<span class="fc" id="L312">                preparedStatement = connection.prepareStatement(updateQuery);</span>
-<span class="fc" id="L313">                preparedStatement.setString(1,std_id);</span>
-<span class="fc" id="L314">                preparedStatement.executeUpdate();</span>
+<span class="nc" id="L311">                String std_id = removeSpaces(data[0]);</span>
+<span class="nc" id="L312">                preparedStatement = connection.prepareStatement(updateQuery);</span>
+<span class="nc" id="L313">                preparedStatement.setString(1,std_id);</span>
+<span class="nc" id="L314">                preparedStatement.executeUpdate();</span>
 
-<span class="fc" id="L316">            }</span>
+<span class="nc" id="L316">            }</span>
 
-<span class="fc" id="L318">            preparedStatement.close();</span>
-<span class="fc" id="L319">            System.out.println(&quot;demoted Successfully!&quot;);</span>
+<span class="nc" id="L318">            preparedStatement.close();</span>
+<span class="nc" id="L319">            System.out.println(&quot;demoted Successfully!&quot;);</span>
 
 <span class="nc" id="L321">        }catch(Exception err)</span>
         {
 <span class="nc" id="L323">            System.out.println(err.getMessage());</span>
-<span class="fc" id="L324">        }</span>
+<span class="nc" id="L324">        }</span>
 
 
-<span class="fc" id="L327">        return true;</span>
+<span class="nc" id="L327">        return true;</span>
     }
 
     boolean generateTranscript(String student_id)
     {
-<span class="fc" id="L332">        student_id = removeSpaces(student_id);</span>
-<span class="fc" id="L333">        student_id = student_id.toLowerCase();</span>
+<span class="nc" id="L332">        student_id = removeSpaces(student_id);</span>
+<span class="nc" id="L333">        student_id = student_id.toLowerCase();</span>
 
-<span class="fc" id="L335">        String stdSemQuery = &quot;select * from student where student_id = ?&quot;;</span>
+<span class="nc" id="L335">        String stdSemQuery = &quot;select * from student where student_id = ?&quot;;</span>
 
-<span class="fc" id="L337">        int stdSem = 0;</span>
-<span class="fc" id="L338">        int stdAdmYear = extractIntegral(student_id);</span>
+<span class="nc" id="L337">        int stdSem = 0;</span>
+<span class="nc" id="L338">        int stdAdmYear = extractIntegral(student_id);</span>
 
         try{
-<span class="fc" id="L341">            PreparedStatement preparedStatement = this.con.prepareStatement(stdSemQuery);</span>
-<span class="fc" id="L342">            preparedStatement.setString(1,student_id);</span>
-<span class="fc" id="L343">            ResultSet rs = preparedStatement.executeQuery();</span>
-<span class="fc bfc" id="L344" title="All 2 branches covered.">            if(rs.next())</span>
+<span class="nc" id="L341">            PreparedStatement preparedStatement = this.con.prepareStatement(stdSemQuery);</span>
+<span class="nc" id="L342">            preparedStatement.setString(1,student_id);</span>
+<span class="nc" id="L343">            ResultSet rs = preparedStatement.executeQuery();</span>
+<span class="nc bnc" id="L344" title="All 2 branches missed.">            if(rs.next())</span>
             {
-<span class="fc" id="L346">                stdSem = rs.getInt(&quot;current_sem&quot;);</span>
+<span class="nc" id="L346">                stdSem = rs.getInt(&quot;current_sem&quot;);</span>
 //                System.out.println(stdSem);
             }else {
-<span class="fc" id="L349">                System.out.println(&quot;NO Student with this ID Found!&quot;);</span>
-<span class="fc" id="L350">                return false;</span>
+<span class="nc" id="L349">                System.out.println(&quot;NO Student with this ID Found!&quot;);</span>
+<span class="nc" id="L350">                return false;</span>
             }
-<span class="fc" id="L352">            String filePath = &quot;/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/Transcripts/&quot;;</span>
+<span class="nc" id="L352">            String filePath = &quot;/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/Transcripts/&quot;;</span>
 
-<span class="fc" id="L354">            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath +student_id + &quot;_transcript.txt&quot;));</span>
+<span class="nc" id="L354">            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath +student_id + &quot;_transcript.txt&quot;));</span>
 
-<span class="fc" id="L356">            writer.write(&quot;Transcript for Student ID &quot; + student_id + &quot;\n&quot;);</span>
+<span class="nc" id="L356">            writer.write(&quot;Transcript for Student ID &quot; + student_id + &quot;\n&quot;);</span>
 
 //            System.out.println(calculateCGPA(this.con,student_id,extractIntegral(student_id)));
-<span class="fc" id="L359">            String query = &quot;SELECT * FROM student_record_&quot;+stdAdmYear+&quot; WHERE student_id = ? and semester = ?  &quot;;</span>
-<span class="fc" id="L360">            preparedStatement = null;</span>
-<span class="fc" id="L361">            String title = &quot;&quot;;</span>
-<span class="fc" id="L362">            double totCumulativeCredits = 0.0;</span>
-<span class="fc bfc" id="L363" title="All 2 branches covered.">            for(int i =1 ;i&lt;=stdSem;i++)</span>
+<span class="nc" id="L359">            String query = &quot;SELECT * FROM student_record_&quot;+stdAdmYear+&quot; WHERE student_id = ? and semester = ?  &quot;;</span>
+<span class="nc" id="L360">            preparedStatement = null;</span>
+<span class="nc" id="L361">            String title = &quot;&quot;;</span>
+<span class="nc" id="L362">            double totCumulativeCredits = 0.0;</span>
+<span class="nc bnc" id="L363" title="All 2 branches missed.">            for(int i =1 ;i&lt;=stdSem;i++)</span>
             {
-<span class="fc" id="L365">                title = &quot;SEMESTER &quot; + i;</span>
-<span class="fc" id="L366">                preparedStatement = this.con.prepareStatement(query);</span>
-<span class="fc" id="L367">                preparedStatement.setString(1, student_id);</span>
-<span class="fc" id="L368">                preparedStatement.setInt(2,i);</span>
-<span class="fc" id="L369">                rs = preparedStatement.executeQuery();</span>
+<span class="nc" id="L365">                title = &quot;SEMESTER &quot; + i;</span>
+<span class="nc" id="L366">                preparedStatement = this.con.prepareStatement(query);</span>
+<span class="nc" id="L367">                preparedStatement.setString(1, student_id);</span>
+<span class="nc" id="L368">                preparedStatement.setInt(2,i);</span>
+<span class="nc" id="L369">                rs = preparedStatement.executeQuery();</span>
 //                printResultTable(rs);
 
-<span class="fc" id="L372">                double totCredits = 0;</span>
-<span class="fc" id="L373">                ArrayList&lt;ArrayList&lt;String&gt;&gt; arr = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L374">                ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L375">                row.add(&quot;CourseID&quot;);</span>
-<span class="fc" id="L376">                row.add(&quot;Grades&quot;);</span>
-<span class="fc" id="L377">                row.add(&quot;Credits&quot;);</span>
-<span class="fc" id="L378">                arr.add(row);</span>
+<span class="nc" id="L372">                double totCredits = 0;</span>
+<span class="nc" id="L373">                ArrayList&lt;ArrayList&lt;String&gt;&gt; arr = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L374">                ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L375">                row.add(&quot;CourseID&quot;);</span>
+<span class="nc" id="L376">                row.add(&quot;Grades&quot;);</span>
+<span class="nc" id="L377">                row.add(&quot;Credits&quot;);</span>
+<span class="nc" id="L378">                arr.add(row);</span>
 
-<span class="fc bfc" id="L380" title="All 2 branches covered.">                while (rs.next()) {</span>
-<span class="fc" id="L381">                    String courseId = rs.getString(&quot;course_id&quot;);</span>
-<span class="fc" id="L382">                    String grade = rs.getString(&quot;grades&quot;);</span>
-<span class="fc" id="L383">                    Double creditsEarned = rs.getDouble(&quot;credits&quot;);</span>
+<span class="nc bnc" id="L380" title="All 2 branches missed.">                while (rs.next()) {</span>
+<span class="nc" id="L381">                    String courseId = rs.getString(&quot;course_id&quot;);</span>
+<span class="nc" id="L382">                    String grade = rs.getString(&quot;grades&quot;);</span>
+<span class="nc" id="L383">                    Double creditsEarned = rs.getDouble(&quot;credits&quot;);</span>
 
-<span class="fc" id="L385">                    row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L386">                    row.add(courseId);</span>
-<span class="fc" id="L387">                    row.add(grade);</span>
-<span class="fc" id="L388">                    row.add(String.valueOf(creditsEarned));</span>
-<span class="fc" id="L389">                    arr.add(row);</span>
+<span class="nc" id="L385">                    row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L386">                    row.add(courseId);</span>
+<span class="nc" id="L387">                    row.add(grade);</span>
+<span class="nc" id="L388">                    row.add(String.valueOf(creditsEarned));</span>
+<span class="nc" id="L389">                    arr.add(row);</span>
 
-<span class="fc" id="L391">                    totCredits += creditsEarned;</span>
-<span class="fc" id="L392">                }</span>
-<span class="fc" id="L393">                double cgpa = this.calculateCGPA(this.con,student_id,stdAdmYear,i);</span>
-<span class="fc" id="L394">                double sgpa = this.calculateSGPA(this.con,student_id,stdAdmYear,i);</span>
+<span class="nc" id="L391">                    totCredits += creditsEarned;</span>
+<span class="nc" id="L392">                }</span>
+<span class="nc" id="L393">                double cgpa = this.calculateCGPA(this.con,student_id,stdAdmYear,i);</span>
+<span class="nc" id="L394">                double sgpa = this.calculateSGPA(this.con,student_id,stdAdmYear,i);</span>
 
-<span class="fc" id="L396">                totCumulativeCredits += totCredits;</span>
-<span class="fc" id="L397">                row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L398">                row.add(&quot;CGPA = &quot;+cgpa);</span>
-<span class="fc" id="L399">                row.add(&quot;SGPA = &quot;+sgpa);</span>
-<span class="fc" id="L400">                row.add(&quot;Total earned credits = &quot; +totCredits);</span>
-<span class="fc" id="L401">                arr.add(row);</span>
+<span class="nc" id="L396">                totCumulativeCredits += totCredits;</span>
+<span class="nc" id="L397">                row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L398">                row.add(&quot;CGPA = &quot;+cgpa);</span>
+<span class="nc" id="L399">                row.add(&quot;SGPA = &quot;+sgpa);</span>
+<span class="nc" id="L400">                row.add(&quot;Total earned credits = &quot; +totCredits);</span>
+<span class="nc" id="L401">                arr.add(row);</span>
 
-<span class="fc" id="L403">                System.out.println(&quot;data for sem &quot;+i+ &quot; added&quot;);</span>
+<span class="nc" id="L403">                System.out.println(&quot;data for sem &quot;+i+ &quot; added&quot;);</span>
 
-<span class="fc" id="L405">                writer.write(CLI.getFormedTable(title,arr));</span>
+<span class="nc" id="L405">                writer.write(CLI.getFormedTable(title,arr));</span>
 
-<span class="fc" id="L407">                writer.write(&quot;\n\n\n\n&quot;);</span>
+<span class="nc" id="L407">                writer.write(&quot;\n\n\n\n&quot;);</span>
 
             }
-<span class="fc" id="L410">            writer.close();</span>
+<span class="nc" id="L410">            writer.close();</span>
 
-<span class="fc" id="L412">            rs.close();</span>
-<span class="fc" id="L413">            preparedStatement.close();</span>
+<span class="nc" id="L412">            rs.close();</span>
+<span class="nc" id="L413">            preparedStatement.close();</span>
 
 <span class="nc" id="L415">        }catch(Exception err)</span>
         {
 <span class="nc" id="L417">            System.out.println(err.getMessage());</span>
 <span class="nc" id="L418">            System.out.println(&quot;Transcript NOT Generated!&quot;);</span>
 <span class="nc" id="L419">            return false;</span>
-<span class="fc" id="L420">        }</span>
+<span class="nc" id="L420">        }</span>
 
-<span class="fc" id="L422">        System.out.println(&quot;Transcript Generated!&quot;);</span>
-<span class="fc" id="L423">        return true;</span>
+<span class="nc" id="L422">        System.out.println(&quot;Transcript Generated!&quot;);</span>
+<span class="nc" id="L423">        return true;</span>
     }
     boolean generateTranscriptForAll(int year)
     {
-<span class="fc" id="L427">        String query = &quot;select student_id from student_record_&quot;+year+&quot; group by student_id&quot;;</span>
+<span class="nc" id="L427">        String query = &quot;select student_id from student_record_&quot;+year+&quot; group by student_id&quot;;</span>
         try{
-<span class="fc" id="L429">            PreparedStatement preparedStatement = this.con.prepareStatement(query);</span>
-<span class="fc" id="L430">            ResultSet rs = preparedStatement.executeQuery();</span>
+<span class="nc" id="L429">            PreparedStatement preparedStatement = this.con.prepareStatement(query);</span>
+<span class="nc" id="L430">            ResultSet rs = preparedStatement.executeQuery();</span>
 
-<span class="fc bfc" id="L432" title="All 2 branches covered.">            while(rs.next())</span>
+<span class="nc bnc" id="L432" title="All 2 branches missed.">            while(rs.next())</span>
             {
-<span class="fc" id="L434">                generateTranscript(rs.getString(&quot;student_id&quot;));</span>
+<span class="nc" id="L434">                generateTranscript(rs.getString(&quot;student_id&quot;));</span>
             }
 
 <span class="nc" id="L437">        }catch(Exception err)</span>
         {
 <span class="nc" id="L439">            System.out.println(err.getMessage());</span>
-<span class="fc" id="L440">        }</span>
-<span class="fc" id="L441">        return true;</span>
+<span class="nc" id="L440">        }</span>
+<span class="nc" id="L441">        return true;</span>
     }
     boolean logOut() throws SQLException {
-<span class="fc" id="L444">           this.con.close();</span>
-<span class="fc" id="L445">        System.out.println(&quot;Admin Successfully logged out!&quot;);</span>
-<span class="fc" id="L446">        return true;</span>
+<span class="nc" id="L444">           this.con.close();</span>
+<span class="nc" id="L445">        System.out.println(&quot;Admin Successfully logged out!&quot;);</span>
+<span class="nc" id="L446">        return true;</span>
     }
 
     boolean printMainMenu()
     {
-<span class="fc" id="L451">        ArrayList&lt;ArrayList&lt;String&gt;&gt; officerMainMenu = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L452">        String title = &quot;MAIN MENU&quot;;</span>
-<span class="fc" id="L453">        ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L451">        ArrayList&lt;ArrayList&lt;String&gt;&gt; officerMainMenu = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L452">        String title = &quot;MAIN MENU&quot;;</span>
+<span class="nc" id="L453">        ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L455">        row.add(&quot;Options&quot;);</span>
-<span class="fc" id="L456">        row.add(&quot;Enter Choice&quot;);</span>
-<span class="fc" id="L457">        officerMainMenu.add(row);</span>
+<span class="nc" id="L455">        row.add(&quot;Options&quot;);</span>
+<span class="nc" id="L456">        row.add(&quot;Enter Choice&quot;);</span>
+<span class="nc" id="L457">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L459">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L460">        row.add(&quot;Change Profile&quot;);</span>
-<span class="fc" id="L461">        row.add(&quot;1&quot;);</span>
-<span class="fc" id="L462">        officerMainMenu.add(row);</span>
+<span class="nc" id="L459">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L460">        row.add(&quot;Change Profile&quot;);</span>
+<span class="nc" id="L461">        row.add(&quot;1&quot;);</span>
+<span class="nc" id="L462">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L464">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L465">        row.add(&quot;Create Session&quot;);</span>
-<span class="fc" id="L466">        row.add(&quot;2&quot;);</span>
-<span class="fc" id="L467">        officerMainMenu.add(row);</span>
+<span class="nc" id="L464">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L465">        row.add(&quot;Create Session&quot;);</span>
+<span class="nc" id="L466">        row.add(&quot;2&quot;);</span>
+<span class="nc" id="L467">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L469">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L470">        row.add(&quot;Create New Activity&quot;);</span>
-<span class="fc" id="L471">        row.add(&quot;3&quot;);</span>
-<span class="fc" id="L472">        officerMainMenu.add(row);</span>
+<span class="nc" id="L469">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L470">        row.add(&quot;Create New Activity&quot;);</span>
+<span class="nc" id="L471">        row.add(&quot;3&quot;);</span>
+<span class="nc" id="L472">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L474">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L475">        row.add(&quot;See Course Catalogue&quot;);</span>
-<span class="fc" id="L476">        row.add(&quot;4&quot;);</span>
-<span class="fc" id="L477">        officerMainMenu.add(row);</span>
+<span class="nc" id="L474">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L475">        row.add(&quot;See Course Catalogue&quot;);</span>
+<span class="nc" id="L476">        row.add(&quot;4&quot;);</span>
+<span class="nc" id="L477">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L479">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L480">        row.add(&quot;Add new Course&quot;);</span>
-<span class="fc" id="L481">        row.add(&quot;5&quot;);</span>
-<span class="fc" id="L482">        officerMainMenu.add(row);</span>
+<span class="nc" id="L479">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L480">        row.add(&quot;Add new Course&quot;);</span>
+<span class="nc" id="L481">        row.add(&quot;5&quot;);</span>
+<span class="nc" id="L482">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L484">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L485">        row.add(&quot;Genereate Student Transcript&quot;);</span>
-<span class="fc" id="L486">        row.add(&quot;6&quot;);</span>
-<span class="fc" id="L487">        officerMainMenu.add(row);</span>
+<span class="nc" id="L484">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L485">        row.add(&quot;Genereate Student Transcript&quot;);</span>
+<span class="nc" id="L486">        row.add(&quot;6&quot;);</span>
+<span class="nc" id="L487">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L489">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L490">        row.add(&quot;Promote Students&quot;);</span>
-<span class="fc" id="L491">        row.add(&quot;7&quot;);</span>
-<span class="fc" id="L492">        officerMainMenu.add(row);</span>
+<span class="nc" id="L489">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L490">        row.add(&quot;Promote Students&quot;);</span>
+<span class="nc" id="L491">        row.add(&quot;7&quot;);</span>
+<span class="nc" id="L492">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L494">        CLI.printMenu(title,officerMainMenu);</span>
+<span class="nc" id="L494">        CLI.printMenu(title,officerMainMenu);</span>
 
-<span class="fc" id="L496">        return true;</span>
+<span class="nc" id="L496">        return true;</span>
     }
 
     boolean printActivityMenu()
     {
-<span class="fc" id="L501">        ArrayList&lt;ArrayList&lt;String&gt;&gt; officerMainMenu = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L502">        String title = &quot;ACTIVITY MENU&quot;;</span>
-<span class="fc" id="L503">        ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L501">        ArrayList&lt;ArrayList&lt;String&gt;&gt; officerMainMenu = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L502">        String title = &quot;ACTIVITY MENU&quot;;</span>
+<span class="nc" id="L503">        ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L505">        row.add(&quot;Options&quot;);</span>
-<span class="fc" id="L506">        row.add(&quot;Enter Choice&quot;);</span>
-<span class="fc" id="L507">        officerMainMenu.add(row);</span>
+<span class="nc" id="L505">        row.add(&quot;Options&quot;);</span>
+<span class="nc" id="L506">        row.add(&quot;Enter Choice&quot;);</span>
+<span class="nc" id="L507">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L509">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L510">        row.add(&quot;Semester Running&quot;);</span>
-<span class="fc" id="L511">        row.add(&quot;0&quot;);</span>
-<span class="fc" id="L512">        officerMainMenu.add(row);</span>
+<span class="nc" id="L509">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L510">        row.add(&quot;Semester Running&quot;);</span>
+<span class="nc" id="L511">        row.add(&quot;0&quot;);</span>
+<span class="nc" id="L512">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L514">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L515">        row.add(&quot;Course Float Starts&quot;);</span>
-<span class="fc" id="L516">        row.add(&quot;1&quot;);</span>
-<span class="fc" id="L517">        officerMainMenu.add(row);</span>
+<span class="nc" id="L514">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L515">        row.add(&quot;Course Float Starts&quot;);</span>
+<span class="nc" id="L516">        row.add(&quot;1&quot;);</span>
+<span class="nc" id="L517">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L519">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L520">        row.add(&quot;Course Float Ends&quot;);</span>
-<span class="fc" id="L521">        row.add(&quot;2&quot;);</span>
-<span class="fc" id="L522">        officerMainMenu.add(row);</span>
+<span class="nc" id="L519">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L520">        row.add(&quot;Course Float Ends&quot;);</span>
+<span class="nc" id="L521">        row.add(&quot;2&quot;);</span>
+<span class="nc" id="L522">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L524">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L525">        row.add(&quot;Student Registration Begins&quot;);</span>
-<span class="fc" id="L526">        row.add(&quot;3&quot;);</span>
-<span class="fc" id="L527">        officerMainMenu.add(row);</span>
+<span class="nc" id="L524">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L525">        row.add(&quot;Student Registration Begins&quot;);</span>
+<span class="nc" id="L526">        row.add(&quot;3&quot;);</span>
+<span class="nc" id="L527">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L529">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L530">        row.add(&quot;Student Registration Ends&quot;);</span>
-<span class="fc" id="L531">        row.add(&quot;4&quot;);</span>
-<span class="fc" id="L532">        officerMainMenu.add(row);</span>
+<span class="nc" id="L529">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L530">        row.add(&quot;Student Registration Ends&quot;);</span>
+<span class="nc" id="L531">        row.add(&quot;4&quot;);</span>
+<span class="nc" id="L532">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L534">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L535">        row.add(&quot;Grade Submission Begins&quot;);</span>
-<span class="fc" id="L536">        row.add(&quot;5&quot;);</span>
-<span class="fc" id="L537">        officerMainMenu.add(row);</span>
+<span class="nc" id="L534">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L535">        row.add(&quot;Grade Submission Begins&quot;);</span>
+<span class="nc" id="L536">        row.add(&quot;5&quot;);</span>
+<span class="nc" id="L537">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L539">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L540">        row.add(&quot;Grade Submissin Ends&quot;);</span>
-<span class="fc" id="L541">        row.add(&quot;6&quot;);</span>
-<span class="fc" id="L542">        officerMainMenu.add(row);</span>
+<span class="nc" id="L539">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L540">        row.add(&quot;Grade Submissin Ends&quot;);</span>
+<span class="nc" id="L541">        row.add(&quot;6&quot;);</span>
+<span class="nc" id="L542">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L544">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L545">        row.add(&quot;Semester Starts&quot;);</span>
-<span class="fc" id="L546">        row.add(&quot;7&quot;);</span>
-<span class="fc" id="L547">        officerMainMenu.add(row);</span>
+<span class="nc" id="L544">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L545">        row.add(&quot;Semester Starts&quot;);</span>
+<span class="nc" id="L546">        row.add(&quot;7&quot;);</span>
+<span class="nc" id="L547">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L549">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L550">        row.add(&quot;Semester Ends&quot;);</span>
-<span class="fc" id="L551">        row.add(&quot;8&quot;);</span>
-<span class="fc" id="L552">        officerMainMenu.add(row);</span>
+<span class="nc" id="L549">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L550">        row.add(&quot;Semester Ends&quot;);</span>
+<span class="nc" id="L551">        row.add(&quot;8&quot;);</span>
+<span class="nc" id="L552">        officerMainMenu.add(row);</span>
 
 
-<span class="fc" id="L555">        CLI.printMenu(title,officerMainMenu);</span>
+<span class="nc" id="L555">        CLI.printMenu(title,officerMainMenu);</span>
 
-<span class="fc" id="L557">        return true;</span>
+<span class="nc" id="L557">        return true;</span>
     }
     boolean printCourseTypeMenu()
     {
-<span class="fc" id="L561">        ArrayList&lt;ArrayList&lt;String&gt;&gt; officerMainMenu = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L562">        String title = &quot;COURSE TYPE MENU&quot;;</span>
-<span class="fc" id="L563">        ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L561">        ArrayList&lt;ArrayList&lt;String&gt;&gt; officerMainMenu = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L562">        String title = &quot;COURSE TYPE MENU&quot;;</span>
+<span class="nc" id="L563">        ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L565">        row.add(&quot;Options&quot;);</span>
-<span class="fc" id="L566">        row.add(&quot;Enter Choice&quot;);</span>
-<span class="fc" id="L567">        officerMainMenu.add(row);</span>
+<span class="nc" id="L565">        row.add(&quot;Options&quot;);</span>
+<span class="nc" id="L566">        row.add(&quot;Enter Choice&quot;);</span>
+<span class="nc" id="L567">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L569">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L570">        row.add(&quot;Program core&quot;);</span>
-<span class="fc" id="L571">        row.add(&quot;pc&quot;);</span>
-<span class="fc" id="L572">        officerMainMenu.add(row);</span>
+<span class="nc" id="L569">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L570">        row.add(&quot;Program core&quot;);</span>
+<span class="nc" id="L571">        row.add(&quot;pc&quot;);</span>
+<span class="nc" id="L572">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L574">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L575">        row.add(&quot;Engineering Core&quot;);</span>
-<span class="fc" id="L576">        row.add(&quot;ec&quot;);</span>
-<span class="fc" id="L577">        officerMainMenu.add(row);</span>
+<span class="nc" id="L574">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L575">        row.add(&quot;Engineering Core&quot;);</span>
+<span class="nc" id="L576">        row.add(&quot;ec&quot;);</span>
+<span class="nc" id="L577">        officerMainMenu.add(row);</span>
 
-<span class="fc" id="L579">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L580">        row.add(&quot;Elective Core&quot;);</span>
-<span class="fc" id="L581">        row.add(&quot;el&quot;);</span>
-<span class="fc" id="L582">        officerMainMenu.add(row);</span>
+<span class="nc" id="L579">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L580">        row.add(&quot;Elective Core&quot;);</span>
+<span class="nc" id="L581">        row.add(&quot;el&quot;);</span>
+<span class="nc" id="L582">        officerMainMenu.add(row);</span>
 
 
-<span class="fc" id="L585">        CLI.printMenu(title,officerMainMenu);</span>
+<span class="nc" id="L585">        CLI.printMenu(title,officerMainMenu);</span>
 
-<span class="fc" id="L587">        return true;</span>
+<span class="nc" id="L587">        return true;</span>
     }
     boolean printTranscriptMenu()
     {
-<span class="fc" id="L591">        ArrayList&lt;ArrayList&lt;String&gt;&gt; transcriptMenu = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L592">        String title = &quot;TRANSCRIPT MENU&quot;;</span>
-<span class="fc" id="L593">        ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L591">        ArrayList&lt;ArrayList&lt;String&gt;&gt; transcriptMenu = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L592">        String title = &quot;TRANSCRIPT MENU&quot;;</span>
+<span class="nc" id="L593">        ArrayList&lt;String&gt; row = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L595">        row.add(&quot;Options&quot;);</span>
-<span class="fc" id="L596">        row.add(&quot;Enter Choice&quot;);</span>
-<span class="fc" id="L597">        transcriptMenu.add(row);</span>
+<span class="nc" id="L595">        row.add(&quot;Options&quot;);</span>
+<span class="nc" id="L596">        row.add(&quot;Enter Choice&quot;);</span>
+<span class="nc" id="L597">        transcriptMenu.add(row);</span>
 
-<span class="fc" id="L599">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L600">        row.add(&quot;Generate for single student&quot;);</span>
-<span class="fc" id="L601">        row.add(&quot;1&quot;);</span>
-<span class="fc" id="L602">        transcriptMenu.add(row);</span>
+<span class="nc" id="L599">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L600">        row.add(&quot;Generate for single student&quot;);</span>
+<span class="nc" id="L601">        row.add(&quot;1&quot;);</span>
+<span class="nc" id="L602">        transcriptMenu.add(row);</span>
 
-<span class="fc" id="L604">        row = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L605">        row.add(&quot;Generate for a batch&quot;);</span>
-<span class="fc" id="L606">        row.add(&quot;2&quot;);</span>
-<span class="fc" id="L607">        transcriptMenu.add(row);</span>
+<span class="nc" id="L604">        row = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L605">        row.add(&quot;Generate for a batch&quot;);</span>
+<span class="nc" id="L606">        row.add(&quot;2&quot;);</span>
+<span class="nc" id="L607">        transcriptMenu.add(row);</span>
 
-<span class="fc" id="L609">        CLI.printMenu(title,transcriptMenu);</span>
+<span class="nc" id="L609">        CLI.printMenu(title,transcriptMenu);</span>
 
-<span class="fc" id="L611">        return true;</span>
+<span class="nc" id="L611">        return true;</span>
     }
     public static void runOffice(String userId) throws SQLException {
 

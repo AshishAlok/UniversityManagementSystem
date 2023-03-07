@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.AuthenticatorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-07T10:30:14" hostname="ashish" time="0.0">
-  <properties/>
-  <testcase name="authenticate()" classname="org.example.AuthenticatorTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

@@ -383,12 +383,17 @@ boolean printSeeGradesMenu()
 
 
 
-    boolean logOut() throws SQLException {
-        this.con.close();
-        System.out.println("Instructor Successfully logged out!");
+    boolean logOut()  {
+        try{
+            this.con.close();
+            System.out.println("Instructor Successfully logged out!");
+        }catch(SQLException err)
+        {
+            System.out.println(err.getMessage());
+        }
         return true;
     }
-    public static  void runFaculty(String UserId) throws SQLException {
+    public static  void runFaculty(String UserId)  {
         Instructor prof = new Instructor(UserId);
 //        prof.viewCourseCatalogue(prof.con);
 //        prof.floatCourse("CS555","gunturi@iitrpr.ac.in","CSE",7.0);
