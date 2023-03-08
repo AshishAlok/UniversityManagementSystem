@@ -167,8 +167,7 @@ class InstructorTest {
     @Test
     void giveGrades() {
         try{
-            String path = "/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/give_grades_test.csv";
-
+            String path = "/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/give_grades_test.csv";
             String query = "update current_session set status = 6";
             PreparedStatement preparedStatement = prof.con.prepareStatement(query);
             preparedStatement.execute();

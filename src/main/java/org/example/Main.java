@@ -76,7 +76,7 @@ public class Main {
             userId = CLI.removeSpacesCLI(userId);
 //            userId = "gunturi@iitrpr.ac.in";
 //            userId = "2020csb1101@iitrpr.ac.in";
-            userId = "staffdeanoffice@iitrpr.ac.in";
+//            userId = "staffdeanoffice@iitrpr.ac.in";
             System.out.println(userId);
 
 
@@ -84,7 +84,7 @@ public class Main {
             CLI.inputTaker();
 //                scanner.next();
             password = scanner.nextLine();
-            password = "*+r_4RJ:%qMHE.-K";
+//            password = "*+r_4RJ:%qMHE.-K";-
             password = CLI.removeSpacesCLI(password);
 //            password = "7(G])@&r";
 //            password = "6AC(rWZk";

@@ -359,7 +359,7 @@ public class AcademicOffice extends AbstractCommonFunctions{
                 System.out.println("NO Student with this ID Found!");
                 return false;
             }
-            String filePath = "/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/Transcripts/";
+            String filePath = "/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/Transcripts/";
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath +student_id + "_transcript.txt"));
 

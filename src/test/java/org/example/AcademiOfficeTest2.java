@@ -416,7 +416,7 @@ class AcademicOfficeTest2 {
     void runOffice7() {
 
         //generate transcript
-        String input = "7\nadsf\n2020\n/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/promote.csv\nexit\nexit\n"; // Provide input to the program
+        String input = "7\nadsf\n2020\n/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/promote.csv\nexit\nexit\n"; // Provide input to the program
         InputStream inputStream = new ByteArrayInputStream(input.getBytes());
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -479,7 +479,7 @@ class AcademicOfficeTest2 {
 
             officer.runOffice(officer.officerId);
 
-            String path = "/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/demote.csv";
+            String path = "/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/demote.csv";
             query = "update current_session set status = ?";
             preparedStatement = officer.con.prepareStatement(query);
             preparedStatement.setInt(1,8);

@@ -22,7 +22,7 @@ public class CsvToDatabase {
     }
     public static boolean fillUserTable()
     {
-        String csvFile = "/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/user_data.csv";
+        String csvFile = "/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/user_data.csv";
 
         String insertQuery = "insert into user_table (user_id, role,contact, password) values (?,?, ?, ?)";
         GetConnection gtCon = new GetConnection();
@@ -53,7 +53,7 @@ public class CsvToDatabase {
     }
     public static boolean fillDepartmentTable()
     {
-        String csvFile = "/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/department.csv";
+        String csvFile = "/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/department.csv";
 
         String insertQuery = "insert into department (dept_name,dept_id,building) values (?,?,?)";
         GetConnection gtCon = new GetConnection();
@@ -84,7 +84,7 @@ public class CsvToDatabase {
     }
     public static boolean fillInstructorTable()
     {
-        String csvFile = "/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/instructor.csv";
+        String csvFile = "/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/instructor.csv";
 
         String insertQuery = "insert into instructor (instructor_id,instructor_name,dept_id,salary) values (?,?,?,?)";
         GetConnection gtCon = new GetConnection();
@@ -117,7 +117,7 @@ public class CsvToDatabase {
 
     public static boolean fillCourseCatalogueTable()
     {
-        String csvFile = "/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/course_catalogue.csv";
+        String csvFile = "/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/course_catalogue.csv";
 
 
         String insertQueryCat = "insert into course_catalogue (course_id, title,dept_id, req_sem,l,t,p,credits,course_type,batch) values (?,?,?,?,?,?,?,?,?,?)";
@@ -156,7 +156,7 @@ public class CsvToDatabase {
     }
     public static boolean fillCourseTable()
     {
-        String csvFile = "/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/course.csv";
+        String csvFile = "/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/course.csv";
 
 
         String insertQueryCat = "insert into course (course_id, title,dept_id, req_sem,l,t,p,credits) values (?,?,?,?,?,?,?,?)";
@@ -193,7 +193,7 @@ public class CsvToDatabase {
     }
     static boolean fillPrereqTable()
     {
-        String csvFile = "/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/prereq.csv";
+        String csvFile = "/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/prereq.csv";
 
         String insertQuery = "insert into prereq (course_id,prereq_id) values (?,?)";
         GetConnection gtCon = new GetConnection();
@@ -227,7 +227,7 @@ public class CsvToDatabase {
     }
     public static boolean fillStudentTable()
     {
-        String csvFile = "/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/student.csv";
+        String csvFile = "/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/student.csv";
 
         String insertQuery = "insert into student (student_id, student_name,dept_id, current_sem,contact) values (?,?,?,?,?)";
         GetConnection gtCon = new GetConnection();

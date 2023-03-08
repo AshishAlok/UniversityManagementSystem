@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
     }
     public static boolean fillUserTable()
     {
-<span class="fc" id="L25">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/user_data.csv&quot;;</span>
+<span class="fc" id="L25">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/user_data.csv&quot;;</span>
 
 <span class="fc" id="L27">        String insertQuery = &quot;insert into user_table (user_id, role,contact, password) values (?,?, ?, ?)&quot;;</span>
 <span class="fc" id="L28">        GetConnection gtCon = new GetConnection();</span>
@@ -53,7 +53,7 @@ import java.util.regex.Pattern;
     }
     public static boolean fillDepartmentTable()
     {
-<span class="fc" id="L56">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/department.csv&quot;;</span>
+<span class="fc" id="L56">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/department.csv&quot;;</span>
 
 <span class="fc" id="L58">        String insertQuery = &quot;insert into department (dept_name,dept_id,building) values (?,?,?)&quot;;</span>
 <span class="fc" id="L59">        GetConnection gtCon = new GetConnection();</span>
@@ -84,7 +84,7 @@ import java.util.regex.Pattern;
     }
     public static boolean fillInstructorTable()
     {
-<span class="fc" id="L87">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/instructor.csv&quot;;</span>
+<span class="fc" id="L87">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/instructor.csv&quot;;</span>
 
 <span class="fc" id="L89">        String insertQuery = &quot;insert into instructor (instructor_id,instructor_name,dept_id,salary) values (?,?,?,?)&quot;;</span>
 <span class="fc" id="L90">        GetConnection gtCon = new GetConnection();</span>
@@ -117,7 +117,7 @@ import java.util.regex.Pattern;
 
     public static boolean fillCourseCatalogueTable()
     {
-<span class="fc" id="L120">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/course_catalogue.csv&quot;;</span>
+<span class="fc" id="L120">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/course_catalogue.csv&quot;;</span>
 
 
 <span class="fc" id="L123">        String insertQueryCat = &quot;insert into course_catalogue (course_id, title,dept_id, req_sem,l,t,p,credits,course_type,batch) values (?,?,?,?,?,?,?,?,?,?)&quot;;</span>
@@ -156,7 +156,7 @@ import java.util.regex.Pattern;
     }
     public static boolean fillCourseTable()
     {
-<span class="fc" id="L159">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/course.csv&quot;;</span>
+<span class="fc" id="L159">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/course.csv&quot;;</span>
 
 
 <span class="fc" id="L162">        String insertQueryCat = &quot;insert into course (course_id, title,dept_id, req_sem,l,t,p,credits) values (?,?,?,?,?,?,?,?)&quot;;</span>
@@ -193,7 +193,7 @@ import java.util.regex.Pattern;
     }
     static boolean fillPrereqTable()
     {
-<span class="fc" id="L196">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/prereq.csv&quot;;</span>
+<span class="fc" id="L196">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/prereq.csv&quot;;</span>
 
 <span class="fc" id="L198">        String insertQuery = &quot;insert into prereq (course_id,prereq_id) values (?,?)&quot;;</span>
 <span class="fc" id="L199">        GetConnection gtCon = new GetConnection();</span>
@@ -227,7 +227,7 @@ import java.util.regex.Pattern;
     }
     public static boolean fillStudentTable()
     {
-<span class="fc" id="L230">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/AIIMSPortal/src/main/java/org/example/seedData/student.csv&quot;;</span>
+<span class="fc" id="L230">        String csvFile = &quot;/home/ashish/hdd/study/java_proj/UniversityManagementSystem/src/main/java/org/example/seedData/student.csv&quot;;</span>
 
 <span class="fc" id="L232">        String insertQuery = &quot;insert into student (student_id, student_name,dept_id, current_sem,contact) values (?,?,?,?,?)&quot;;</span>
 <span class="fc" id="L233">        GetConnection gtCon = new GetConnection();</span>

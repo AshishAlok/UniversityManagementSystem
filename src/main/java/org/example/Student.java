@@ -563,7 +563,7 @@ public class Student extends AbstractCommonFunctions {
 
     private boolean viewEnrolledCourses()
     {
-        String findQuery = "Select * from student_record_"+String.valueOf(this.studentAdmYear)+" where student_id = ? ans grades = ?";
+        String findQuery = "Select * from student_record_"+String.valueOf(this.studentAdmYear)+" where student_id = ? and grades = ?";
         try{
             PreparedStatement preparedStatement = con.prepareStatement(findQuery);
             preparedStatement.setString(1,removeSpaces(student_id));
@@ -704,6 +704,14 @@ public class Student extends AbstractCommonFunctions {
             else if(input.equals("7"))
             {
                 boolean isGrad = std.isGraduated(std.con,std.student_id);
+                if(isGrad)
+                {
+                    System.out.println("You are ready for graduation");
+                }
+                else
+                {
+                    System.out.println("You are not ready for graduation");
+                }
             }
             else if(input.equals("8"))
             {
