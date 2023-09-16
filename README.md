@@ -19,5 +19,5 @@ Report Location
 UML Diagrams
 - There are two pdf which contains UML diagrams.
 - One is activity diagram.
-- The other contains Java Class diagram and The Er diagram of
+- The other contains Java Class diagram and The ER diagram of
 the database.
